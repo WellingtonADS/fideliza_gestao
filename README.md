@@ -1,97 +1,65 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# **Aplicação de Gestão \- Fideliza+ (React Native)**
 
-# Getting Started
+Bem-vindo ao repositório da **Aplicação de Gestão Fideliza+**. Esta aplicação, construída em React Native, é a ferramenta de trabalho para os Administradores e Colaboradores das empresas parceiras, permitindo-lhes gerir os seus programas de fidelidade de forma eficiente.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## **🚀 Início da Fase 5**
 
-## Step 1: Start Metro
+Este projeto marca o início da **Fase 5: Desenvolvimento do Aplicativo Móvel de Gestão**. O objetivo é construir uma aplicação completa que consuma a API backend do Fideliza+ e forneça todas as ferramentas de gestão necessárias.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## **✨ Funcionalidades Planeadas**
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+Esta aplicação irá incluir as seguintes funcionalidades, divididas por tipo de utilizador:
 
-```sh
-# Using npm
-npm start
+### **Para Colaboradores e Administradores:**
 
-# OR using Yarn
-yarn start
-```
+* **Autenticação Segura:** Tela de login para aceder ao painel de gestão.  
+* **Atribuição de Pontos:**  
+  * Funcionalidade de câmara para ler o QR Code dos clientes.  
+  * Interface para atribuir pontos rapidamente após a identificação do cliente.  
+  * Opção de pesquisa manual de clientes.
 
-## Step 2: Build and run your app
+### **Apenas para Administradores:**
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+* **Gestão de Colaboradores:**  
+  * Listar, criar, editar e excluir os colaboradores da sua empresa.  
+* **Gestão de Prémios:**  
+  * Listar e criar novos prémios (recompensas).  
+* **Relatórios:**  
+  * Visualização do painel de resumo com as principais métricas de desempenho da loja.
 
-### Android
+## **🛠️ Tecnologias Utilizadas**
 
-```sh
-# Using npm
-npm run android
+* **Framework:** [React Native](https://reactnative.dev/)  
+* **Linguagem:** [TypeScript](https://www.typescriptlang.org/)  
+* **Estilização:** StyleSheet (API nativa do React Native)
 
-# OR using Yarn
-yarn android
-```
+## **🚀 Como Executar o Projeto Localmente**
 
-### iOS
+### **1\. Pré-requisitos**
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+* Ambiente de desenvolvimento React Native configurado (Node.js, JDK 17, Android Studio).  
+* O [servidor backend do Fideliza+](https://www.google.com/search?q=https://github.com/wellingtonads/fideliza_backend) a correr localmente.
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+### **2\. Configuração do Ambiente**
 
-```sh
-bundle install
-```
+1. **Clone o repositório:**  
+   git clone \<URL\_DO\_SEU\_REPOSITORIO\_GESTAO\>  
+   cd fideliza\_gestao
 
-Then, and every time you update your native dependencies, run:
+2. **Instale as dependências:**  
+   npm install
 
-```sh
-bundle exec pod install
-```
+3. **Configure a Conexão com a API:**  
+   * Abra o ficheiro App.tsx.  
+   * No topo do ficheiro, encontre a constante API\_BASE\_URL.  
+   * **IMPORTANTE:** Altere o endereço para corresponder ao seu ambiente de desenvolvimento:  
+     * Para o **Emulador Android**, o endereço é geralmente: 'http://10.0.2.2:8000/api/v1'  
+     * Para um **telemóvel físico** na mesma rede Wi-Fi, use o IP da sua máquina: 'http://SEU\_IP\_LOCAL:8000/api/v1'
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### **3\. Executar a Aplicação**
 
-```sh
-# Using npm
-npm run ios
+1. Inicie um emulador a partir do Android Studio.  
+2. No seu terminal, dentro da pasta fideliza\_gestao, execute:  
+   npx react-native run-android
 
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+A aplicação será compilada e instalada no seu emulador, pronta para o desenvolvimento das próximas funcionalidades.
