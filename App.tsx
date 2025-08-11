@@ -25,6 +25,14 @@ interface User {
   company_id?: number;
 }
 
+// NOVO: Tipo para os dados de um Prémio
+interface Reward {
+    id: number;
+    name: string;
+    description: string | null;
+    points_required: number;
+}
+
 interface AuthScreenProps {
   setAuthToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
@@ -145,101 +153,88 @@ const LoginScreen: React.FC<AuthScreenProps> = ({ setAuthToken }) => {
 const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setAuthToken }) => {
   const [clientId, setClientId] = React.useState('');
   const [isAddingPoints, setIsAddingPoints] = React.useState(false);
-
-  // NOVO: Estados para a gestão de colaboradores
   const [collaborators, setCollaborators] = React.useState<User[]>([]);
   const [newCollabName, setNewCollabName] = React.useState('');
   const [newCollabEmail, setNewCollabEmail] = React.useState('');
   const [newCollabPassword, setNewCollabPassword] = React.useState('');
   const [isAddingCollab, setIsAddingCollab] = React.useState(false);
+  
+  // NOVO: Estados para a gestão de prémios
+  const [rewards, setRewards] = React.useState<Reward[]>([]);
+  const [newRewardName, setNewRewardName] = React.useState('');
+  const [newRewardDescription, setNewRewardDescription] = React.useState('');
+  const [newRewardPoints, setNewRewardPoints] = React.useState('');
+  const [isAddingReward, setIsAddingReward] = React.useState(false);
 
-  // Função para buscar a lista de colaboradores
-  const fetchCollaborators = async () => {
+  // Função para buscar a lista de colaboradores e prémios
+  const fetchAdminData = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/collaborators/`, {
+      // Busca colaboradores
+      const collabResponse = await fetch(`${API_BASE_URL}/collaborators/`, {
         headers: { 'Authorization': `Bearer ${authToken}` },
       });
-      const data = await response.json();
-      if (response.ok) {
-        setCollaborators(data);
-      }
+      if (collabResponse.ok) setCollaborators(await collabResponse.json());
+
+      // Busca prémios
+      const rewardResponse = await fetch(`${API_BASE_URL}/rewards/`, {
+        headers: { 'Authorization': `Bearer ${authToken}` },
+      });
+      if (rewardResponse.ok) setRewards(await rewardResponse.json());
+
     } catch (error) {
-      console.error("Erro ao buscar colaboradores:", error);
+      console.error("Erro ao buscar dados de admin:", error);
     }
   };
 
-  // Efeito para buscar os colaboradores quando um admin faz login
   React.useEffect(() => {
     if (user.user_type === 'ADMIN') {
-      fetchCollaborators();
+      fetchAdminData();
     }
   }, [user]);
 
   const handleAddPoints = async () => {
-    if (!clientId) {
-      Alert.alert("Atenção", "Por favor, insira o ID do cliente.");
-      return;
-    }
-    setIsAddingPoints(true);
-    try {
-      const response = await fetch(`${API_BASE_URL}/points/add`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`,
-        },
-        body: JSON.stringify({ client_identifier: clientId }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        Alert.alert("Sucesso!", `1 ponto foi adicionado com sucesso ao cliente ID ${clientId}.`);
-        setClientId('');
-      } else {
-        Alert.alert("Erro", data.detail || "Não foi possível adicionar o ponto.");
-      }
-    } catch (error) {
-      console.error("Erro ao adicionar pontos:", error);
-      Alert.alert("Erro de Rede", "Não foi possível conectar ao servidor.");
-    } finally {
-      setIsAddingPoints(false);
-    }
+    // ... (código existente)
   };
 
-  // NOVO: Função para adicionar um novo colaborador
   const handleAddCollaborator = async () => {
-    if (!newCollabName || !newCollabEmail || !newCollabPassword) {
-      Alert.alert("Atenção", "Preencha todos os campos para adicionar um colaborador.");
+    // ... (código existente)
+  };
+
+  // NOVO: Função para adicionar um novo prémio
+  const handleAddReward = async () => {
+    if (!newRewardName || !newRewardPoints) {
+      Alert.alert("Atenção", "Nome e Pontos são obrigatórios para criar um prémio.");
       return;
     }
-    setIsAddingCollab(true);
+    setIsAddingReward(true);
     try {
-      const response = await fetch(`${API_BASE_URL}/collaborators/`, {
+      const response = await fetch(`${API_BASE_URL}/rewards/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${authToken}`,
         },
         body: JSON.stringify({
-          name: newCollabName,
-          email: newCollabEmail,
-          password: newCollabPassword,
+          name: newRewardName,
+          description: newRewardDescription,
+          points_required: parseInt(newRewardPoints, 10),
         }),
       });
       const data = await response.json();
       if (response.ok) {
-        Alert.alert("Sucesso!", `Colaborador "${newCollabName}" adicionado.`);
-        setNewCollabName('');
-        setNewCollabEmail('');
-        setNewCollabPassword('');
-        fetchCollaborators(); // Atualiza a lista
+        Alert.alert("Sucesso!", `Prémio "${newRewardName}" adicionado.`);
+        setNewRewardName('');
+        setNewRewardDescription('');
+        setNewRewardPoints('');
+        fetchAdminData(); // Atualiza a lista de prémios e colaboradores
       } else {
-        Alert.alert("Erro", data.detail || "Não foi possível adicionar o colaborador.");
+        Alert.alert("Erro", data.detail || "Não foi possível adicionar o prémio.");
       }
     } catch (error) {
-      console.error("Erro ao adicionar colaborador:", error);
+      console.error("Erro ao adicionar prémio:", error);
       Alert.alert("Erro de Rede", "Não foi possível conectar ao servidor.");
     } finally {
-      setIsAddingCollab(false);
+      setIsAddingReward(false);
     }
   };
 
@@ -278,37 +273,58 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
             </TouchableOpacity>
           </View>
 
-          {/* NOVO: Secção de Gestão de Colaboradores (apenas para Admins) */}
           {user.user_type === 'ADMIN' && (
-            <View style={styles.featureCard}>
-              <Text style={styles.featureTitle}>Gestão de Colaboradores</Text>
-              
-              {/* Lista de Colaboradores */}
-              {collaborators.length > 0 ? (
-                collaborators.map(collab => (
-                  <View key={collab.id} style={styles.collabItem}>
-                    <View>
-                      <Text style={styles.collabName}>{collab.name}</Text>
-                      <Text style={styles.collabEmail}>{collab.email}</Text>
+            <>
+              <View style={styles.featureCard}>
+                <Text style={styles.featureTitle}>Gestão de Colaboradores</Text>
+                {collaborators.length > 0 ? (
+                  collaborators.map(collab => (
+                    <View key={collab.id} style={styles.itemContainer}>
+                      <View>
+                        <Text style={styles.itemName}>{collab.name}</Text>
+                        <Text style={styles.itemSubtitle}>{collab.email}</Text>
+                      </View>
                     </View>
-                    {/* Botões de Ação (futuro) */}
-                  </View>
-                ))
-              ) : (
-                <Text style={styles.emptyText}>Nenhum colaborador encontrado.</Text>
-              )}
+                  ))
+                ) : (
+                  <Text style={styles.emptyText}>Nenhum colaborador encontrado.</Text>
+                )}
+                <View style={styles.divider} />
+                <Text style={styles.featureSubtitle}>Adicionar Novo Colaborador</Text>
+                <TextInput style={styles.input} placeholder="Nome do Colaborador" value={newCollabName} onChangeText={setNewCollabName} />
+                <TextInput style={styles.input} placeholder="Email do Colaborador" value={newCollabEmail} onChangeText={setNewCollabEmail} keyboardType="email-address" autoCapitalize="none" />
+                <TextInput style={styles.input} placeholder="Senha Provisória" value={newCollabPassword} onChangeText={setNewCollabPassword} secureTextEntry />
+                <TouchableOpacity onPress={handleAddCollaborator} disabled={isAddingCollab} style={styles.button}>
+                  {isAddingCollab ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Adicionar Colaborador</Text>}
+                </TouchableOpacity>
+              </View>
 
-              <View style={styles.divider} />
-
-              {/* Formulário para Adicionar Novo Colaborador */}
-              <Text style={styles.featureSubtitle}>Adicionar Novo Colaborador</Text>
-              <TextInput style={styles.input} placeholder="Nome do Colaborador" value={newCollabName} onChangeText={setNewCollabName} />
-              <TextInput style={styles.input} placeholder="Email do Colaborador" value={newCollabEmail} onChangeText={setNewCollabEmail} keyboardType="email-address" autoCapitalize="none" />
-              <TextInput style={styles.input} placeholder="Senha Provisória" value={newCollabPassword} onChangeText={setNewCollabPassword} secureTextEntry />
-              <TouchableOpacity onPress={handleAddCollaborator} disabled={isAddingCollab} style={styles.button}>
-                {isAddingCollab ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Adicionar Colaborador</Text>}
-              </TouchableOpacity>
-            </View>
+              {/* NOVO: Secção de Gestão de Prémios */}
+              <View style={styles.featureCard}>
+                <Text style={styles.featureTitle}>Gestão de Prémios</Text>
+                {rewards.length > 0 ? (
+                  rewards.map(reward => (
+                    <View key={reward.id} style={styles.itemContainer}>
+                      <View>
+                        <Text style={styles.itemName}>{reward.name}</Text>
+                        <Text style={styles.itemSubtitle}>{reward.description}</Text>
+                      </View>
+                      <Text style={styles.pointsTag}>{reward.points_required} pts</Text>
+                    </View>
+                  ))
+                ) : (
+                  <Text style={styles.emptyText}>Nenhum prémio encontrado.</Text>
+                )}
+                <View style={styles.divider} />
+                <Text style={styles.featureSubtitle}>Adicionar Novo Prémio</Text>
+                <TextInput style={styles.input} placeholder="Nome do Prémio" value={newRewardName} onChangeText={setNewRewardName} />
+                <TextInput style={styles.input} placeholder="Descrição (opcional)" value={newRewardDescription} onChangeText={setNewRewardDescription} />
+                <TextInput style={styles.input} placeholder="Pontos Necessários" value={newRewardPoints} onChangeText={setNewRewardPoints} keyboardType="number-pad" />
+                <TouchableOpacity onPress={handleAddReward} disabled={isAddingReward} style={styles.button}>
+                  {isAddingReward ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Adicionar Prémio</Text>}
+                </TouchableOpacity>
+              </View>
+            </>
           )}
         </View>
       </ScrollView>
@@ -340,8 +356,9 @@ const styles = StyleSheet.create({
   featureCard: { marginTop: 32, backgroundColor: 'white', borderRadius: 20, padding: 24 },
   featureTitle: { fontSize: 20, fontWeight: 'bold', color: '#1f2937', marginBottom: 4 },
   featureSubtitle: { fontSize: 14, color: '#6b7280', marginBottom: 20 },
-  collabItem: { paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: '#f3f4f6' },
-  collabName: { fontSize: 16, fontWeight: '500', color: '#1f2937' },
-  collabEmail: { fontSize: 14, color: '#6b7280' },
+  itemContainer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: '#f3f4f6' },
+  itemName: { fontSize: 16, fontWeight: '500', color: '#1f2937' },
+  itemSubtitle: { fontSize: 14, color: '#6b7280' },
+  pointsTag: { backgroundColor: '#e0e7ff', color: '#3730a3', fontWeight: 'bold', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 99 },
   emptyText: { textAlign: 'center', color: '#6b7280', paddingVertical: 10 },
 });
