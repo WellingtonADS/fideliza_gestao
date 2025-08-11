@@ -1,28 +1,219 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  Alert,
+} from 'react-native';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+// --- Configuração da API ---
+// IMPORTANTE: Ajuste este endereço conforme a sua configuração de rede local.
+// - Emulador Android: 'http://10.0.2.2:8000'
+// - Telemóvel físico na mesma rede Wi-Fi: 'http://SEU_IP_LOCAL:8000'
+const API_BASE_URL = 'http://10.0.2.2:8000/api/v1';
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+// --- Definições de Tipos (TypeScript) ---
+type ScreenType = 'login' | 'dashboard';
 
-  return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
-    </View>
-  );
+interface User {
+  id: number;
+  email: string;
+  name: string;
+  user_type: 'ADMIN' | 'COLLABORATOR' | 'CLIENT';
+  company_id?: number;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+interface AuthScreenProps {
+  setAuthToken: React.Dispatch<React.SetStateAction<string | null>>;
+}
 
-export default App;
+interface DashboardScreenProps {
+  user: User;
+  setAuthToken: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+// --- Componente Principal da Aplicação ---
+export default function App() {
+  const [authToken, setAuthToken] = React.useState<string | null>(null);
+  const [userData, setUserData] = React.useState<User | null>(null);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+  const fetchUserData = async (token: string) => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`${API_BASE_URL}/users/me/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data: User = await response.json();
+      if (response.ok) {
+        // Verifica se o utilizador é um Admin ou Colaborador
+        if (data.user_type === 'ADMIN' || data.user_type === 'COLLABORATOR') {
+          setUserData(data);
+        } else {
+          Alert.alert("Acesso Negado", "Esta aplicação é apenas para Administradores e Colaboradores.");
+          setAuthToken(null); // Força o logout
+        }
+      } else {
+        setAuthToken(null);
+      }
+    } catch (error) {
+      console.error('Erro ao buscar dados do utilizador:', error);
+      Alert.alert("Erro de Rede", "Não foi possível conectar ao servidor.");
+      setAuthToken(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  React.useEffect(() => {
+    if (authToken) {
+      fetchUserData(authToken);
+    } else {
+      setUserData(null); // Limpa os dados do utilizador ao fazer logout
+    }
+  }, [authToken]);
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#1d4ed8" />
+      </View>
+    );
+  }
+
+  if (userData && authToken) {
+    return <DashboardScreen user={userData} setAuthToken={setAuthToken} />;
+  }
+  
+  return <LoginScreen setAuthToken={setAuthToken} />;
+}
+
+// --- Tela de Login ---
+const LoginScreen: React.FC<AuthScreenProps> = ({ setAuthToken }) => {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [error, setError] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      setError('Por favor, preencha todos os campos.');
+      return;
+    }
+    setLoading(true);
+    setError('');
+
+    const formData = new URLSearchParams();
+    formData.append('username', email);
+    formData.append('password', password);
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/token`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formData.toString(),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setAuthToken(data.access_token);
+      } else {
+        setError(data.detail || 'Falha no login. Verifique as suas credenciais.');
+      }
+    } catch (e) {
+      setError('Erro de conexão. Verifique a sua internet e o endereço da API.');
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.authContainer}>
+        <Text style={styles.title}>Fideliza+ Gestão</Text>
+        <Text style={styles.subtitle}>Acesso para Administradores e Colaboradores</Text>
+        
+        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
+        <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" />
+        <TextInput style={styles.input} placeholder="Senha" value={password} onChangeText={setPassword} secureTextEntry />
+
+        <TouchableOpacity onPress={handleLogin} disabled={loading} style={styles.button}>
+          {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Entrar</Text>}
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+};
+
+
+// --- Tela Principal (Dashboard) ---
+const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, setAuthToken }) => {
+  const handleLogout = () => {
+    setAuthToken(null);
+  };
+  
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView>
+        <View style={styles.dashboardContainer}>
+          <View style={styles.header}>
+            <View>
+              <Text style={styles.headerTitle}>Bem-vindo(a),</Text>
+              <Text style={styles.headerName}>{user.name}!</Text>
+            </View>
+            <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
+              <Text style={styles.logoutButtonText}>Sair</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.infoCard}>
+            <Text style={styles.infoCardLabel}>Email</Text>
+            <Text style={styles.infoCardValue}>{user.email}</Text>
+            <View style={styles.divider} />
+            <Text style={styles.infoCardLabel}>Função</Text>
+            <Text style={styles.infoCardValue}>{user.user_type}</Text>
+          </View>
+          
+          <View style={styles.placeholderCard}>
+            <Text style={styles.placeholderTitle}>Funcionalidades</Text>
+            <Text style={styles.placeholderText}>
+              As ferramentas de gestão, como pontuação de clientes e gestão de prémios, serão adicionadas aqui.
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+// --- Folha de Estilos ---
+const styles = StyleSheet.create({
+  safeArea: { flex: 1, backgroundColor: '#f9fafb' },
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f9fafb' },
+  authContainer: { flex: 1, justifyContent: 'center', padding: 24 },
+  title: { fontSize: 32, fontWeight: 'bold', color: '#1d4ed8', textAlign: 'center', marginBottom: 8 },
+  subtitle: { fontSize: 18, color: '#4b5563', textAlign: 'center', marginBottom: 40 },
+  input: { backgroundColor: 'white', padding: 15, borderRadius: 12, marginBottom: 16, fontSize: 16, borderWidth: 1, borderColor: '#e5e7eb' },
+  button: { backgroundColor: '#1d4ed8', padding: 16, borderRadius: 12, alignItems: 'center' },
+  buttonText: { color: 'white', fontSize: 18, fontWeight: 'bold' },
+  errorText: { color: '#ef4444', textAlign: 'center', marginBottom: 16 },
+  dashboardContainer: { padding: 24 },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 },
+  headerTitle: { fontSize: 24, color: '#374151' },
+  headerName: { fontSize: 24, fontWeight: 'bold', color: '#1f2937' },
+  logoutButton: { backgroundColor: '#fee2e2', paddingVertical: 8, paddingHorizontal: 12, borderRadius: 99 },
+  logoutButtonText: { color: '#dc2626', fontWeight: 'bold' },
+  infoCard: { backgroundColor: 'white', borderRadius: 16, padding: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 4, elevation: 2 },
+  infoCardLabel: { color: '#6b7280', fontSize: 14, marginBottom: 2 },
+  infoCardValue: { color: '#1f2937', fontSize: 16, fontWeight: '500' },
+  divider: { height: 1, backgroundColor: '#f3f4f6', marginVertical: 12 },
+  placeholderCard: { marginTop: 32, backgroundColor: 'white', borderRadius: 20, padding: 24, alignItems: 'center', justifyContent: 'center' },
+  placeholderTitle: { fontSize: 20, fontWeight: 'bold', color: '#1f2937', marginBottom: 16 },
+  placeholderText: { color: '#6b7280', textAlign: 'center' },
+});
