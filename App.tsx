@@ -25,7 +25,6 @@ interface User {
   company_id?: number;
 }
 
-// NOVO: Tipo para os dados de um Prémio
 interface Reward {
     id: number;
     name: string;
@@ -158,24 +157,19 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
   const [newCollabEmail, setNewCollabEmail] = React.useState('');
   const [newCollabPassword, setNewCollabPassword] = React.useState('');
   const [isAddingCollab, setIsAddingCollab] = React.useState(false);
-  
-  // NOVO: Estados para a gestão de prémios
   const [rewards, setRewards] = React.useState<Reward[]>([]);
   const [newRewardName, setNewRewardName] = React.useState('');
   const [newRewardDescription, setNewRewardDescription] = React.useState('');
   const [newRewardPoints, setNewRewardPoints] = React.useState('');
   const [isAddingReward, setIsAddingReward] = React.useState(false);
 
-  // Função para buscar a lista de colaboradores e prémios
   const fetchAdminData = async () => {
     try {
-      // Busca colaboradores
       const collabResponse = await fetch(`${API_BASE_URL}/collaborators/`, {
         headers: { 'Authorization': `Bearer ${authToken}` },
       });
       if (collabResponse.ok) setCollaborators(await collabResponse.json());
 
-      // Busca prémios
       const rewardResponse = await fetch(`${API_BASE_URL}/rewards/`, {
         headers: { 'Authorization': `Bearer ${authToken}` },
       });
@@ -193,14 +187,52 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
   }, [user]);
 
   const handleAddPoints = async () => {
-    // ... (código existente)
+    if (!clientId) {
+      Alert.alert("Atenção", "Por favor, insira o ID do cliente.");
+      return;
+    }
+    setIsAddingPoints(true);
+    try {
+      const response = await fetch(`${API_BASE_URL}/points/add`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}`},
+        body: JSON.stringify({ client_identifier: clientId }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        Alert.alert("Sucesso!", `1 ponto foi adicionado com sucesso ao cliente ID ${clientId}.`);
+        setClientId('');
+      } else { Alert.alert("Erro", data.detail || "Não foi possível adicionar o ponto."); }
+    } catch (error) {
+      console.error("Erro ao adicionar pontos:", error);
+      Alert.alert("Erro de Rede", "Não foi possível conectar ao servidor.");
+    } finally { setIsAddingPoints(false); }
   };
 
   const handleAddCollaborator = async () => {
-    // ... (código existente)
+    if (!newCollabName || !newCollabEmail || !newCollabPassword) {
+      Alert.alert("Atenção", "Preencha todos os campos para adicionar um colaborador.");
+      return;
+    }
+    setIsAddingCollab(true);
+    try {
+      const response = await fetch(`${API_BASE_URL}/collaborators/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` },
+        body: JSON.stringify({ name: newCollabName, email: newCollabEmail, password: newCollabPassword }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        Alert.alert("Sucesso!", `Colaborador "${newCollabName}" adicionado.`);
+        setNewCollabName(''); setNewCollabEmail(''); setNewCollabPassword('');
+        fetchAdminData();
+      } else { Alert.alert("Erro", data.detail || "Não foi possível adicionar o colaborador."); }
+    } catch (error) {
+      console.error("Erro ao adicionar colaborador:", error);
+      Alert.alert("Erro de Rede", "Não foi possível conectar ao servidor.");
+    } finally { setIsAddingCollab(false); }
   };
 
-  // NOVO: Função para adicionar um novo prémio
   const handleAddReward = async () => {
     if (!newRewardName || !newRewardPoints) {
       Alert.alert("Atenção", "Nome e Pontos são obrigatórios para criar um prémio.");
@@ -210,36 +242,76 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
     try {
       const response = await fetch(`${API_BASE_URL}/rewards/`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`,
-        },
-        body: JSON.stringify({
-          name: newRewardName,
-          description: newRewardDescription,
-          points_required: parseInt(newRewardPoints, 10),
-        }),
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` },
+        body: JSON.stringify({ name: newRewardName, description: newRewardDescription, points_required: parseInt(newRewardPoints, 10) }),
       });
       const data = await response.json();
       if (response.ok) {
         Alert.alert("Sucesso!", `Prémio "${newRewardName}" adicionado.`);
-        setNewRewardName('');
-        setNewRewardDescription('');
-        setNewRewardPoints('');
-        fetchAdminData(); // Atualiza a lista de prémios e colaboradores
-      } else {
-        Alert.alert("Erro", data.detail || "Não foi possível adicionar o prémio.");
-      }
+        setNewRewardName(''); setNewRewardDescription(''); setNewRewardPoints('');
+        fetchAdminData();
+      } else { Alert.alert("Erro", data.detail || "Não foi possível adicionar o prémio."); }
     } catch (error) {
       console.error("Erro ao adicionar prémio:", error);
       Alert.alert("Erro de Rede", "Não foi possível conectar ao servidor.");
-    } finally {
-      setIsAddingReward(false);
-    }
+    } finally { setIsAddingReward(false); }
   };
 
-  const handleLogout = () => {
-    setAuthToken(null);
+  const handleLogout = () => { setAuthToken(null); };
+
+  const handleDeleteCollaborator = async (collab: User) => {
+    Alert.alert("Confirmar Exclusão", `Tem a certeza que deseja excluir o colaborador "${collab.name}"?`,
+      [
+        { text: "Cancelar", style: "cancel" },
+        { text: "Excluir", style: "destructive",
+          onPress: async () => {
+            try {
+              const response = await fetch(`${API_BASE_URL}/collaborators/${collab.id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${authToken}` },
+              });
+              if (response.ok) {
+                Alert.alert("Sucesso!", `Colaborador "${collab.name}" excluído.`);
+                fetchAdminData();
+              } else {
+                const data = await response.json();
+                Alert.alert("Erro", data.detail || "Não foi possível excluir o colaborador.");
+              }
+            } catch (error) { Alert.alert("Erro de Rede", "Não foi possível conectar ao servidor."); }
+          },
+        },
+      ]
+    );
+  };
+
+  const handleUpdateCollaborator = async (collab: User) => {
+    Alert.prompt("Editar Colaborador", "Insira o novo nome:",
+      [
+        { text: "Cancelar", style: "cancel" },
+        { text: "Salvar",
+          // CORREÇÃO: Adiciona o tipo 'string' ao parâmetro 'newName'
+          onPress: async (newName?: string) => {
+            if (!newName || newName === collab.name) return;
+            try {
+              const response = await fetch(`${API_BASE_URL}/collaborators/${collab.id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` },
+                body: JSON.stringify({ name: newName }),
+              });
+              if (response.ok) {
+                Alert.alert("Sucesso!", "Nome do colaborador atualizado.");
+                fetchAdminData();
+              } else {
+                const data = await response.json();
+                Alert.alert("Erro", data.detail || "Não foi possível atualizar o colaborador.");
+              }
+            } catch (error) { Alert.alert("Erro de Rede", "Não foi possível conectar ao servidor."); }
+          },
+        },
+      ],
+      'plain-text',
+      collab.name
+    );
   };
   
   return (
@@ -284,6 +356,14 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
                         <Text style={styles.itemName}>{collab.name}</Text>
                         <Text style={styles.itemSubtitle}>{collab.email}</Text>
                       </View>
+                      <View style={styles.actionsContainer}>
+                        <TouchableOpacity onPress={() => handleUpdateCollaborator(collab)} style={[styles.actionButton, styles.editButton]}>
+                          <Text style={styles.actionButtonText}>Editar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => handleDeleteCollaborator(collab)} style={[styles.actionButton, styles.deleteButton]}>
+                          <Text style={styles.actionButtonText}>Excluir</Text>
+                        </TouchableOpacity>
+                      </View>
                     </View>
                   ))
                 ) : (
@@ -299,7 +379,6 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
                 </TouchableOpacity>
               </View>
 
-              {/* NOVO: Secção de Gestão de Prémios */}
               <View style={styles.featureCard}>
                 <Text style={styles.featureTitle}>Gestão de Prémios</Text>
                 {rewards.length > 0 ? (
@@ -361,4 +440,9 @@ const styles = StyleSheet.create({
   itemSubtitle: { fontSize: 14, color: '#6b7280' },
   pointsTag: { backgroundColor: '#e0e7ff', color: '#3730a3', fontWeight: 'bold', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 99 },
   emptyText: { textAlign: 'center', color: '#6b7280', paddingVertical: 10 },
+  actionsContainer: { flexDirection: 'row' },
+  actionButton: { paddingVertical: 6, paddingHorizontal: 12, borderRadius: 8, marginLeft: 8 },
+  editButton: { backgroundColor: '#dbeafe' },
+  deleteButton: { backgroundColor: '#fee2e2' },
+  actionButtonText: { fontWeight: '500', color: '#374151' },
 });
