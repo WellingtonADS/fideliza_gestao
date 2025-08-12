@@ -9,13 +9,16 @@ import {
   ScrollView,
   SafeAreaView,
   Alert,
-  Modal, // NOVO: Importa o componente Modal
+  Modal,
 } from 'react-native';
 
 // --- Configuração da API ---
+// O endereço 10.0.2.2 é usado para o emulador Android se conectar ao localhost do seu computador.
+// Para um dispositivo iOS físico, use o endereço IP da sua máquina na rede local (ex: 'http://192.168.1.10:8000/api/v1').
 const API_BASE_URL = 'http://10.0.2.2:8000/api/v1';
 
 // --- Definições de Tipos (TypeScript) ---
+// É uma boa prática manter as definições de tipo para clareza e prevenção de erros.
 type ScreenType = 'login' | 'dashboard';
 
 interface User {
@@ -31,6 +34,20 @@ interface Reward {
     name: string;
     description: string | null;
     points_required: number;
+}
+
+interface PointTransaction {
+    id: number;
+    points: number;
+    client: { name: string };
+    awarded_by: { name: string };
+    created_at: string;
+}
+
+interface CompanyReport {
+    total_points_awarded: number;
+    total_rewards_redeemed: number;
+    unique_customers: number;
 }
 
 interface AuthScreenProps {
@@ -64,7 +81,7 @@ export default function App() {
           setAuthToken(null);
         }
       } else {
-        setAuthToken(null);
+        setAuthToken(null); // Token inválido ou expirado
       }
     } catch (error) {
       console.error('Erro ao buscar dados do utilizador:', error);
@@ -94,7 +111,7 @@ export default function App() {
   return <LoginScreen setAuthToken={setAuthToken} />;
 }
 
-// --- Tela de Login (Sem alterações) ---
+// --- Tela de Login (Sem alterações significativas) ---
 const LoginScreen: React.FC<AuthScreenProps> = ({ setAuthToken }) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -163,26 +180,31 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
   const [newRewardDescription, setNewRewardDescription] = React.useState('');
   const [newRewardPoints, setNewRewardPoints] = React.useState('');
   const [isAddingReward, setIsAddingReward] = React.useState(false);
-
-    // NOVO: Estados para controlar o modal de edição
+  const [transactions, setTransactions] = React.useState<PointTransaction[]>([]);
+  const [report, setReport] = React.useState<CompanyReport | null>(null);
   const [isEditModalVisible, setIsEditModalVisible] = React.useState(false);
   const [editingCollab, setEditingCollab] = React.useState<User | null>(null);
   const [updatedName, setUpdatedName] = React.useState('');
 
   const fetchAdminData = async () => {
     try {
-      const collabResponse = await fetch(`${API_BASE_URL}/collaborators/`, {
-        headers: { 'Authorization': `Bearer ${authToken}` },
-      });
-      if (collabResponse.ok) setCollaborators(await collabResponse.json());
+      const headers = { 'Authorization': `Bearer ${authToken}` };
+      
+      const [collabRes, rewardRes, transRes, reportRes] = await Promise.all([
+        fetch(`${API_BASE_URL}/collaborators/`, { headers }),
+        fetch(`${API_BASE_URL}/rewards/`, { headers }),
+        fetch(`${API_BASE_URL}/points/transactions/`, { headers }),
+        fetch(`${API_BASE_URL}/reports/summary`, { headers })
+      ]);
 
-      const rewardResponse = await fetch(`${API_BASE_URL}/rewards/`, {
-        headers: { 'Authorization': `Bearer ${authToken}` },
-      });
-      if (rewardResponse.ok) setRewards(await rewardResponse.json());
+      if (collabRes.ok) setCollaborators(await collabRes.json());
+      if (rewardRes.ok) setRewards(await rewardRes.json());
+      if (transRes.ok) setTransactions(await transRes.json());
+      if (reportRes.ok) setReport(await reportRes.json());
 
     } catch (error) {
       console.error("Erro ao buscar dados de admin:", error);
+      Alert.alert("Erro", "Não foi possível carregar os dados do painel.");
     }
   };
 
@@ -208,6 +230,7 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
       if (response.ok) {
         Alert.alert("Sucesso!", `1 ponto foi adicionado com sucesso ao cliente ID ${clientId}.`);
         setClientId('');
+        if (user.user_type === 'ADMIN') fetchAdminData(); // Atualiza transações
       } else { Alert.alert("Erro", data.detail || "Não foi possível adicionar o ponto."); }
     } catch (error) {
       console.error("Erro ao adicionar pontos:", error);
@@ -290,17 +313,20 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
     );
   };
 
-    // CORREÇÃO: Abre o modal em vez de usar Alert.prompt
   const openEditModal = (collab: User) => {
-      setEditingCollab(collab);
-      setUpdatedName(collab.name);
-      setIsEditModalVisible(true);
+    setEditingCollab(collab);
+    setUpdatedName(collab.name);
+    setIsEditModalVisible(true);
   };
   
- const handleUpdateCollaborator = async () => {
-    if (!updatedName || !editingCollab || updatedName === editingCollab.name) {
+  const handleUpdateCollaborator = async () => {
+    if (!updatedName || !editingCollab) {
       setIsEditModalVisible(false);
       return;
+    }
+    if (updatedName === editingCollab.name) {
+        setIsEditModalVisible(false);
+        return; // Nenhuma alteração a ser feita
     }
     try {
       const response = await fetch(`${API_BASE_URL}/collaborators/${editingCollab.id}`, {
@@ -318,6 +344,8 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
     } catch (error) { Alert.alert("Erro de Rede", "Não foi possível conectar ao servidor."); }
     finally {
       setIsEditModalVisible(false);
+      setEditingCollab(null);
+      setUpdatedName('');
     }
   };
   
@@ -354,6 +382,48 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
 
           {user.user_type === 'ADMIN' && (
             <>
+              {report && (
+                <View style={styles.featureCard}>
+                  <Text style={styles.featureTitle}>Relatório da Empresa</Text>
+                  <View style={styles.reportRow}>
+                    <Text style={styles.reportLabel}>Clientes Únicos:</Text>
+                    <Text style={styles.reportValue}>{report.unique_customers}</Text>
+                  </View>
+                  <View style={styles.reportRow}>
+                    <Text style={styles.reportLabel}>Total de Pontos Atribuídos:</Text>
+                    <Text style={styles.reportValue}>{report.total_points_awarded}</Text>
+                  </View>
+                  <View style={styles.reportRow}>
+                    <Text style={styles.reportLabel}>Total de Prémios Resgatados:</Text>
+                    <Text style={styles.reportValue}>{report.total_rewards_redeemed}</Text>
+                  </View>
+                </View>
+              )}
+
+              <View style={styles.featureCard}>
+                <Text style={styles.featureTitle}>Atividade Recente</Text>
+                {transactions.length > 0 ? (
+                  transactions.slice(0, 5).map(tx => ( // Mostra apenas as 5 mais recentes
+                    <View key={tx.id} style={styles.itemContainer}>
+                      <View>
+                        <Text style={styles.itemName}>
+                          {tx.points > 0 ? `+${tx.points} pts para ` : `${tx.points} pts de `}
+                          <Text style={{fontWeight: 'bold'}}>{tx.client.name}</Text>
+                        </Text>
+                        <Text style={styles.itemSubtitle}>
+                          {tx.points > 0 ? `Por: ${tx.awarded_by.name}` : 'Resgate de Prémio'}
+                        </Text>
+                      </View>
+                      <Text style={styles.itemSubtitle}>
+                        {new Date(tx.created_at).toLocaleDateString()}
+                      </Text>
+                    </View>
+                  ))
+                ) : (
+                  <Text style={styles.emptyText}>Nenhuma atividade registada.</Text>
+                )}
+              </View>
+              
               <View style={styles.featureCard}>
                 <Text style={styles.featureTitle}>Gestão de Colaboradores</Text>
                 {collaborators.length > 0 ? (
@@ -364,8 +434,7 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
                         <Text style={styles.itemSubtitle}>{collab.email}</Text>
                       </View>
                       <View style={styles.actionsContainer}>
-                      {/* CORREÇÃO: O botão agora abre o modal */}
-                      <TouchableOpacity onPress={() => openEditModal(collab)} style={[styles.actionButton, styles.editButton]}>
+                        <TouchableOpacity onPress={() => openEditModal(collab)} style={[styles.actionButton, styles.editButton]}>
                           <Text style={styles.actionButtonText}>Editar</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => handleDeleteCollaborator(collab)} style={[styles.actionButton, styles.deleteButton]}>
@@ -416,7 +485,7 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
         </View>
       </ScrollView>
 
-      {/* NOVO: Modal de Edição */}
+      {/* Modal de Edição para Colaboradores */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -454,7 +523,7 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
 };
 
 
-// --- Folha de Estilos ---
+// --- Folha de Estilos (StyleSheet) ---
 const styles = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: '#f9fafb' },
   container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f9fafb' },
@@ -475,11 +544,11 @@ const styles = StyleSheet.create({
   infoCardLabel: { color: '#6b7280', fontSize: 14, marginBottom: 2 },
   infoCardValue: { color: '#1f2937', fontSize: 16, fontWeight: '500' },
   divider: { height: 1, backgroundColor: '#f3f4f6', marginVertical: 16 },
-  featureCard: { marginTop: 32, backgroundColor: 'white', borderRadius: 20, padding: 24 },
+  featureCard: { marginTop: 24, backgroundColor: 'white', borderRadius: 20, padding: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 4, elevation: 2 },
   featureTitle: { fontSize: 20, fontWeight: 'bold', color: '#1f2937', marginBottom: 4 },
   featureSubtitle: { fontSize: 14, color: '#6b7280', marginBottom: 20 },
   itemContainer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: '#f3f4f6' },
-  itemName: { fontSize: 16, fontWeight: '500', color: '#1f2937' },
+  itemName: { fontSize: 16, fontWeight: '500', color: '#1f2937', flexShrink: 1 },
   itemSubtitle: { fontSize: 14, color: '#6b7280' },
   pointsTag: { backgroundColor: '#e0e7ff', color: '#3730a3', fontWeight: 'bold', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 99 },
   emptyText: { textAlign: 'center', color: '#6b7280', paddingVertical: 10 },
@@ -495,7 +564,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalView: {
-    width: '80%',
+    width: '85%',
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 24,
@@ -513,19 +582,36 @@ const styles = StyleSheet.create({
   },
   modalButtonContainer: {
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 20,
+    width: '100%',
   },
   modalButton: {
     flex: 1,
     borderRadius: 12,
     padding: 12,
     elevation: 2,
-    marginHorizontal: 5,
+    alignItems: 'center',
   },
   cancelButton: {
     backgroundColor: '#9ca3af',
+    marginRight: 10,
   },
   saveButton: {
     backgroundColor: '#1d4ed8',
+    marginLeft: 10,
+  },
+  reportRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 4,
+  },
+  reportLabel: {
+    fontSize: 16,
+    color: '#4b5563',
+  },
+  reportValue: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#1f2937',
   },
 });
