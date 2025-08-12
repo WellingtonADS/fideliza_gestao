@@ -9,6 +9,7 @@ import {
   ScrollView,
   SafeAreaView,
   Alert,
+  Modal, // NOVO: Importa o componente Modal
 } from 'react-native';
 
 // --- Configuração da API ---
@@ -163,6 +164,11 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
   const [newRewardPoints, setNewRewardPoints] = React.useState('');
   const [isAddingReward, setIsAddingReward] = React.useState(false);
 
+    // NOVO: Estados para controlar o modal de edição
+  const [isEditModalVisible, setIsEditModalVisible] = React.useState(false);
+  const [editingCollab, setEditingCollab] = React.useState<User | null>(null);
+  const [updatedName, setUpdatedName] = React.useState('');
+
   const fetchAdminData = async () => {
     try {
       const collabResponse = await fetch(`${API_BASE_URL}/collaborators/`, {
@@ -284,34 +290,35 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
     );
   };
 
-  const handleUpdateCollaborator = async (collab: User) => {
-    Alert.prompt("Editar Colaborador", "Insira o novo nome:",
-      [
-        { text: "Cancelar", style: "cancel" },
-        { text: "Salvar",
-          // CORREÇÃO: Adiciona o tipo 'string' ao parâmetro 'newName'
-          onPress: async (newName?: string) => {
-            if (!newName || newName === collab.name) return;
-            try {
-              const response = await fetch(`${API_BASE_URL}/collaborators/${collab.id}`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` },
-                body: JSON.stringify({ name: newName }),
-              });
-              if (response.ok) {
-                Alert.alert("Sucesso!", "Nome do colaborador atualizado.");
-                fetchAdminData();
-              } else {
-                const data = await response.json();
-                Alert.alert("Erro", data.detail || "Não foi possível atualizar o colaborador.");
-              }
-            } catch (error) { Alert.alert("Erro de Rede", "Não foi possível conectar ao servidor."); }
-          },
-        },
-      ],
-      'plain-text',
-      collab.name
-    );
+    // CORREÇÃO: Abre o modal em vez de usar Alert.prompt
+  const openEditModal = (collab: User) => {
+      setEditingCollab(collab);
+      setUpdatedName(collab.name);
+      setIsEditModalVisible(true);
+  };
+  
+ const handleUpdateCollaborator = async () => {
+    if (!updatedName || !editingCollab || updatedName === editingCollab.name) {
+      setIsEditModalVisible(false);
+      return;
+    }
+    try {
+      const response = await fetch(`${API_BASE_URL}/collaborators/${editingCollab.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` },
+        body: JSON.stringify({ name: updatedName }),
+      });
+      if (response.ok) {
+        Alert.alert("Sucesso!", "Nome do colaborador atualizado.");
+        fetchAdminData();
+      } else {
+        const data = await response.json();
+        Alert.alert("Erro", data.detail || "Não foi possível atualizar o colaborador.");
+      }
+    } catch (error) { Alert.alert("Erro de Rede", "Não foi possível conectar ao servidor."); }
+    finally {
+      setIsEditModalVisible(false);
+    }
   };
   
   return (
@@ -357,7 +364,8 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
                         <Text style={styles.itemSubtitle}>{collab.email}</Text>
                       </View>
                       <View style={styles.actionsContainer}>
-                        <TouchableOpacity onPress={() => handleUpdateCollaborator(collab)} style={[styles.actionButton, styles.editButton]}>
+                      {/* CORREÇÃO: O botão agora abre o modal */}
+                      <TouchableOpacity onPress={() => openEditModal(collab)} style={[styles.actionButton, styles.editButton]}>
                           <Text style={styles.actionButtonText}>Editar</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => handleDeleteCollaborator(collab)} style={[styles.actionButton, styles.deleteButton]}>
@@ -407,9 +415,44 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
           )}
         </View>
       </ScrollView>
+
+      {/* NOVO: Modal de Edição */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isEditModalVisible}
+        onRequestClose={() => setIsEditModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalTitle}>Editar Colaborador</Text>
+            <TextInput
+              style={styles.input}
+              value={updatedName}
+              onChangeText={setUpdatedName}
+              placeholder="Novo nome do colaborador"
+            />
+            <View style={styles.modalButtonContainer}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.cancelButton]}
+                onPress={() => setIsEditModalVisible(false)}
+              >
+                <Text style={styles.buttonText}>Cancelar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.saveButton]}
+                onPress={handleUpdateCollaborator}
+              >
+                <Text style={styles.buttonText}>Salvar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
+
 
 // --- Folha de Estilos ---
 const styles = StyleSheet.create({
@@ -445,4 +488,44 @@ const styles = StyleSheet.create({
   editButton: { backgroundColor: '#dbeafe' },
   deleteButton: { backgroundColor: '#fee2e2' },
   actionButtonText: { fontWeight: '500', color: '#374151' },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalView: {
+    width: '80%',
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 24,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  modalButtonContainer: {
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  modalButton: {
+    flex: 1,
+    borderRadius: 12,
+    padding: 12,
+    elevation: 2,
+    marginHorizontal: 5,
+  },
+  cancelButton: {
+    backgroundColor: '#9ca3af',
+  },
+  saveButton: {
+    backgroundColor: '#1d4ed8',
+  },
 });
