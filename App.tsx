@@ -11,15 +11,16 @@ import {
   Alert,
   Modal,
 } from 'react-native';
-// NOVO: Importações para o leitor de QR Code
-import QRCodeScanner from 'react-native-qrcode-scanner';
-import { RNCamera } from 'react-native-camera';
+
+// --- NOVAS IMPORTAÇÕES PARA A CÂMARA (CORRIGIDAS) ---
+import { Camera, useCameraDevice, useCameraPermission, Code } from 'react-native-vision-camera';
+const { useCodeScanner } = require('vision-camera-code-scanner');
 
 // --- Configuração da API ---
 const API_BASE_URL = 'http://10.0.2.2:8000/api/v1';
 
 // --- Definições de Tipos (TypeScript) ---
-type ScreenType = 'login' | 'dashboard' | 'scanner'; // Adiciona a tela do scanner
+type ScreenType = 'login' | 'dashboard' | 'scanner';
 
 interface User {
   id: number;
@@ -61,7 +62,6 @@ interface DashboardScreenProps {
   setScreen: React.Dispatch<React.SetStateAction<ScreenType>>;
 }
 
-// NOVO: Props para a tela do Scanner
 interface ScannerScreenProps {
   authToken: string;
   setScreen: React.Dispatch<React.SetStateAction<ScreenType>>;
@@ -72,7 +72,6 @@ export default function App() {
   const [authToken, setAuthToken] = React.useState<string | null>(null);
   const [userData, setUserData] = React.useState<User | null>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  // NOVO: Estado para controlar a tela atual, incluindo o scanner
   const [screen, setScreen] = React.useState<ScreenType>('login');
 
   const fetchUserData = async (token: string) => {
@@ -115,7 +114,6 @@ export default function App() {
     return <View style={styles.container}><ActivityIndicator size="large" color="#1d4ed8" /></View>;
   }
   
-  // Lógica de navegação atualizada
   if (screen === 'scanner' && userData && authToken) {
     return <ScannerScreen authToken={authToken} setScreen={setScreen} />;
   }
@@ -127,7 +125,7 @@ export default function App() {
   return <LoginScreen setAuthToken={setAuthToken} />;
 }
 
-// --- Tela de Login ---
+// --- Tela de Login (Sem alterações) ---
 const LoginScreen: React.FC<AuthScreenProps> = ({ setAuthToken }) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -195,9 +193,25 @@ const LoginScreen: React.FC<AuthScreenProps> = ({ setAuthToken }) => {
   );
 };
 
-// --- NOVO: Tela do Leitor de QR Code ---
+// --- TELA DO SCANNER TOTALMENTE REFATORADA ---
 const ScannerScreen: React.FC<ScannerScreenProps> = ({ authToken, setScreen }) => {
+    // 1. Hooks da Vision Camera para gerir permissões e o dispositivo
+    const { hasPermission, requestPermission } = useCameraPermission();
+    const device = useCameraDevice('back');
+    const [isProcessing, setIsProcessing] = React.useState(false);
+
+    // 2. Pedir permissão da câmara assim que o ecrã for montado
+    React.useEffect(() => {
+        if (!hasPermission) {
+            requestPermission();
+        }
+    }, [hasPermission, requestPermission]);
+
+    // 3. Função para adicionar pontos (lógica de negócio)
     const handleAddPoints = async (clientId: string) => {
+        if (isProcessing) return; // Evita múltiplas submissões
+        setIsProcessing(true);
+
         try {
             const response = await fetch(`${API_BASE_URL}/points/add`, {
                 method: 'POST',
@@ -217,31 +231,54 @@ const ScannerScreen: React.FC<ScannerScreenProps> = ({ authToken, setScreen }) =
         }
     };
 
-    const onSuccess = (e: { data: string }) => {
-        // e.data contém o texto lido do QR Code (que é o ID do cliente)
-        handleAddPoints(e.data);
-    };
+    // 4. Hook da vision-camera-code-scanner para detetar os códigos
+    const codeScanner = useCodeScanner({
+        codeTypes: ['qr', 'ean-13'],
+        onCodeScanned: (codes: Code[]) => {
+            if (codes.length > 0 && codes[0].value) {
+                console.log(`QR Code Lido: ${codes[0].value}`);
+                handleAddPoints(codes[0].value);
+            }
+        }
+    });
+
+    // 5. Renderização condicional baseada no estado das permissões e do dispositivo
+    if (!hasPermission) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.centerText}>A pedir permissão para a câmara...</Text>
+                <ActivityIndicator size="large" />
+            </View>
+        );
+    }
+
+    if (device == null) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.centerText}>Nenhum dispositivo de câmara encontrado.</Text>
+            </View>
+        );
+    }
 
     return (
-        <QRCodeScanner
-            onRead={onSuccess}
-            flashMode={RNCamera.Constants.FlashMode.off}
-            topContent={
-                <Text style={styles.centerText}>
-                    Aponte a câmara para o QR Code do cliente
-                </Text>
-            }
-            bottomContent={
-                <TouchableOpacity style={styles.buttonTouchable} onPress={() => setScreen('dashboard')}>
+        <View style={StyleSheet.absoluteFill}>
+            <Camera
+                style={StyleSheet.absoluteFill}
+                device={device}
+                isActive={true}
+                codeScanner={codeScanner}
+            />
+            <View style={styles.scannerOverlay}>
+                <Text style={styles.scannerText}>Aponte para o QR Code</Text>
+                <TouchableOpacity style={styles.scannerButton} onPress={() => setScreen('dashboard')}>
                     <Text style={styles.buttonText}>Cancelar</Text>
                 </TouchableOpacity>
-            }
-        />
+            </View>
+        </View>
     );
 };
 
-
-// --- Tela Principal (Dashboard) ---
+// --- Tela Principal (Dashboard) (Sem alterações) ---
 const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setAuthToken, setScreen }) => {
   const [clientId, setClientId] = React.useState('');
   const [isAddingPoints, setIsAddingPoints] = React.useState(false);
@@ -628,7 +665,6 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ user, authToken, setA
         </View>
       </ScrollView>
 
-      {/* Modal de Edição para Colaboradores */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -902,17 +938,36 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#1f2937',
   },
+  // --- NOVOS ESTILOS PARA O SCANNER ---
   centerText: {
-    flex: 1,
     fontSize: 18,
-    padding: 32,
-    color: '#777',
+    color: '#374151',
     textAlign: 'center',
   },
-  buttonTouchable: {
+  scannerOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 48,
+  },
+  scannerText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: 'white',
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 12,
+  },
+  scannerButton: {
     backgroundColor: '#dc2626',
     padding: 16,
     borderRadius: 12,
-    margin: 24,
+    width: '100%',
+    alignItems: 'center',
   },
 });
