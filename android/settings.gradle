@@ -1,8 +1,28 @@
-pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
-plugins { id("com.facebook.react.settings") }
-extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
+pluginManagement {
+    // This includes the new React Native Gradle Plugin
+    includeBuild("../node_modules/@react-native/gradle-plugin")
+}
+
+plugins {
+    // This applies the settings from the plugin
+    id("com.facebook.react.settings")
+}
+
+// The 'extensions.configure' block has been removed as it's no longer
+// needed and was causing the conflict with the modern build system.
+
 rootProject.name = 'fideliza_gestao'
 include ':app'
-includeBuild('../node_modules/@react-native/gradle-plugin')
-include ':react-native-camera'
-project(':react-native-camera').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-camera/android')
+
+// This is the modern, correct way to declare repositories for your app's dependencies.
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        // For Google ML Kit and other Android libraries
+        google()
+        // For general Java/Android libraries
+        mavenCentral()
+        // For some community packages
+        maven { url 'https://www.jitpack.io' }
+    }
+}
