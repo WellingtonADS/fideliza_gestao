@@ -1,3 +1,5 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
 buildscript {
     ext {
         buildToolsVersion = "35.0.0"
@@ -17,5 +19,8 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
     }
 }
+
+// O bloco allprojects foi removido daqui para corrigir o erro de build.
+// A configuração de repositórios é gerida pelo React Native no settings.gradle.
 
 apply plugin: "com.facebook.react.rootproject"
