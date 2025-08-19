@@ -1,10 +1,8 @@
-// Apply the main Android application plugin and the React Native plugin.
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 
 /**
  * This is the configuration block to customize your React Native Android app.
- * By default, you don't need to apply any configuration, just uncomment the lines you need.
  */
 react {
     // Configuration options for React Native.
@@ -12,12 +10,10 @@ react {
 
 android {
     namespace "com.fideliza_gestao"
-    // The SDK and NDK versions are now automatically sourced from gradle.properties
-    // by the React Native Gradle Plugin. No need to define them here anymore.
+    // The SDK and NDK versions are now automatically sourced from gradle.properties.
 
     defaultConfig {
         applicationId "com.fideliza_gestao"
-        // The minSdkVersion and targetSdkVersion are also sourced from gradle.properties.
         versionCode 1
         versionName "1.0"
     }
@@ -29,13 +25,6 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-        // You should create a release signing configuration for production builds.
-        // release {
-        //     storeFile file('release.keystore')
-        //     storePassword 'your_store_password'
-        //     keyAlias 'your_key_alias'
-        //     keyPassword 'your_key_password'
-        // }
     }
 
     buildTypes {
@@ -43,8 +32,7 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
-            // Change to signingConfigs.release for production
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.debug // TODO: Change to release signing config for production
             minifyEnabled false
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -59,7 +47,6 @@ dependencies {
     implementation 'com.google.ml-kit:barcode-scanning:17.2.0'
 
     // Dependencies for Flipper (React Native's debugging tool)
-    // These are standard in new projects and highly recommended.
     if (hermesEnabled.toBoolean()) {
         debugImplementation("com.facebook.flipper:flipper-hermes-debugger:0.202.1")
     } else {
