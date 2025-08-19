@@ -1,18 +1,16 @@
-plugins {
-    id("com.android.application")
-    id("com.facebook.react")
-}
+apply plugin: "com.android.application"
+apply plugin: "com.facebook.react"
 
 android {
     namespace "com.fideliza_gestao"
-    // The SDK and NDK versions are now hardcoded to fix the build errors.
-    compileSdk = 34
-    ndkVersion = "26.1.10909125"
+    // SDK and NDK versions are now correctly sourced from gradle.properties
+    compileSdkVersion = Integer.parseInt(findProperty("android.compileSdkVersion").toString())
+    ndkVersion = findProperty("android.ndkVersion").toString()
 
     defaultConfig {
         applicationId "com.fideliza_gestao"
-        minSdk = 21
-        targetSdk = 34
+        minSdkVersion = Integer.parseInt(findProperty("android.minSdkVersion").toString())
+        targetSdkVersion = Integer.parseInt(findProperty("android.targetSdkVersion").toString())
         versionCode 1
         versionName "1.0"
     }
@@ -24,14 +22,6 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-        release {
-            if (System.getenv("MYAPP_UPLOAD_STORE_FILE")) {
-                storeFile file(System.getenv("MYAPP_UPLOAD_STORE_FILE"))
-                storePassword System.getenv("MYAPP_UPLOAD_STORE_PASSWORD")
-                keyAlias System.getenv("MYAPP_UPLOAD_KEY_ALIAS")
-                keyPassword System.getenv("MYAPP_UPLOAD_KEY_PASSWORD")
-            }
-        }
     }
 
     buildTypes {
@@ -39,7 +29,7 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug // Change to signingConfigs.release for production
             minifyEnabled false
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -48,10 +38,13 @@ android {
 
 dependencies {
     implementation("com.facebook.react:react-android")
-    // This dependency is required for the barcode scanner
+    // This is the dependency you needed from the beginning for the barcode scanner.
     implementation 'com.google.ml-kit:barcode-scanning:17.2.0'
+
+    // Hermes is now managed automatically by the React Native Gradle Plugin
 }
 
+// This block is required by the React Native Gradle Plugin.
 react {
     // React Native configurations
 }
