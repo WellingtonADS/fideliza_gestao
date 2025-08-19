@@ -1,9 +1,7 @@
 // Top-level build file for the root project.
-
-// In modern React Native versions, this file uses the 'plugins' block
-// instead of the older 'apply plugin:' syntax.
+// This file is simplified for modern React Native versions.
 plugins {
-    // This is the correct way to apply the React Native root project plugin,
-    // which resolves the "Plugin not found" error.
+    // This is the correct way to apply the React Native root project plugin.
     id("com.facebook.react.rootproject")
 }
+
