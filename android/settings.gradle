@@ -1,28 +1,25 @@
 pluginManagement {
-    // This includes the new React Native Gradle Plugin
-    includeBuild("../node_modules/@react-native/gradle-plugin")
+    // This block tells Gradle where to find build plugins (classpath).
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
 }
 
-plugins {
-    // This applies the settings from the plugin
-    id("com.facebook.react.settings")
+dependencyResolutionManagement {
+    // This block tells Gradle where to find your app's libraries (dependencies).
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        // Required for react-native-vision-camera
+        maven { url 'https://www.jitpack.io' }
+    }
 }
-
-// The 'extensions.configure' block has been removed as it's no longer
-// needed and was causing the conflict with the modern build system.
 
 rootProject.name = 'fideliza_gestao'
 include ':app'
 
-// This is the modern, correct way to declare repositories for your app's dependencies.
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        // For Google ML Kit and other Android libraries
-        google()
-        // For general Java/Android libraries
-        mavenCentral()
-        // For some community packages
-        maven { url 'https://www.jitpack.io' }
-    }
-}
+// This applies the React Native Gradle Plugin to your project.
+apply from: new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim(), "../react.gradle")
