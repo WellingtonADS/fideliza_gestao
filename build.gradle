@@ -1,7 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 plugins {
     // This is the correct way to apply the React Native root project plugin.
     id("com.facebook.react.rootproject")
 }
-
