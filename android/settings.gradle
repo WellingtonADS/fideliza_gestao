@@ -20,6 +20,4 @@ dependencyResolutionManagement {
 
 rootProject.name = 'fideliza_gestao'
 include ':app'
-
-// This applies the React Native Gradle Plugin to your project.
-apply from: new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim(), "../react.gradle")
+include ':react-native-vision-camera'
