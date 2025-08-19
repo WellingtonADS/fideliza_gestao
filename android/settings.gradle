@@ -1,5 +1,4 @@
 pluginManagement {
-    // This block tells Gradle where to find build plugins (classpath).
     repositories {
         google()
         mavenCentral()
@@ -8,7 +7,6 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    // This block tells Gradle where to find your app's libraries (dependencies).
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
@@ -20,4 +18,3 @@ dependencyResolutionManagement {
 
 rootProject.name = 'fideliza_gestao'
 include ':app'
-include ':react-native-vision-camera'
