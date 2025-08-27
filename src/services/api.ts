@@ -1,0 +1,46 @@
+import axios from 'axios';
+import { User, UserCredentials } from '../types/auth';
+import { CompanyReport, PointTransaction, Reward, RewardCreate, CollaboratorCreate, CollaboratorUpdate } from '../types/gestao';
+
+const api = axios.create({
+  baseURL: 'http://10.0.2.2:8000/api/v1',
+});
+
+export const setAuthToken = (token?: string) => {
+  if (token) {
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  } else {
+    delete api.defaults.headers.common['Authorization'];
+  }
+};
+
+// --- AUTH ---
+export const login = (credentials: UserCredentials) => {
+  const formData = new URLSearchParams();
+  formData.append('username', credentials.email);
+  formData.append('password', credentials.password);
+  return api.post('/token', formData.toString(), {
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  });
+};
+
+export const getMyProfile = () => {
+  return api.get<User>('/users/me');
+};
+
+// --- POINTS ---
+export const addPoints = (clientId: string) => {
+    return api.post<PointTransaction>('/points/add', { client_identifier: clientId });
+};
+
+// --- ADMIN DATA ---
+export const getCollaborators = () => api.get<User[]>('/collaborators/');
+export const addCollaborator = (data: CollaboratorCreate) => api.post<User>('/collaborators/', data);
+export const updateCollaborator = (id: number, data: CollaboratorUpdate) => api.patch<User>(`/collaborators/${id}`, data);
+export const deleteCollaborator = (id: number) => api.delete(`/collaborators/${id}`);
+
+export const getRewards = () => api.get<Reward[]>('/rewards/');
+export const addReward = (data: RewardCreate) => api.post<Reward>('/rewards/', data);
+
+export const getTransactions = () => api.get<PointTransaction[]>('/points/transactions/');
+export const getReport = () => api.get<CompanyReport>('/reports/summary');
