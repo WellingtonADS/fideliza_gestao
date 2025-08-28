@@ -5,7 +5,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AdminStackParamList } from '../navigation/AdminNavigator';
 import { User } from '../types/auth';
-import { Reward, CompanyReport } from '../types/gestao';
+import { Reward, CompanyReport,PointTransaction } from '../types/gestao';
 import * as api from '../services/api';
 
 type Props = NativeStackScreenProps<AdminStackParamList, 'Dashboard'>;
@@ -15,7 +15,6 @@ const DashboardScreen = ({ navigation }: Props) => {
   const [clientId, setClientId] = useState('');
   const [isAddingPoints, setIsAddingPoints] = useState(false);
   
-  // Estados para Colaboradores
   const [collaborators, setCollaborators] = useState<User[]>([]);
   const [newCollabName, setNewCollabName] = useState('');
   const [newCollabEmail, setNewCollabEmail] = useState('');
@@ -24,14 +23,19 @@ const DashboardScreen = ({ navigation }: Props) => {
   const [editingCollab, setEditingCollab] = useState<User | null>(null);
   const [updatedName, setUpdatedName] = useState('');
 
-  // Estados para Prémios
   const [rewards, setRewards] = useState<Reward[]>([]);
   const [newRewardName, setNewRewardName] = useState('');
   const [newRewardDescription, setNewRewardDescription] = useState('');
   const [newRewardPoints, setNewRewardPoints] = useState('');
   const [isAddingReward, setIsAddingReward] = useState(false);
+  const [editingReward, setEditingReward] = useState<Reward | null>(null);
+  const [updatedRewardName, setUpdatedRewardName] = useState('');
+  const [updatedRewardDescription, setUpdatedRewardDescription] = useState('');
+  const [updatedRewardPoints, setUpdatedRewardPoints] = useState('');
+
 
   const [report, setReport] = useState<CompanyReport | null>(null);
+  const [transactions, setTransactions] = useState<PointTransaction[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
   const fetchData = async () => {
@@ -41,14 +45,16 @@ const DashboardScreen = ({ navigation }: Props) => {
     };
     try {
       setIsLoadingData(true);
-      const [collabRes, rewardRes, reportRes] = await Promise.all([
+      const [collabRes, rewardRes, reportRes, transRes] = await Promise.all([
         api.getCollaborators(),
         api.getRewards(),
         api.getReport(),
+        api.getTransactions(),
       ]);
       setCollaborators(collabRes.data);
       setRewards(rewardRes.data);
       setReport(reportRes.data);
+      setTransactions(transRes.data);
     } catch (error) {
       Alert.alert("Erro", "Não foi possível carregar os dados do painel.");
     } finally {
@@ -69,6 +75,7 @@ const DashboardScreen = ({ navigation }: Props) => {
       const response = await api.addPoints(clientId);
       Alert.alert("Sucesso!", `1 ponto foi adicionado com sucesso ao cliente ${response.data.client.name}.`);
       setClientId('');
+      await fetchData();
     } catch (error: any) {
       const detail = error.response?.data?.detail || "Não foi possível adicionar o ponto.";
       Alert.alert("Erro", detail);
@@ -160,6 +167,53 @@ const DashboardScreen = ({ navigation }: Props) => {
     }
   };
 
+  // NOVAS FUNÇÕES PARA GERIR PRÉMIOS
+  const handleDeleteReward = (reward: Reward) => {
+    Alert.alert("Confirmar Exclusão", `Tem a certeza que deseja excluir o prémio "${reward.name}"?`,
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Excluir",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await api.deleteReward(reward.id);
+              Alert.alert("Sucesso!", `Prémio "${reward.name}" excluído.`);
+              await fetchData();
+            } catch (error) {
+              Alert.alert("Erro", "Não foi possível excluir o prémio.");
+            }
+          },
+        },
+      ]
+    );
+  };
+
+  const handleUpdateReward = async () => {
+    if (!editingReward) return;
+
+    const payload: api.RewardUpdate = {};
+    if (updatedRewardName && updatedRewardName !== editingReward.name) payload.name = updatedRewardName;
+    if (updatedRewardDescription !== editingReward.description) payload.description = updatedRewardDescription;
+    if (updatedRewardPoints && parseInt(updatedRewardPoints, 10) !== editingReward.points_required) payload.points_required = parseInt(updatedRewardPoints, 10);
+
+    if (Object.keys(payload).length === 0) {
+      setEditingReward(null);
+      return;
+    }
+
+    try {
+      await api.updateReward(editingReward.id, payload);
+      Alert.alert("Sucesso!", "Prémio atualizado.");
+      await fetchData();
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível atualizar o prémio.");
+    } finally {
+      setEditingReward(null);
+    }
+  };
+
+
   if (isLoadingData) {
       return <View style={styles.container}><ActivityIndicator size="large" color="#1d4ed8" /></View>;
   }
@@ -201,6 +255,26 @@ const DashboardScreen = ({ navigation }: Props) => {
                   <View style={styles.reportRow}><Text style={styles.reportLabel}>Prémios Resgatados:</Text><Text style={styles.reportValue}>{report.total_rewards_redeemed}</Text></View>
                 </View>
               )}
+              {/* 5. NOVA SECÇÃO: HISTÓRICO DE TRANSAÇÕES */}
+              <View style={styles.featureCard}>
+                <Text style={styles.featureTitle}>Últimas Transações</Text>
+                {transactions.length > 0 ? (
+                  transactions.map(tx => (
+                    <View key={tx.id} style={styles.itemContainer}>
+                      <View>
+                        <Text style={styles.itemName}>Cliente: {tx.client.name}</Text>
+                        <Text style={styles.itemSubtitle}>Atribuído por: {tx.awarded_by.name}</Text>
+                        <Text style={styles.itemDate}>{new Date(tx.created_at).toLocaleString('pt-BR')}</Text>
+                      </View>
+                      <Text style={[styles.pointsTag, tx.points < 0 ? styles.pointsTagNegative : {}]}>
+                        {tx.points > 0 ? `+${tx.points}` : tx.points} pt{tx.points !== 1 && 's'}
+                      </Text>
+                    </View>
+                  ))
+                ) : (
+                  <Text style={styles.itemSubtitle}>Nenhuma transação registada.</Text>
+                )}
+              </View>
 
               <View style={styles.featureCard}>
                 <Text style={styles.featureTitle}>Gestão de Colaboradores</Text>
@@ -230,16 +304,31 @@ const DashboardScreen = ({ navigation }: Props) => {
                 </TouchableOpacity>
               </View>
 
-              {/* NOVA SECÇÃO: GESTÃO DE PRÉMIOS */}
               <View style={styles.featureCard}>
                 <Text style={styles.featureTitle}>Gestão de Prémios</Text>
                 {rewards.map(reward => (
                   <View key={reward.id} style={styles.itemContainer}>
-                    <View>
+                    <View style={{ flex: 1 }}>
                       <Text style={styles.itemName}>{reward.name}</Text>
                       <Text style={styles.itemSubtitle}>{reward.description}</Text>
+                      <Text style={styles.pointsTag}>{reward.points_required} pts</Text>
                     </View>
-                    <Text style={styles.pointsTag}>{reward.points_required} pts</Text>
+                    {/* NOVOS BOTÕES DE AÇÃO PARA PRÉMIOS */}
+                    <View style={styles.actionsContainer}>
+                      <TouchableOpacity 
+                        onPress={() => { 
+                          setEditingReward(reward); 
+                          setUpdatedRewardName(reward.name);
+                          setUpdatedRewardDescription(reward.description || '');
+                          setUpdatedRewardPoints(reward.points_required.toString());
+                        }} 
+                        style={[styles.actionButton, styles.editButton]}>
+                        <Text style={styles.actionButtonText}>Editar</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={() => handleDeleteReward(reward)} style={[styles.actionButton, styles.deleteButton]}>
+                        <Text style={styles.actionButtonText}>Excluir</Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 ))}
                 <View style={styles.divider} />
@@ -256,6 +345,7 @@ const DashboardScreen = ({ navigation }: Props) => {
         </View>
       </ScrollView>
 
+      {/* Modal para Editar Colaborador */}
       <Modal visible={!!editingCollab} transparent={true} animationType="slide" onRequestClose={() => setEditingCollab(null)}>
         <View style={styles.modalContainer}>
           <View style={styles.modalView}>
@@ -266,6 +356,26 @@ const DashboardScreen = ({ navigation }: Props) => {
                 <Text style={styles.buttonText}>Cancelar</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.modalButton, styles.saveButton]} onPress={handleUpdateCollaborator}>
+                <Text style={styles.buttonText}>Salvar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* NOVO MODAL PARA EDITAR PRÉMIO */}
+      <Modal visible={!!editingReward} transparent={true} animationType="slide" onRequestClose={() => setEditingReward(null)}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalTitle}>Editar Prémio</Text>
+            <TextInput style={styles.input} value={updatedRewardName} onChangeText={setUpdatedRewardName} placeholder="Nome do Prémio" />
+            <TextInput style={styles.input} value={updatedRewardDescription} onChangeText={setUpdatedRewardDescription} placeholder="Descrição (opcional)" />
+            <TextInput style={styles.input} value={updatedRewardPoints} onChangeText={setUpdatedRewardPoints} placeholder="Pontos" keyboardType="number-pad" />
+            <View style={styles.modalButtonContainer}>
+              <TouchableOpacity style={[styles.modalButton, styles.cancelButton]} onPress={() => setEditingReward(null)}>
+                <Text style={styles.buttonText}>Cancelar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.modalButton, styles.saveButton]} onPress={handleUpdateReward}>
                 <Text style={styles.buttonText}>Salvar</Text>
               </TouchableOpacity>
             </View>
@@ -297,13 +407,15 @@ const styles = StyleSheet.create({
     itemContainer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: '#f3f4f6' },
     itemName: { fontSize: 16, fontWeight: '500', color: '#1f2937' },
     itemSubtitle: { fontSize: 14, color: '#6b7280' },
+    itemDate: { fontSize: 12, color: '#9ca3af', marginTop: 2 }, // Added missing style
     actionsContainer: { flexDirection: 'row' },
     actionButton: { paddingVertical: 6, paddingHorizontal: 12, borderRadius: 8, marginLeft: 8 },
     editButton: { backgroundColor: '#dbeafe' },
     deleteButton: { backgroundColor: '#fee2e2' },
     actionButtonText: { fontWeight: '500', color: '#374151' },
     divider: { height: 1, backgroundColor: '#f3f4f6', marginVertical: 16 },
-    pointsTag: { backgroundColor: '#e0e7ff', color: '#3730a3', fontWeight: 'bold', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 99 },
+    pointsTag: { backgroundColor: '#e0e7ff', color: '#3730a3', fontWeight: 'bold', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 99, alignSelf: 'flex-start', marginTop: 4 },
+    pointsTagNegative: { backgroundColor: '#fee2e2', color: '#dc2626' },
     modalContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' },
     modalView: { width: '85%', backgroundColor: 'white', borderRadius: 20, padding: 24, alignItems: 'center', elevation: 5 },
     modalTitle: { fontSize: 20, fontWeight: 'bold', marginBottom: 20 },
