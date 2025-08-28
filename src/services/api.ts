@@ -2,6 +2,12 @@ import axios from 'axios';
 import { User, UserCredentials } from '../types/auth';
 import { CompanyReport, PointTransaction, Reward, RewardCreate, CollaboratorCreate, CollaboratorUpdate } from '../types/gestao';
 
+export interface RewardUpdate {
+    name?: string;
+    description?: string;
+    points_required?: number;
+}
+
 const api = axios.create({
   baseURL: 'http://10.0.2.2:8000/api/v1',
 });
@@ -30,7 +36,7 @@ export const getMyProfile = () => {
 
 // --- PASSWORD RECOVERY (NOVAS FUNÇÕES) ---
 export const requestPasswordRecovery = (email: string) => {
-  return api.post('/request-password-recovery', { email });
+  return api.post('/request-password-recovery', { email, app_type: 'gestao' });
 };
 
 export const resetPassword = (token: string, new_password: string) => {
@@ -50,6 +56,9 @@ export const deleteCollaborator = (id: number) => api.delete(`/collaborators/${i
 
 export const getRewards = () => api.get<Reward[]>('/rewards/');
 export const addReward = (data: RewardCreate) => api.post<Reward>('/rewards/', data);
+
+export const updateReward = (id: number, data: RewardUpdate) => api.patch<Reward>(`/rewards/${id}`, data);
+export const deleteReward = (id: number) => api.delete(`/rewards/${id}`);
 
 export const getTransactions = () => api.get<PointTransaction[]>('/points/transactions/');
 export const getReport = () => api.get<CompanyReport>('/reports/summary');
