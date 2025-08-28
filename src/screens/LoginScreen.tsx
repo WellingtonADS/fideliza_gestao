@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -9,51 +9,78 @@ import {
   ActivityIndicator,
   TextInput,
 } from 'react-native';
-import { useAuth } from '../context/AuthContext';
+import { useRoute, RouteProp } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { AuthStackParamList } from '../navigation/AuthNavigator';
+import { resetPassword } from '../services/api';
 
-const LoginScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const { signIn, isLoading } = useAuth();
+type ResetPasswordRouteProp = RouteProp<AuthStackParamList, 'ResetPassword'>;
+type Props = NativeStackScreenProps<AuthStackParamList, 'ResetPassword'>;
 
-  const handleLogin = async () => {
-    if (!email || !password) {
-      setError('Por favor, preencha todos os campos.');
+const ResetPasswordScreen = ({ navigation }: Props) => {
+  const route = useRoute<ResetPasswordRouteProp>();
+  const [token, setToken] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (route.params?.token) {
+      setToken(route.params.token);
+    }
+  }, [route.params?.token]);
+
+  const handleReset = async () => {
+    if (!token || !newPassword || !confirmPassword) {
+      Alert.alert('Atenção', 'Por favor, preencha todos os campos.');
       return;
     }
-    setError('');
+    if (newPassword !== confirmPassword) {
+      Alert.alert('Erro', 'As senhas não coincidem.');
+      return;
+    }
+    setIsLoading(true);
     try {
-      await signIn({ email, password });
-    } catch (e) {
-      const errorMessage = e instanceof Error ? e.message : 'Ocorreu um erro desconhecido.';
-      setError(errorMessage);
+      await resetPassword(token, newPassword);
+      Alert.alert(
+        'Sucesso',
+        'A sua senha foi redefinida. Por favor, faça o login.',
+        [{ text: 'OK', onPress: () => navigation.navigate('Login') }]
+      );
+    } catch (error: any) {
+      const detail = error.response?.data?.detail || 'Não foi possível redefinir a senha.';
+      Alert.alert('Erro', detail);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.authContainer}>
-        <Text style={styles.title}>Fideliza+ Gestão</Text>
-        <Text style={styles.subtitle}>Acesso para Administradores e Colaboradores</Text>
-        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+      <View style={styles.container}>
+        <Text style={styles.title}>Redefinir Senha</Text>
         <TextInput
           style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
+          placeholder="Token de Recuperação"
+          value={token}
+          onChangeText={setToken}
         />
         <TextInput
           style={styles.input}
-          placeholder="Senha"
-          value={password}
-          onChangeText={setPassword}
+          placeholder="Nova Senha"
+          value={newPassword}
+          onChangeText={setNewPassword}
           secureTextEntry
         />
-        <TouchableOpacity onPress={handleLogin} disabled={isLoading} style={styles.button}>
-          {isLoading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Entrar</Text>}
+        <TextInput
+          style={styles.input}
+          placeholder="Confirmar Nova Senha"
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          secureTextEntry
+        />
+        <TouchableOpacity style={styles.button} onPress={handleReset} disabled={isLoading}>
+          {isLoading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Salvar Nova Senha</Text>}
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -62,13 +89,11 @@ const LoginScreen = () => {
 
 const styles = StyleSheet.create({
     safeArea: { flex: 1, backgroundColor: '#f9fafb' },
-    authContainer: { flex: 1, justifyContent: 'center', padding: 24 },
-    title: { fontSize: 32, fontWeight: 'bold', color: '#1d4ed8', textAlign: 'center', marginBottom: 8 },
-    subtitle: { fontSize: 18, color: '#4b5563', textAlign: 'center', marginBottom: 40 },
+    container: { flex: 1, justifyContent: 'center', padding: 24 },
+    title: { fontSize: 32, fontWeight: 'bold', color: '#1d4ed8', textAlign: 'center', marginBottom: 32 },
     input: { backgroundColor: 'white', padding: 15, borderRadius: 12, marginBottom: 16, fontSize: 16, borderWidth: 1, borderColor: '#e5e7eb' },
     button: { backgroundColor: '#1d4ed8', padding: 16, borderRadius: 12, alignItems: 'center' },
     buttonText: { color: 'white', fontSize: 18, fontWeight: 'bold' },
-    errorText: { color: '#ef4444', textAlign: 'center', marginBottom: 16 },
 });
 
-export default LoginScreen;
+export default ResetPasswordScreen;
