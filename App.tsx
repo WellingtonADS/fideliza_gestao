@@ -1,9 +1,10 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, LinkingOptions } from '@react-navigation/native';
 import { AuthProvider } from './src/context/AuthContext';
 import AppNavigator from './src/navigation/AppNavigator';
 import { StatusBar } from 'react-native';
+import { AuthStackParamList } from './src/navigation/AuthNavigator';
 
 /**
  * Ponto de entrada principal da aplicação de Gestão.
@@ -13,9 +14,19 @@ import { StatusBar } from 'react-native';
  * 3. AppNavigator: Componente que decide qual fluxo de navegação mostrar (Login ou Dashboard).
  * 4. StatusBar: Configura a aparência da barra de estado do dispositivo.
  */
+const linking: LinkingOptions<AuthStackParamList> = {
+  prefixes: ['fidelizagestao://'],
+  config: {
+    screens: {
+      // Mapeia o caminho do URL para o nome do ecrã no seu navegador
+      ResetPassword: 'reset-password',
+    },
+  },
+};
+
 const App = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <AuthProvider>
         <StatusBar barStyle="light-content" backgroundColor="#0A0A2A" />
         <AppNavigator />
