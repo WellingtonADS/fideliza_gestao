@@ -28,6 +28,15 @@ export const getMyProfile = () => {
   return api.get<User>('/users/me');
 };
 
+// --- PASSWORD RECOVERY (NOVAS FUNÇÕES) ---
+export const requestPasswordRecovery = (email: string) => {
+  return api.post('/request-password-recovery', { email });
+};
+
+export const resetPassword = (token: string, new_password: string) => {
+  return api.post('/reset-password', { token, new_password });
+};
+
 // --- POINTS ---
 export const addPoints = (clientId: string) => {
     return api.post<PointTransaction>('/points/add', { client_identifier: clientId });
