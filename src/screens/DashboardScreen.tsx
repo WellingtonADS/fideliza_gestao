@@ -1,451 +1,222 @@
-// src/screens/DashboardScreen.tsx
-import React, { useState, useCallback,useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, TextInput, ActivityIndicator, Alert, Modal } from 'react-native';
-import { useAuth } from '../context/AuthContext';
-import { useFocusEffect } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { AdminStackParamList } from '../navigation/AdminNavigator';
-import { User } from '../types/auth';
-import { Reward, CompanyReport, PointTransaction } from '../types/gestao';
+import React,
+{
+    useState,
+    useEffect
+}
+from 'react';
+import {
+    View,
+    Text,
+    StyleSheet,
+    ScrollView,
+    SafeAreaView,
+    TouchableOpacity,
+    ActivityIndicator
+}
+from 'react-native';
+import {
+    useAuth
+}
+from '../context/AuthContext';
+import {
+    NativeStackScreenProps
+}
+from '@react-navigation/native-stack';
+import {
+    AdminStackParamList
+}
+from '../navigation/AdminNavigator';
 import * as api from '../services/api';
-import Toast from 'react-native-toast-message'; // Importe o Toast
+import Toast from 'react-native-toast-message';
+import StyledTextInput from '../components/StyledTextInput';
 
-type Props = NativeStackScreenProps<AdminStackParamList, 'Dashboard'>;
+type Props = NativeStackScreenProps < AdminStackParamList, 'Dashboard' > ;
 
-const DashboardScreen = ({ navigation, route }: Props) => {
-  const { user, signOut } = useAuth();
-  const [clientId, setClientId] = useState('');
-  const [isAddingPoints, setIsAddingPoints] = useState(false);
-  
-  const [collaborators, setCollaborators] = useState<User[]>([]);
-  const [newCollabName, setNewCollabName] = useState('');
-  const [newCollabEmail, setNewCollabEmail] = useState('');
-  const [newCollabPassword, setNewCollabPassword] = useState('');
-  const [isAddingCollab, setIsAddingCollab] = useState(false);
-  const [editingCollab, setEditingCollab] = useState<User | null>(null);
-  const [updatedName, setUpdatedName] = useState('');
-
-  const [rewards, setRewards] = useState<Reward[]>([]);
-  const [newRewardName, setNewRewardName] = useState('');
-  const [newRewardDescription, setNewRewardDescription] = useState('');
-  const [newRewardPoints, setNewRewardPoints] = useState('');
-  const [isAddingReward, setIsAddingReward] = useState(false);
-  const [editingReward, setEditingReward] = useState<Reward | null>(null);
-  const [updatedRewardName, setUpdatedRewardName] = useState('');
-  const [updatedRewardDescription, setUpdatedRewardDescription] = useState('');
-  const [updatedRewardPoints, setUpdatedRewardPoints] = useState('');
-
-
-  const [report, setReport] = useState<CompanyReport | null>(null);
-  const [transactions, setTransactions] = useState<PointTransaction[]>([]);
-  const [isLoadingData, setIsLoadingData] = useState(true);
+const DashboardScreen = ({
+    navigation,
+    route
+}: Props) => {
+    const {
+        user,
+        signOut
+    } = useAuth();
+    const [clientId, setClientId] = useState('');
+    const [isAddingPoints, setIsAddingPoints] = useState(false);
 
     useEffect(() => {
-    if (route.params?.toast) {
-      const { type, text1, text2 } = route.params.toast;
-      Toast.show({
-        type: type,
-        text1: text1,
-        text2: text2,
-        visibilityTime: 4000,
-      });
-      // Limpa os parâmetros para não mostrar o toast novamente
-      navigation.setParams({ toast: undefined });
-    }
-  }, [route.params?.toast]);
-  
+        if (route.params?.toast) {
+            Toast.show({ ...route.params.toast,
+                visibilityTime: 4000
+            });
+            navigation.setParams({
+                toast: undefined
+            });
+        }
+    }, [route.params?.toast]);
 
-
-  const fetchData = async () => {
-    if (user?.user_type !== 'ADMIN') {
-      setIsLoadingData(false);
-      return;
+    const handleAddPoints = async () => {
+        if (!clientId) {
+            Toast.show({
+                type: 'info',
+                text1: 'Atenção',
+                text2: 'Por favor, insira o ID do cliente.'
+            });
+            return;
+        }
+        setIsAddingPoints(true);
+        try {
+            const response = await api.addPoints(clientId);
+            Toast.show({
+                type: 'success',
+                text1: 'Sucesso!',
+                text2: `1 ponto adicionado a ${response.data.client.name}.`
+            });
+            setClientId('');
+        } catch (error: any) {
+            const detail = error.response?.data?.detail || "Não foi possível adicionar o ponto.";
+            Toast.show({
+                type: 'error',
+                text1: 'Erro',
+                text2: detail
+            });
+        } finally {
+            setIsAddingPoints(false);
+        }
     };
-    try {
-      setIsLoadingData(true);
-      const [collabRes, rewardRes, reportRes, transRes] = await Promise.all([
-        api.getCollaborators(),
-        api.getRewards(),
-        api.getReport(),
-        api.getTransactions(),
-      ]);
-      setCollaborators(collabRes.data);
-      setRewards(rewardRes.data);
-      setReport(reportRes.data);
-      setTransactions(transRes.data);
-    } catch (error) {
-      Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível carregar os dados do painel.' });
-    } finally {
-      setIsLoadingData(false);
-    }
-  };
 
-  useFocusEffect(
-    useCallback(() => {
-      fetchData();
-    }, [user])
-  );
-
-  const handleAddPoints = async () => {
-    if (!clientId) {
-        Toast.show({ type: 'info', text1: 'Atenção', text2: 'Por favor, insira o ID do cliente.' });
-        return;
-    }
-    setIsAddingPoints(true);
-    try {
-      const response = await api.addPoints(clientId);
-      Toast.show({ type: 'success', text1: 'Sucesso!', text2: `1 ponto foi adicionado ao cliente ${response.data.client.name}.` });
-      setClientId('');
-      await fetchData();
-    } catch (error: any) {
-      const detail = error.response?.data?.detail || "Não foi possível adicionar o ponto.";
-      Toast.show({ type: 'error', text1: 'Erro', text2: detail });
-    } finally {
-      setIsAddingPoints(false);
-    }
-  };
-
-  const handleAddCollaborator = async () => {
-    if (!newCollabName || !newCollabEmail || !newCollabPassword) {
-      Toast.show({ type: 'info', text1: 'Atenção', text2: 'Preencha todos os campos para adicionar um colaborador.' });
-      return;
-    }
-    setIsAddingCollab(true);
-    try {
-      const response = await api.addCollaborator({ name: newCollabName, email: newCollabEmail, password: newCollabPassword });
-      Toast.show({ type: 'success', text1: 'Sucesso!', text2: `Colaborador "${response.data.name}" adicionado.` });
-      setNewCollabName('');
-      setNewCollabEmail('');
-      setNewCollabPassword('');
-      await fetchData();
-    } catch (error: any) {
-       const detail = error.response?.data?.detail || "Não foi possível adicionar o colaborador.";
-       Toast.show({ type: 'error', text1: 'Erro', text2: detail });
-    } finally {
-      setIsAddingCollab(false);
-    }
-  };
-
-  const handleDeleteCollaborator = (collab: User) => {
-    Alert.alert(
-      "Confirmar Exclusão",
-      `Tem a certeza que deseja excluir "${collab.name}"?`,
-      [
-        { text: "Cancelar", style: "cancel" },
-        {
-          text: "Excluir",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              await api.deleteCollaborator(collab.id);
-              Toast.show({ type: 'success', text1: 'Sucesso!', text2: `Colaborador "${collab.name}" excluído.` });
-              await fetchData();
-            } catch (error) {
-              Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível excluir o colaborador.' });
-            }
-          },
-        },
-      ]
-    );
-  };
-  
-  const handleUpdateCollaborator = async () => {
-    if (!updatedName || !editingCollab || updatedName === editingCollab.name) {
-      setEditingCollab(null);
-      return;
-    }
-    try {
-      await api.updateCollaborator(editingCollab.id, { name: updatedName });
-      Toast.show({ type: 'success', text1: 'Sucesso!', text2: 'Nome do colaborador atualizado.' });
-      await fetchData();
-    } catch (error) {
-      Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível atualizar o colaborador.' });
-    } finally {
-      setEditingCollab(null);
-    }
-  };
-
-  const handleAddReward = async () => {
-    if (!newRewardName || !newRewardPoints) {
-      Toast.show({ type: 'info', text1: 'Atenção', text2: 'Nome e Pontos são obrigatórios.' });
-      return;
-    }
-    setIsAddingReward(true);
-    try {
-      const response = await api.addReward({ 
-        name: newRewardName, 
-        description: newRewardDescription, 
-        points_required: parseInt(newRewardPoints, 10) 
-      });
-      Toast.show({ type: 'success', text1: 'Sucesso!', text2: `Prémio "${response.data.name}" adicionado.` });
-      setNewRewardName('');
-      setNewRewardDescription('');
-      setNewRewardPoints('');
-      await fetchData();
-    } catch (error: any) {
-      const detail = error.response?.data?.detail || "Não foi possível adicionar o prémio.";
-      Toast.show({ type: 'error', text1: 'Erro', text2: detail });
-    } finally {
-      setIsAddingReward(false);
-    }
-  };
-
-  const handleDeleteReward = (reward: Reward) => {
-    Alert.alert(
-      "Confirmar Exclusão",
-      `Tem a certeza que deseja excluir o prémio "${reward.name}"?`,
-      [
-        { text: "Cancelar", style: "cancel" },
-        {
-          text: "Excluir",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              await api.deleteReward(reward.id);
-              Toast.show({ type: 'success', text1: 'Sucesso!', text2: `Prémio "${reward.name}" excluído.` });
-              await fetchData();
-            } catch (error) {
-              Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível excluir o prémio.' });
-            }
-          },
-        },
-      ]
-    );
-  };
-
-  const handleUpdateReward = async () => {
-    if (!editingReward) return;
-    const payload: api.RewardUpdate = {};
-    if (updatedRewardName && updatedRewardName !== editingReward.name) payload.name = updatedRewardName;
-    if (updatedRewardDescription !== editingReward.description) payload.description = updatedRewardDescription;
-    if (updatedRewardPoints && parseInt(updatedRewardPoints, 10) !== editingReward.points_required) payload.points_required = parseInt(updatedRewardPoints, 10);
-
-    if (Object.keys(payload).length === 0) {
-      setEditingReward(null);
-      return;
-    }
-
-    try {
-      await api.updateReward(editingReward.id, payload);
-      Toast.show({ type: 'success', text1: 'Sucesso!', text2: 'Prémio atualizado.' });
-      await fetchData();
-    } catch (error) {
-      Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível atualizar o prémio.' });
-    } finally {
-      setEditingReward(null);
-    }
-  };
-
-
-  if (isLoadingData) {
-      return <View style={styles.container}><ActivityIndicator size="large" color="#1d4ed8" /></View>;
-  }
-
-  if (!user) return null;
-
-  return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView>
-        <View style={styles.dashboardContainer}>
-          <View style={styles.header}>
-            <View>
-              <Text style={styles.headerTitle}>Bem-vindo(a),</Text>
-              <Text style={styles.headerName}>{user.name}!</Text>
-            </View>
-            <TouchableOpacity onPress={signOut} style={styles.logoutButton}>
-              <Text style={styles.logoutButtonText}>Sair</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.featureCard}>
-            <Text style={styles.featureTitle}>Pontuar Cliente</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Scanner')} style={[styles.button, { marginBottom: 16, backgroundColor: '#16a34a' }]}>
-              <Text style={styles.buttonText}>Escanear QR Code</Text>
-            </TouchableOpacity>
-            <TextInput style={styles.input} placeholder="Ou insira o ID do Cliente" value={clientId} onChangeText={setClientId} keyboardType="number-pad" />
-            <TouchableOpacity onPress={handleAddPoints} disabled={isAddingPoints} style={styles.button}>
-              {isAddingPoints ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Adicionar 1 Ponto</Text>}
-            </TouchableOpacity>
-          </View>
-
-          {user.user_type === 'ADMIN' && (
-            <>
-              {report && (
-                <View style={styles.featureCard}>
-                  <Text style={styles.featureTitle}>Relatório da Empresa</Text>
-                  <View style={styles.reportRow}><Text style={styles.reportLabel}>Clientes Únicos:</Text><Text style={styles.reportValue}>{report.unique_customers}</Text></View>
-                  <View style={styles.reportRow}><Text style={styles.reportLabel}>Pontos Atribuídos:</Text><Text style={styles.reportValue}>{report.total_points_awarded}</Text></View>
-                  <View style={styles.reportRow}><Text style={styles.reportLabel}>Prémios Resgatados:</Text><Text style={styles.reportValue}>{report.total_rewards_redeemed}</Text></View>
-                </View>
-              )}
-              {/* 5. NOVA SECÇÃO: HISTÓRICO DE TRANSAÇÕES */}
-              <View style={styles.featureCard}>
-                <Text style={styles.featureTitle}>Últimas Transações</Text>
-                {transactions.length > 0 ? (
-                  transactions.map(tx => (
-                    <View key={tx.id} style={styles.itemContainer}>
-                      <View>
-                        <Text style={styles.itemName}>Cliente: {tx.client.name}</Text>
-                        <Text style={styles.itemSubtitle}>Atribuído por: {tx.awarded_by.name}</Text>
-                        <Text style={styles.itemDate}>{new Date(tx.created_at).toLocaleString('pt-BR')}</Text>
-                      </View>
-                      <Text style={[styles.pointsTag, tx.points < 0 ? styles.pointsTagNegative : {}]}>
-                        {tx.points > 0 ? `+${tx.points}` : tx.points} pt{tx.points !== 1 && 's'}
-                      </Text>
-                    </View>
-                  ))
-                ) : (
-                  <Text style={styles.itemSubtitle}>Nenhuma transação registada.</Text>
-                )}
-              </View>
-
-              <View style={styles.featureCard}>
-                <Text style={styles.featureTitle}>Gestão de Colaboradores</Text>
-                {collaborators.map(collab => (
-                  <View key={collab.id} style={styles.itemContainer}>
+    return (
+        <SafeAreaView style={styles.safeArea}>
+            <ScrollView contentContainerStyle={styles.container}>
+                <View style={styles.header}>
                     <View>
-                      <Text style={styles.itemName}>{collab.name}</Text>
-                      <Text style={styles.itemSubtitle}>{collab.email}</Text>
+                        <Text style={styles.headerTitle}>Bem-vindo(a), </Text>
+                        <Text style={styles.headerName}>{user?.name}!</Text>
                     </View>
-                    <View style={styles.actionsContainer}>
-                      <TouchableOpacity onPress={() => { setEditingCollab(collab); setUpdatedName(collab.name); }} style={[styles.actionButton, styles.editButton]}>
-                        <Text style={styles.actionButtonText}>Editar</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={() => handleDeleteCollaborator(collab)} style={[styles.actionButton, styles.deleteButton]}>
-                        <Text style={styles.actionButtonText}>Excluir</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                ))}
-                <View style={styles.divider} />
-                <Text style={styles.featureSubtitle}>Adicionar Novo Colaborador</Text>
-                <TextInput style={styles.input} placeholder="Nome do Colaborador" value={newCollabName} onChangeText={setNewCollabName} />
-                <TextInput style={styles.input} placeholder="Email" value={newCollabEmail} onChangeText={setNewCollabEmail} keyboardType="email-address" autoCapitalize="none" />
-                <TextInput style={styles.input} placeholder="Senha Provisória" value={newCollabPassword} onChangeText={setNewCollabPassword} secureTextEntry />
-                <TouchableOpacity onPress={handleAddCollaborator} disabled={isAddingCollab} style={styles.button}>
-                  {isAddingCollab ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Adicionar</Text>}
-                </TouchableOpacity>
-              </View>
+                    <TouchableOpacity onPress={signOut}>
+                        <Text style={styles.logoutButton}>Sair</Text>
+                    </TouchableOpacity>
+                </View>
 
-              <View style={styles.featureCard}>
-                <Text style={styles.featureTitle}>Gestão de Prémios</Text>
-                {rewards.map(reward => (
-                  <View key={reward.id} style={styles.itemContainer}>
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.itemName}>{reward.name}</Text>
-                      <Text style={styles.itemSubtitle}>{reward.description}</Text>
-                      <Text style={styles.pointsTag}>{reward.points_required} pts</Text>
-                    </View>
-                    {/* NOVOS BOTÕES DE AÇÃO PARA PRÉMIOS */}
-                    <View style={styles.actionsContainer}>
-                      <TouchableOpacity 
-                        onPress={() => { 
-                          setEditingReward(reward); 
-                          setUpdatedRewardName(reward.name);
-                          setUpdatedRewardDescription(reward.description || '');
-                          setUpdatedRewardPoints(reward.points_required.toString());
-                        }} 
-                        style={[styles.actionButton, styles.editButton]}>
-                        <Text style={styles.actionButtonText}>Editar</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={() => handleDeleteReward(reward)} style={[styles.actionButton, styles.deleteButton]}>
-                        <Text style={styles.actionButtonText}>Excluir</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                ))}
-                <View style={styles.divider} />
-                <Text style={styles.featureSubtitle}>Adicionar Novo Prémio</Text>
-                <TextInput style={styles.input} placeholder="Nome do Prémio" value={newRewardName} onChangeText={setNewRewardName} />
-                <TextInput style={styles.input} placeholder="Descrição (opcional)" value={newRewardDescription} onChangeText={setNewRewardDescription} />
-                <TextInput style={styles.input} placeholder="Pontos Necessários" value={newRewardPoints} onChangeText={setNewRewardPoints} keyboardType="number-pad" />
-                <TouchableOpacity onPress={handleAddReward} disabled={isAddingReward} style={styles.button}>
-                  {isAddingReward ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Adicionar Prémio</Text>}
-                </TouchableOpacity>
-              </View>
-            </>
-          )}
-        </View>
-      </ScrollView>
+                <View style={styles.card}>
+                    <Text style={styles.cardTitle}>Pontuar Cliente</Text>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Scanner')}
+                        style={[styles.button, { marginBottom: 16, backgroundColor: '#16a34a' }]}
+                    >
+                        <Text style={styles.buttonText}>Escanear QR Code</Text>
+                    </TouchableOpacity>
+                    <StyledTextInput
+                        label="Ou insira o ID do Cliente"
+                        value={clientId}
+                        onChangeText={setClientId}
+                        keyboardType="number-pad"
+                        placeholder="ID do Cliente"
+                    />
+                    <TouchableOpacity
+                        onPress={handleAddPoints}
+                        disabled={isAddingPoints}
+                        style={styles.button}
+                    >
+                        {isAddingPoints ? (
+                            <ActivityIndicator color="#fff" />
+                        ) : (
+                            <Text style={styles.buttonText}>Adicionar 1 Ponto</Text>
+                        )}
+                    </TouchableOpacity>
+                </View>
 
-      {/* Modal para Editar Colaborador */}
-      <Modal visible={!!editingCollab} transparent={true} animationType="slide" onRequestClose={() => setEditingCollab(null)}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalTitle}>Editar Colaborador</Text>
-            <TextInput style={styles.input} value={updatedName} onChangeText={setUpdatedName} placeholder="Novo nome" />
-            <View style={styles.modalButtonContainer}>
-              <TouchableOpacity style={[styles.modalButton, styles.cancelButton]} onPress={() => setEditingCollab(null)}>
-                <Text style={styles.buttonText}>Cancelar</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.modalButton, styles.saveButton]} onPress={handleUpdateCollaborator}>
-                <Text style={styles.buttonText}>Salvar</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
-
-      {/* NOVO MODAL PARA EDITAR PRÉMIO */}
-      <Modal visible={!!editingReward} transparent={true} animationType="slide" onRequestClose={() => setEditingReward(null)}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalTitle}>Editar Prémio</Text>
-            <TextInput style={styles.input} value={updatedRewardName} onChangeText={setUpdatedRewardName} placeholder="Nome do Prémio" />
-            <TextInput style={styles.input} value={updatedRewardDescription} onChangeText={setUpdatedRewardDescription} placeholder="Descrição (opcional)" />
-            <TextInput style={styles.input} value={updatedRewardPoints} onChangeText={setUpdatedRewardPoints} placeholder="Pontos" keyboardType="number-pad" />
-            <View style={styles.modalButtonContainer}>
-              <TouchableOpacity style={[styles.modalButton, styles.cancelButton]} onPress={() => setEditingReward(null)}>
-                <Text style={styles.buttonText}>Cancelar</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.modalButton, styles.saveButton]} onPress={handleUpdateReward}>
-                <Text style={styles.buttonText}>Salvar</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
-    </SafeAreaView>
-  );
+                {user?.user_type === 'ADMIN' && (
+                    <View style={styles.card}>
+                        <Text style={styles.cardTitle}>Menu Principal</Text>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('ManageCollaborators')}
+                            style={styles.menuButton}
+                        >
+                            <Text style={styles.buttonText}>Gerir Colaboradores</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('ManageRewards')}
+                            style={styles.menuButton}
+                        >
+                            <Text style={styles.buttonText}>Gerir Prémios</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('Reports')}
+                            style={styles.menuButton}
+                        >
+                            <Text style={styles.buttonText}>Ver Relatórios</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('Transactions')}
+                            style={styles.menuButton}
+                        >
+                            <Text style={styles.buttonText}>Ver Transações</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
+            </ScrollView>
+        </SafeAreaView>
+    );
 };
 
 const styles = StyleSheet.create({
-    safeArea: { flex: 1, backgroundColor: '#f9fafb' },
-    container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f9fafb' },
-    dashboardContainer: { padding: 24 },
-    header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 },
-    headerTitle: { fontSize: 24, color: '#374151' },
-    headerName: { fontSize: 24, fontWeight: 'bold', color: '#1f2937' },
-    logoutButton: { backgroundColor: '#fee2e2', paddingVertical: 8, paddingHorizontal: 12, borderRadius: 99 },
-    logoutButtonText: { color: '#dc2626', fontWeight: 'bold' },
-    featureCard: { marginTop: 24, backgroundColor: 'white', borderRadius: 20, padding: 20, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 4, },
-    featureTitle: { fontSize: 20, fontWeight: 'bold', color: '#1f2937', marginBottom: 16 },
-    featureSubtitle: { fontSize: 16, color: '#4b5563', marginTop: 16, marginBottom: 8 },
-    button: { backgroundColor: '#1d4ed8', padding: 16, borderRadius: 12, alignItems: 'center' },
-    buttonText: { color: 'white', fontSize: 18, fontWeight: 'bold' },
-    input: { backgroundColor: 'white', padding: 15, borderRadius: 12, marginBottom: 16, fontSize: 16, borderWidth: 1, borderColor: '#e5e7eb' },
-    reportRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 4 },
-    reportLabel: { fontSize: 16, color: '#4b5563' },
-    reportValue: { fontSize: 16, fontWeight: 'bold', color: '#1f2937' },
-    itemContainer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: '#f3f4f6' },
-    itemName: { fontSize: 16, fontWeight: '500', color: '#1f2937' },
-    itemSubtitle: { fontSize: 14, color: '#6b7280' },
-    itemDate: { fontSize: 12, color: '#9ca3af', marginTop: 2 }, // Added missing style
-    actionsContainer: { flexDirection: 'row' },
-    actionButton: { paddingVertical: 6, paddingHorizontal: 12, borderRadius: 8, marginLeft: 8 },
-    editButton: { backgroundColor: '#dbeafe' },
-    deleteButton: { backgroundColor: '#fee2e2' },
-    actionButtonText: { fontWeight: '500', color: '#374151' },
-    divider: { height: 1, backgroundColor: '#f3f4f6', marginVertical: 16 },
-    pointsTag: { backgroundColor: '#e0e7ff', color: '#3730a3', fontWeight: 'bold', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 99, alignSelf: 'flex-start', marginTop: 4 },
-    pointsTagNegative: { backgroundColor: '#fee2e2', color: '#dc2626' },
-    modalContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' },
-    modalView: { width: '85%', backgroundColor: 'white', borderRadius: 20, padding: 24, alignItems: 'center', elevation: 5 },
-    modalTitle: { fontSize: 20, fontWeight: 'bold', marginBottom: 20 },
-    modalButtonContainer: { flexDirection: 'row', marginTop: 20, width: '100%' },
-    modalButton: { flex: 1, borderRadius: 12, padding: 12, alignItems: 'center' },
-    cancelButton: { backgroundColor: '#9ca3af', marginRight: 10 },
-    saveButton: { backgroundColor: '#1d4ed8', marginLeft: 10 },
+    safeArea: {
+        flex: 1,
+        backgroundColor: '#0A0A2A'
+    },
+    container: {
+        padding: 20
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 20
+    },
+    headerTitle: {
+        fontSize: 24,
+        color: '#FFFFFF'
+    },
+    headerName: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#FFFFFF'
+    },
+    logoutButton: {
+        fontSize: 16,
+        color: '#FDD835',
+        fontWeight: 'bold'
+    },
+    card: {
+        backgroundColor: '#1E1E3F',
+        borderRadius: 12,
+        padding: 20,
+        marginBottom: 20
+    },
+    cardTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#FFFFFF',
+        marginBottom: 16
+    },
+    button: {
+        backgroundColor: '#3D5CFF',
+        padding: 15,
+        borderRadius: 12,
+        alignItems: 'center'
+    },
+    menuButton: {
+        backgroundColor: '#3D5CFF',
+        padding: 15,
+        borderRadius: 12,
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    buttonText: {
+        color: '#FFFFFF',
+        fontSize: 18,
+        fontWeight: 'bold'
+    },
 });
 
 export default DashboardScreen;

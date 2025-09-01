@@ -20,7 +20,7 @@ const linking: LinkingOptions<AuthStackParamList> = {
   config: {
     screens: {
       // Mapeia o caminho do URL para o nome do ecrã no seu navegador
-      ResetPassword: 'reset-password',
+      ResetPassword: 'reset-password/:token',
     },
   },
 };

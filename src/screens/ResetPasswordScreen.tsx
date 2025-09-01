@@ -5,15 +5,14 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
-  Alert,
   ActivityIndicator,
-  TextInput,
 } from 'react-native';
 import { useRoute, RouteProp } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../navigation/AuthNavigator';
 import { resetPassword } from '../services/api';
 import Toast from 'react-native-toast-message';
+import StyledTextInput from '../components/StyledTextInput';
 
 type ResetPasswordRouteProp = RouteProp<AuthStackParamList, 'ResetPassword'>;
 type Props = NativeStackScreenProps<AuthStackParamList, 'ResetPassword'>;
@@ -58,31 +57,34 @@ const ResetPasswordScreen = ({ navigation }: Props) => {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.content}>
         <Text style={styles.title}>Redefinir Senha</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Token de Recuperação"
+        <StyledTextInput
+          label="Token de Recuperação"
+          placeholder="Cole o token do seu e-mail"
           value={token}
           onChangeText={setToken}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Nova Senha"
+        <StyledTextInput
+          label="Nova Senha"
+          placeholder="Digite a sua nova senha"
           value={newPassword}
           onChangeText={setNewPassword}
           secureTextEntry
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Confirmar Nova Senha"
+        <StyledTextInput
+          label="Confirmar Nova Senha"
+          placeholder="Digite a nova senha novamente"
           value={confirmPassword}
           onChangeText={setConfirmPassword}
           secureTextEntry
         />
         <TouchableOpacity style={styles.button} onPress={handleReset} disabled={isLoading}>
-          {isLoading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Salvar Nova Senha</Text>}
+          {isLoading ? <ActivityIndicator color="#FFFFFF" /> : <Text style={styles.buttonText}>Salvar Nova Senha</Text>}
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.footerText}>Voltar para o Login</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -90,12 +92,41 @@ const ResetPasswordScreen = ({ navigation }: Props) => {
 };
 
 const styles = StyleSheet.create({
-    safeArea: { flex: 1, backgroundColor: '#f9fafb' },
-    container: { flex: 1, justifyContent: 'center', padding: 24 },
-    title: { fontSize: 32, fontWeight: 'bold', color: '#1d4ed8', textAlign: 'center', marginBottom: 32 },
-    input: { backgroundColor: 'white', padding: 15, borderRadius: 12, marginBottom: 16, fontSize: 16, borderWidth: 1, borderColor: '#e5e7eb' },
-    button: { backgroundColor: '#1d4ed8', padding: 16, borderRadius: 12, alignItems: 'center' },
-    buttonText: { color: 'white', fontSize: 18, fontWeight: 'bold' },
+  container: {
+    flex: 1,
+    backgroundColor: '#0A0A2A',
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 30,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginBottom: 30,
+  },
+  button: {
+    backgroundColor: '#3D5CFF',
+    width: '100%',
+    padding: 15,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  footerText: {
+    marginTop: 30,
+    color: '#FDD835',
+    fontWeight: 'bold',
+    fontSize: 14,
+  },
 });
 
 export default ResetPasswordScreen;

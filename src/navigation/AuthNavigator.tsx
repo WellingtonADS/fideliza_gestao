@@ -13,14 +13,13 @@ export type AuthStackParamList = {
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 
-const AuthNavigator = () => {
+const AuthNavigator: React.FC = () => {
   return (
     <AuthStack.Navigator screenOptions={{ headerShown: false }}>
       <AuthStack.Screen name="Login" component={LoginScreen} />
       <AuthStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
       <AuthStack.Screen name="ResetPassword" component={ResetPasswordScreen} />
     </AuthStack.Navigator>
-
   );
 };
 
