@@ -3,11 +3,18 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DashboardScreen from '../screens/DashboardScreen';
 import ScannerScreen from '../screens/ScannerScreen';
 
+// Define o tipo para os parâmetros do toast
+type ToastParams = {
+  type: 'success' | 'error';
+  text1: string;
+  text2: string;
+};
+
+
 // Define os ecrãs e os seus parâmetros para o fluxo principal da aplicação de gestão
 export type AdminStackParamList = {
-  Dashboard: undefined;
+  Dashboard: { toast?: ToastParams } | undefined;
   Scanner: undefined;
-  // Futuramente, adicionaremos 'ManageRewards', 'Collaborators', etc.
 };
 
 const AdminStack = createNativeStackNavigator<AdminStackParamList>();

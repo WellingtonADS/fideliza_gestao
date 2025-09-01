@@ -1,5 +1,6 @@
+// src/screens/ScannerScreen.tsx
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -16,30 +17,23 @@ const ScannerScreen = ({ navigation }: Props) => {
 
     try {
       const response = await addPoints(clientId);
-      // Usamos o Toast para a notificação de sucesso
-      navigation.navigate('Dashboard', { 
-        toast: { 
-          type: 'success', 
-          text1: 'Sucesso!', 
-          text2: `1 ponto foi adicionado ao cliente ${response.data.client.name}.` 
-        } 
+      navigation.navigate('Dashboard', {
+        toast: {
+          type: 'success',
+          text1: 'Sucesso!',
+          text2: `1 ponto foi adicionado ao cliente ${response.data.client.name}.`
+        }
       });
     } catch (error: any) {
       const detail = error.response?.data?.detail || "Não foi possível adicionar o ponto.";
-      // Usamos o Toast para a notificação de erro
-      navigation.navigate('Dashboard', { 
-        toast: { 
-          type: 'error', 
-          text1: 'Erro', 
-          text2: detail 
-        } 
+      navigation.navigate('Dashboard', {
+        toast: {
+          type: 'error',
+          text1: 'Erro',
+          text2: detail
+        }
       });
     }
-  };
-
-  const requestCameraPermission = async () => {
-    // A biblioteca react-native-permissions pode ser usada aqui para um fluxo mais robusto
-    // mas por simplicidade, a própria biblioteca da câmara irá pedir a permissão.
   };
 
   return (
@@ -58,6 +52,9 @@ const ScannerScreen = ({ navigation }: Props) => {
       }
       cameraStyle={styles.cameraContainer}
       containerStyle={styles.container}
+      reactivate={true}
+      reactivateTimeout={2000}
+      showMarker={true}
     />
   );
 };
@@ -74,6 +71,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     padding: 32,
     color: '#777',
+    textAlign: 'center',
   },
   buttonText: {
     fontSize: 21,

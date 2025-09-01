@@ -1,16 +1,18 @@
-import React, { useState, useEffect, useCallback } from 'react';
+// src/screens/DashboardScreen.tsx
+import React, { useState, useCallback,useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, TextInput, ActivityIndicator, Alert, Modal } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import { useFocusEffect } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AdminStackParamList } from '../navigation/AdminNavigator';
 import { User } from '../types/auth';
-import { Reward, CompanyReport,PointTransaction } from '../types/gestao';
+import { Reward, CompanyReport, PointTransaction } from '../types/gestao';
 import * as api from '../services/api';
+import Toast from 'react-native-toast-message'; // Importe o Toast
 
 type Props = NativeStackScreenProps<AdminStackParamList, 'Dashboard'>;
 
-const DashboardScreen = ({ navigation }: Props) => {
+const DashboardScreen = ({ navigation, route }: Props) => {
   const { user, signOut } = useAuth();
   const [clientId, setClientId] = useState('');
   const [isAddingPoints, setIsAddingPoints] = useState(false);
@@ -38,6 +40,22 @@ const DashboardScreen = ({ navigation }: Props) => {
   const [transactions, setTransactions] = useState<PointTransaction[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
+    useEffect(() => {
+    if (route.params?.toast) {
+      const { type, text1, text2 } = route.params.toast;
+      Toast.show({
+        type: type,
+        text1: text1,
+        text2: text2,
+        visibilityTime: 4000,
+      });
+      // Limpa os parâmetros para não mostrar o toast novamente
+      navigation.setParams({ toast: undefined });
+    }
+  }, [route.params?.toast]);
+  
+
+
   const fetchData = async () => {
     if (user?.user_type !== 'ADMIN') {
       setIsLoadingData(false);
@@ -56,7 +74,7 @@ const DashboardScreen = ({ navigation }: Props) => {
       setReport(reportRes.data);
       setTransactions(transRes.data);
     } catch (error) {
-      Alert.alert("Erro", "Não foi possível carregar os dados do painel.");
+      Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível carregar os dados do painel.' });
     } finally {
       setIsLoadingData(false);
     }
@@ -69,16 +87,19 @@ const DashboardScreen = ({ navigation }: Props) => {
   );
 
   const handleAddPoints = async () => {
-    if (!clientId) return Alert.alert("Atenção", "Por favor, insira o ID do cliente.");
+    if (!clientId) {
+        Toast.show({ type: 'info', text1: 'Atenção', text2: 'Por favor, insira o ID do cliente.' });
+        return;
+    }
     setIsAddingPoints(true);
     try {
       const response = await api.addPoints(clientId);
-      Alert.alert("Sucesso!", `1 ponto foi adicionado com sucesso ao cliente ${response.data.client.name}.`);
+      Toast.show({ type: 'success', text1: 'Sucesso!', text2: `1 ponto foi adicionado ao cliente ${response.data.client.name}.` });
       setClientId('');
       await fetchData();
     } catch (error: any) {
       const detail = error.response?.data?.detail || "Não foi possível adicionar o ponto.";
-      Alert.alert("Erro", detail);
+      Toast.show({ type: 'error', text1: 'Erro', text2: detail });
     } finally {
       setIsAddingPoints(false);
     }
@@ -86,27 +107,29 @@ const DashboardScreen = ({ navigation }: Props) => {
 
   const handleAddCollaborator = async () => {
     if (!newCollabName || !newCollabEmail || !newCollabPassword) {
-      Alert.alert("Atenção", "Preencha todos os campos para adicionar um colaborador.");
+      Toast.show({ type: 'info', text1: 'Atenção', text2: 'Preencha todos os campos para adicionar um colaborador.' });
       return;
     }
     setIsAddingCollab(true);
     try {
       const response = await api.addCollaborator({ name: newCollabName, email: newCollabEmail, password: newCollabPassword });
-      Alert.alert("Sucesso!", `Colaborador "${response.data.name}" adicionado.`);
+      Toast.show({ type: 'success', text1: 'Sucesso!', text2: `Colaborador "${response.data.name}" adicionado.` });
       setNewCollabName('');
       setNewCollabEmail('');
       setNewCollabPassword('');
       await fetchData();
     } catch (error: any) {
        const detail = error.response?.data?.detail || "Não foi possível adicionar o colaborador.";
-       Alert.alert("Erro", detail);
+       Toast.show({ type: 'error', text1: 'Erro', text2: detail });
     } finally {
       setIsAddingCollab(false);
     }
   };
 
   const handleDeleteCollaborator = (collab: User) => {
-    Alert.alert("Confirmar Exclusão", `Tem a certeza que deseja excluir "${collab.name}"?`,
+    Alert.alert(
+      "Confirmar Exclusão",
+      `Tem a certeza que deseja excluir "${collab.name}"?`,
       [
         { text: "Cancelar", style: "cancel" },
         {
@@ -115,10 +138,10 @@ const DashboardScreen = ({ navigation }: Props) => {
           onPress: async () => {
             try {
               await api.deleteCollaborator(collab.id);
-              Alert.alert("Sucesso!", `Colaborador "${collab.name}" excluído.`);
+              Toast.show({ type: 'success', text1: 'Sucesso!', text2: `Colaborador "${collab.name}" excluído.` });
               await fetchData();
             } catch (error) {
-              Alert.alert("Erro", "Não foi possível excluir o colaborador.");
+              Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível excluir o colaborador.' });
             }
           },
         },
@@ -133,10 +156,10 @@ const DashboardScreen = ({ navigation }: Props) => {
     }
     try {
       await api.updateCollaborator(editingCollab.id, { name: updatedName });
-      Alert.alert("Sucesso!", "Nome do colaborador atualizado.");
+      Toast.show({ type: 'success', text1: 'Sucesso!', text2: 'Nome do colaborador atualizado.' });
       await fetchData();
     } catch (error) {
-      Alert.alert("Erro", "Não foi possível atualizar o colaborador.");
+      Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível atualizar o colaborador.' });
     } finally {
       setEditingCollab(null);
     }
@@ -144,7 +167,7 @@ const DashboardScreen = ({ navigation }: Props) => {
 
   const handleAddReward = async () => {
     if (!newRewardName || !newRewardPoints) {
-      Alert.alert("Atenção", "Nome e Pontos são obrigatórios para criar um prémio.");
+      Toast.show({ type: 'info', text1: 'Atenção', text2: 'Nome e Pontos são obrigatórios.' });
       return;
     }
     setIsAddingReward(true);
@@ -154,22 +177,23 @@ const DashboardScreen = ({ navigation }: Props) => {
         description: newRewardDescription, 
         points_required: parseInt(newRewardPoints, 10) 
       });
-      Alert.alert("Sucesso!", `Prémio "${response.data.name}" adicionado.`);
+      Toast.show({ type: 'success', text1: 'Sucesso!', text2: `Prémio "${response.data.name}" adicionado.` });
       setNewRewardName('');
       setNewRewardDescription('');
       setNewRewardPoints('');
       await fetchData();
     } catch (error: any) {
       const detail = error.response?.data?.detail || "Não foi possível adicionar o prémio.";
-      Alert.alert("Erro", detail);
+      Toast.show({ type: 'error', text1: 'Erro', text2: detail });
     } finally {
       setIsAddingReward(false);
     }
   };
 
-  // NOVAS FUNÇÕES PARA GERIR PRÉMIOS
   const handleDeleteReward = (reward: Reward) => {
-    Alert.alert("Confirmar Exclusão", `Tem a certeza que deseja excluir o prémio "${reward.name}"?`,
+    Alert.alert(
+      "Confirmar Exclusão",
+      `Tem a certeza que deseja excluir o prémio "${reward.name}"?`,
       [
         { text: "Cancelar", style: "cancel" },
         {
@@ -178,10 +202,10 @@ const DashboardScreen = ({ navigation }: Props) => {
           onPress: async () => {
             try {
               await api.deleteReward(reward.id);
-              Alert.alert("Sucesso!", `Prémio "${reward.name}" excluído.`);
+              Toast.show({ type: 'success', text1: 'Sucesso!', text2: `Prémio "${reward.name}" excluído.` });
               await fetchData();
             } catch (error) {
-              Alert.alert("Erro", "Não foi possível excluir o prémio.");
+              Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível excluir o prémio.' });
             }
           },
         },
@@ -191,7 +215,6 @@ const DashboardScreen = ({ navigation }: Props) => {
 
   const handleUpdateReward = async () => {
     if (!editingReward) return;
-
     const payload: api.RewardUpdate = {};
     if (updatedRewardName && updatedRewardName !== editingReward.name) payload.name = updatedRewardName;
     if (updatedRewardDescription !== editingReward.description) payload.description = updatedRewardDescription;
@@ -204,10 +227,10 @@ const DashboardScreen = ({ navigation }: Props) => {
 
     try {
       await api.updateReward(editingReward.id, payload);
-      Alert.alert("Sucesso!", "Prémio atualizado.");
+      Toast.show({ type: 'success', text1: 'Sucesso!', text2: 'Prémio atualizado.' });
       await fetchData();
     } catch (error) {
-      Alert.alert("Erro", "Não foi possível atualizar o prémio.");
+      Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível atualizar o prémio.' });
     } finally {
       setEditingReward(null);
     }

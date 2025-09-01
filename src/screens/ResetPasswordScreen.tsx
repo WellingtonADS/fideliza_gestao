@@ -13,6 +13,7 @@ import { useRoute, RouteProp } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../navigation/AuthNavigator';
 import { resetPassword } from '../services/api';
+import Toast from 'react-native-toast-message';
 
 type ResetPasswordRouteProp = RouteProp<AuthStackParamList, 'ResetPassword'>;
 type Props = NativeStackScreenProps<AuthStackParamList, 'ResetPassword'>;
@@ -32,24 +33,25 @@ const ResetPasswordScreen = ({ navigation }: Props) => {
 
   const handleReset = async () => {
     if (!token || !newPassword || !confirmPassword) {
-      Alert.alert('Atenção', 'Por favor, preencha todos os campos.');
+      Toast.show({ type: 'info', text1: 'Atenção', text2: 'Por favor, preencha todos os campos.' });
       return;
     }
     if (newPassword !== confirmPassword) {
-      Alert.alert('Erro', 'As senhas não coincidem.');
+      Toast.show({ type: 'error', text1: 'Erro', text2: 'As senhas não coincidem.' });
       return;
     }
     setIsLoading(true);
     try {
       await resetPassword(token, newPassword);
-      Alert.alert(
-        'Sucesso',
-        'A sua senha foi redefinida. Por favor, faça o login.',
-        [{ text: 'OK', onPress: () => navigation.navigate('Login') }]
-      );
+      Toast.show({
+        type: 'success',
+        text1: 'Sucesso',
+        text2: 'A sua senha foi redefinida. Por favor, faça o login.'
+      });
+      navigation.navigate('Login');
     } catch (error: any) {
       const detail = error.response?.data?.detail || 'Não foi possível redefinir a senha.';
-      Alert.alert('Erro', detail);
+      Toast.show({ type: 'error', text1: 'Erro', text2: detail });
     } finally {
       setIsLoading(false);
     }

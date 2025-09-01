@@ -5,13 +5,13 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
-  Alert,
   ActivityIndicator,
   TextInput,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../navigation/AuthNavigator';
 import { requestPasswordRecovery } from '../services/api';
+import Toast from 'react-native-toast-message';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'ForgotPassword'>;
 
@@ -21,23 +21,26 @@ const ForgotPasswordScreen = ({ navigation }: Props) => {
 
   const handlePasswordReset = async () => {
     if (!email) {
-      Alert.alert('Atenção', 'Por favor, insira o seu e-mail.');
+      Toast.show({ type: 'info', text1: 'Atenção', text2: 'Por favor, insira o seu e-mail.' });
       return;
     }
     setIsLoading(true);
     try {
       const response = await requestPasswordRecovery(email);
-      Alert.alert(
-        'Verifique o seu E-mail',
-        response.data.message,
-        [{ text: 'OK', onPress: () => navigation.navigate('Login') }]
-      );
+      Toast.show({
+        type: 'success',
+        text1: 'Verifique o seu E-mail',
+        text2: response.data.message || "Se uma conta com este e-mail existir, um link de recuperação foi enviado."
+      });
+      navigation.navigate('Login');
     } catch (error) {
-      Alert.alert(
-        'Verifique o seu E-mail',
-        "Se uma conta com este e-mail existir, um link de recuperação foi enviado.",
-        [{ text: 'OK', onPress: () => navigation.navigate('Login') }]
-      );
+      // Mesmo em caso de erro (ex: e-mail não encontrado), mostramos uma mensagem genérica por segurança.
+      Toast.show({
+        type: 'info',
+        text1: 'Verifique o seu E-mail',
+        text2: "Se uma conta com este e-mail existir, um link de recuperação foi enviado."
+      });
+      navigation.navigate('Login');
     } finally {
       setIsLoading(false);
     }
