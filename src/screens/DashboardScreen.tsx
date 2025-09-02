@@ -1,9 +1,7 @@
-import React,
-{
+import React, {
     useState,
     useEffect
-}
-from 'react';
+} from 'react';
 import {
     View,
     Text,
@@ -12,20 +10,16 @@ import {
     SafeAreaView,
     TouchableOpacity,
     ActivityIndicator
-}
-from 'react-native';
+} from 'react-native';
 import {
     useAuth
-}
-from '../context/AuthContext';
+} from '../context/AuthContext';
 import {
     NativeStackScreenProps
-}
-from '@react-navigation/native-stack';
+} from '@react-navigation/native-stack';
 import {
     AdminStackParamList
-}
-from '../navigation/AdminNavigator';
+} from '../navigation/AdminNavigator';
 import * as api from '../services/api';
 import Toast from 'react-native-toast-message';
 import StyledTextInput from '../components/StyledTextInput';
@@ -53,6 +47,15 @@ const DashboardScreen = ({
             });
         }
     }, [route.params?.toast]);
+    
+    // Esta função decide para onde navegar com base no tipo de utilizador
+    const handleHeaderPress = () => {
+        if (user?.user_type === 'ADMIN') {
+            navigation.navigate('EditCompany');
+        } else {
+            navigation.navigate('EditProfile');
+        }
+    }
 
     const handleAddPoints = async () => {
         if (!clientId) {
@@ -87,69 +90,47 @@ const DashboardScreen = ({
     return (
         <SafeAreaView style={styles.safeArea}>
             <ScrollView contentContainerStyle={styles.container}>
+                {/* O CABEÇALHO AGORA É UM BOTÃO */}
                 <View style={styles.header}>
-                    <View>
-                        <Text style={styles.headerTitle}>Bem-vindo(a), </Text>
+                    <TouchableOpacity onPress={handleHeaderPress}>
+                        <Text style={styles.headerTitle}>Bem-vindo(a),</Text>
                         <Text style={styles.headerName}>{user?.name}!</Text>
-                    </View>
+                    </TouchableOpacity>
                     <TouchableOpacity onPress={signOut}>
                         <Text style={styles.logoutButton}>Sair</Text>
                     </TouchableOpacity>
                 </View>
+                {/* FIM DA ALTERAÇÃO */}
 
                 <View style={styles.card}>
                     <Text style={styles.cardTitle}>Pontuar Cliente</Text>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('Scanner')}
-                        style={[styles.button, { marginBottom: 16, backgroundColor: '#16a34a' }]}
-                    >
+                    <TouchableOpacity onPress={() => navigation.navigate('Scanner')}
+                        style={[styles.button, { marginBottom: 16, backgroundColor: '#16a34a' }]}>
                         <Text style={styles.buttonText}>Escanear QR Code</Text>
                     </TouchableOpacity>
-                    <StyledTextInput
-                        label="Ou insira o ID do Cliente"
+                    <StyledTextInput label="Ou insira o ID do Cliente"
                         value={clientId}
                         onChangeText={setClientId}
                         keyboardType="number-pad"
-                        placeholder="ID do Cliente"
-                    />
-                    <TouchableOpacity
-                        onPress={handleAddPoints}
-                        disabled={isAddingPoints}
-                        style={styles.button}
-                    >
-                        {isAddingPoints ? (
-                            <ActivityIndicator color="#fff" />
-                        ) : (
-                            <Text style={styles.buttonText}>Adicionar 1 Ponto</Text>
-                        )}
+                        placeholder="ID do Cliente" />
+                    <TouchableOpacity onPress={handleAddPoints} disabled={isAddingPoints} style={styles.button}>
+                        {isAddingPoints ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Adicionar 1 Ponto</Text>}
                     </TouchableOpacity>
                 </View>
 
                 {user?.user_type === 'ADMIN' && (
                     <View style={styles.card}>
                         <Text style={styles.cardTitle}>Menu Principal</Text>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('ManageCollaborators')}
-                            style={styles.menuButton}
-                        >
+                        <TouchableOpacity onPress={() => navigation.navigate('ManageCollaborators')} style={styles.menuButton}>
                             <Text style={styles.buttonText}>Gerir Colaboradores</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('ManageRewards')}
-                            style={styles.menuButton}
-                        >
+                        <TouchableOpacity onPress={() => navigation.navigate('ManageRewards')} style={styles.menuButton}>
                             <Text style={styles.buttonText}>Gerir Prémios</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('Reports')}
-                            style={styles.menuButton}
-                        >
+                        <TouchableOpacity onPress={() => navigation.navigate('Reports')} style={styles.menuButton}>
                             <Text style={styles.buttonText}>Ver Relatórios</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('Transactions')}
-                            style={styles.menuButton}
-                        >
+                        <TouchableOpacity onPress={() => navigation.navigate('Transactions')} style={styles.menuButton}>
                             <Text style={styles.buttonText}>Ver Transações</Text>
                         </TouchableOpacity>
                     </View>
@@ -220,3 +201,4 @@ const styles = StyleSheet.create({
 });
 
 export default DashboardScreen;
+

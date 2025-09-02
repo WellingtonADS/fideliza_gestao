@@ -1,15 +1,17 @@
 import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { User, UserCredentials } from '../types/auth';
-import { login as apiLogin, getMyProfile, setAuthToken } from '../services/api';
+import * as api from '../services/api';
 import axios from 'axios';
 
+// Define o tipo para o contexto de autenticação
 interface AuthContextType {
   token: string | null;
   user: User | null;
   isLoading: boolean;
   signIn: (credentials: UserCredentials) => Promise<void>;
   signOut: () => void;
+  refreshUser: () => Promise<void>; // 1. Adicione a função aqui
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -24,14 +26,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         const storedToken = await AsyncStorage.getItem('userToken');
         if (storedToken) {
-          setAuthToken(storedToken);
-          const response = await getMyProfile();
-          // Valida se o utilizador guardado é um parceiro
-          if (response.data.user_type === 'ADMIN' || response.data.user_type === 'COLLABORATOR') {
+          api.setAuthToken(storedToken);
+          const response = await api.getMyProfile();
+           if (response.data.user_type === 'ADMIN' || response.data.user_type === 'COLLABORATOR') {
             setToken(storedToken);
             setUser(response.data);
           } else {
-            // Se for um cliente, força o logout da app de gestão
             await signOut();
           }
         }
@@ -47,29 +47,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signIn = async (credentials: UserCredentials) => {
     try {
-      const response = await apiLogin(credentials);
+      const response = await api.login(credentials);
       const { access_token } = response.data;
-      setAuthToken(access_token);
+      api.setAuthToken(access_token);
       
-      const profileResponse = await getMyProfile();
+      const profileResponse = await api.getMyProfile();
       const profile = profileResponse.data;
 
-      // LÓGICA CRÍTICA: Apenas permite o login de admins e colaboradores
       if (profile.user_type === 'ADMIN' || profile.user_type === 'COLLABORATOR') {
         setUser(profile);
         setToken(access_token);
         await AsyncStorage.setItem('userToken', access_token);
       } else {
-        setAuthToken(undefined); // Limpa o token se não for do tipo correto
+        api.setAuthToken(undefined);
         throw new Error('Acesso negado. Esta aplicação é apenas para parceiros.');
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        if (error.response.status === 401) {
-          throw new Error('Email ou senha inválidos.');
-        }
+        if (error.response.status === 401) throw new Error('Email ou senha inválidos.');
       }
-      // Re-lança o erro para ser tratado na tela de login
       throw error;
     }
   };
@@ -77,12 +73,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signOut = async () => {
     setToken(null);
     setUser(null);
-    setAuthToken(undefined);
+    api.setAuthToken(undefined);
     await AsyncStorage.removeItem('userToken');
   };
 
+  // 2. Implemente a função refreshUser
+  const refreshUser = async () => {
+    if (!token) return;
+    try {
+      const profileResponse = await api.getMyProfile();
+      setUser(profileResponse.data);
+    } catch (error) {
+      await signOut();
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ token, user, isLoading, signIn, signOut }}>
+    // 3. Adicione a função ao valor do provedor
+    <AuthContext.Provider value={{ token, user, isLoading, signIn, signOut, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );
@@ -95,3 +103,4 @@ export const useAuth = (): AuthContextType => {
   }
   return context;
 };
+

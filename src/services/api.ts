@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { User, UserCredentials } from '../types/auth';
 import { CompanyReport, PointTransaction, Reward, RewardCreate, CollaboratorCreate, CollaboratorUpdate } from '../types/gestao';
+import { CompanyDetails } from '../types/company';
 
 export interface RewardUpdate {
     name?: string;
@@ -62,3 +63,17 @@ export const deleteReward = (id: number) => api.delete(`/rewards/${id}`);
 
 export const getTransactions = () => api.get<PointTransaction[]>('/points/transactions/');
 export const getReport = () => api.get<CompanyReport>('/reports/summary');
+
+// FUNÇÕES NOVAS PARA GERIR A EMPRESA
+export const getMyCompanyDetails = () => {
+  return api.get('/companies/me');
+};
+
+export const updateMyCompany = (companyData: Partial<CompanyDetails>) => {
+  return api.patch('/companies/me', companyData);
+};
+
+// FUNÇÃO NOVA PARA O PERFIL DO UTILIZADOR
+export const updateMyProfile = (userData: { name?: string; password?: string }) => {
+  return api.patch('/users/me', userData);
+};

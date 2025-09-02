@@ -1,8 +1,8 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/LoginScreen';
-import ForgotPasswordScreen from '../screens/ForgotPasswordScreen'; // 1. Importe o novo ecrã
-import ResetPasswordScreen from '../screens/ResetPasswordScreen';   // 2. Importe o novo ecrã
+import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
+import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 
 // Define os ecrãs e os seus parâmetros para o fluxo de autenticação
 export type AuthStackParamList = {
@@ -13,9 +13,13 @@ export type AuthStackParamList = {
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 
+const screenOptions = {
+  headerShown: false, // Oculta o cabeçalho para todos os ecrãs de autenticação
+};
+
 const AuthNavigator: React.FC = () => {
   return (
-    <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+    <AuthStack.Navigator screenOptions={screenOptions}>
       <AuthStack.Screen name="Login" component={LoginScreen} />
       <AuthStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
       <AuthStack.Screen name="ResetPassword" component={ResetPasswordScreen} />
