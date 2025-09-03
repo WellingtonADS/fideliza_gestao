@@ -47,3 +47,10 @@ export interface CompanyReport {
   total_rewards_redeemed: number;
   unique_customers: number;
 }
+
+// Adiciona a interface DashboardData que estava em falta.
+export interface DashboardData {
+    unique_customers: number;
+    total_points_awarded: number;
+    total_rewards_redeemed: number;
+}

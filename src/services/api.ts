@@ -79,3 +79,4 @@ export const updateMyProfile = (userData: { name?: string; password?: string }) 
   return api.patch('/users/me', userData);
 };
 
+export default api;
