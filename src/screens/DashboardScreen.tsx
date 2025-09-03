@@ -1,251 +1,207 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, {
+    useState,
+    useEffect
+} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  RefreshControl,
-  Alert,
+    View,
+    Text,
+    StyleSheet,
+    ScrollView,
+    SafeAreaView,
+    TouchableOpacity,
+    ActivityIndicator
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AuthContext } from '../context/AuthContext';
-import { get } from '../services/api';
-import { DashboardData } from '../types/gestao';
+import {
+    useAuth
+} from '../context/AuthContext';
+import {
+    NativeStackScreenProps
+} from '@react-navigation/native-stack';
+import {
+    AdminStackParamList
+} from '../navigation/AdminNavigator';
+import * as api from '../services/api';
+import Toast from 'react-native-toast-message';
+import StyledTextInput from '../components/StyledTextInput';
 
-type RootStackParamList = {
-  Login: undefined;
-  Dashboard: undefined;
-  Scanner: undefined;
-  Transactions: undefined;
-  ManageCollaborators: undefined;
-  ManageRewards: undefined;
-  Reports: undefined;
-  EditProfile: undefined;
-  EditCompany: undefined;
-};
+type Props = NativeStackScreenProps < AdminStackParamList, 'Dashboard' > ;
 
-type DashboardScreenNavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  'Dashboard'
->;
+const DashboardScreen = ({
+    navigation,
+    route
+}: Props) => {
+    const {
+        user,
+        signOut
+    } = useAuth();
+    const [clientId, setClientId] = useState('');
+    const [isAddingPoints, setIsAddingPoints] = useState(false);
 
-type Props = {
-  navigation: DashboardScreenNavigationProp;
-};
+    useEffect(() => {
+        if (route.params?.toast) {
+            Toast.show({ ...route.params.toast,
+                visibilityTime: 4000
+            });
+            navigation.setParams({
+                toast: undefined
+            });
+        }
+    }, [route.params?.toast]);
 
-const DashboardScreen: React.FC<Props> = ({ navigation }) => {
-  const authContext = useContext(AuthContext);
-  if (!authContext) {
-    throw new Error('AuthContext must be used within an AuthProvider');
-  }
-  const { user, company, logout } = authContext;
-  const [dashboardData, setDashboardData] = useState<DashboardData | null>(
-    null,
-  );
-  const [refreshing, setRefreshing] = useState(false);
+    const handleAddPoints = async () => {
+        if (!clientId) {
+            Toast.show({
+                type: 'info',
+                text1: 'Atenção',
+                text2: 'Por favor, insira o ID do cliente.'
+            });
+            return;
+        }
+        setIsAddingPoints(true);
+        try {
+            const response = await api.addPoints(clientId);
+            Toast.show({
+                type: 'success',
+                text1: 'Sucesso!',
+                text2: `1 ponto adicionado a ${response.data.client.name}.`
+            });
+            setClientId('');
+        } catch (error: any) {
+            const detail = error.response?.data?.detail || "Não foi possível adicionar o ponto.";
+            Toast.show({
+                type: 'error',
+                text1: 'Erro',
+                text2: detail
+            });
+        } finally {
+            setIsAddingPoints(false);
+        }
+    };
 
-  const fetchDashboardData = async () => {
-    try {
-      const response = await get('/reports/summary');
-      setDashboardData(response.data);
-    } catch (error) {
-      console.error('Failed to fetch dashboard data:', error);
-      Alert.alert('Erro', 'Não foi possível carregar os dados do dashboard.');
-    }
-  };
+    return (
+        <SafeAreaView style={styles.safeArea}>
+            <ScrollView contentContainerStyle={styles.container}>
+                <View style={styles.header}>
+                    <View>
+                        <Text style={styles.headerTitle}>Bem-vindo(a),</Text>
+                        <Text style={styles.headerName}>{user?.name}!</Text>
+                    </View>
+                    <TouchableOpacity onPress={signOut}>
+                        <Text style={styles.logoutButton}>Sair</Text>
+                    </TouchableOpacity>
+                </View>
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      fetchDashboardData();
-    });
+                <View style={styles.card}>
+                    <Text style={styles.cardTitle}>Pontuar Cliente</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('Scanner')}
+                        style={[styles.button, { marginBottom: 16, backgroundColor: '#16a34a' }]}>
+                        <Text style={styles.buttonText}>Escanear QR Code</Text>
+                    </TouchableOpacity>
+                    <StyledTextInput label="Ou insira o ID do Cliente"
+                        value={clientId}
+                        onChangeText={setClientId}
+                        keyboardType="number-pad"
+                        placeholder="ID do Cliente" />
+                    <TouchableOpacity onPress={handleAddPoints} disabled={isAddingPoints} style={styles.button}>
+                        {isAddingPoints ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Adicionar 1 Ponto</Text>}
+                    </TouchableOpacity>
+                </View>
 
-    return unsubscribe;
-  }, [navigation]);
+                {/* Menu Principal para ADMIN */}
+                {user?.user_type === 'ADMIN' && (
+                    <View style={styles.card}>
+                        <Text style={styles.cardTitle}>Menu Principal</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('ManageCollaborators')} style={styles.menuButton}>
+                            <Text style={styles.buttonText}>Gerir Colaboradores</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate('ManageRewards')} style={styles.menuButton}>
+                            <Text style={styles.buttonText}>Gerir Prémios</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate('Reports')} style={styles.menuButton}>
+                            <Text style={styles.buttonText}>Ver Relatórios</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate('Transactions')} style={styles.menuButton}>
+                            <Text style={styles.buttonText}>Ver Transações</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate('EditCompany')} style={styles.menuButton}>
+                            <Text style={styles.buttonText}>Editar Dados da Empresa</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
 
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    fetchDashboardData().finally(() => setRefreshing(false));
-  }, []);
+                {/* Menu para COLABORADOR */}
+                {user?.user_type === 'COLLABORATOR' && (
+                    <View style={styles.card}>
+                        <Text style={styles.cardTitle}>Menu</Text>
+                         <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={styles.menuButton}>
+                            <Text style={styles.buttonText}>Editar Perfil</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
 
-  const handleLogout = () => {
-    Alert.alert(
-      'Sair',
-      'Tem a certeza de que deseja terminar a sessão?',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Sair',
-          onPress: () => logout(),
-          style: 'destructive',
-        },
-      ],
+            </ScrollView>
+        </SafeAreaView>
     );
-  };
-
-  return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.contentContainer}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#FFFFFF" />
-      }>
-      <View style={styles.header}>
-        <Text style={styles.welcomeText}>Bem-vindo, {user?.name || 'Utilizador'}</Text>
-        <Text style={styles.companyName}>{company?.name || 'Sua Empresa'}</Text>
-      </View>
-
-      <View style={styles.statsContainer}>
-        <View style={styles.statCard}>
-          <Text style={styles.statValue}>
-            {dashboardData?.unique_customers ?? 0}
-          </Text>
-          <Text style={styles.statLabel}>Clientes Únicos</Text>
-        </View>
-        <View style={styles.statCard}>
-          <Text style={styles.statValue}>
-            {dashboardData?.total_points_awarded ?? 0}
-          </Text>
-          <Text style={styles.statLabel}>Pontos Atribuídos</Text>
-        </View>
-        <View style={styles.statCard}>
-          <Text style={styles.statValue}>
-            {dashboardData?.total_rewards_redeemed ?? 0}
-          </Text>
-          <Text style={styles.statLabel}>Prémios Resgatados</Text>
-        </View>
-      </View>
-
-      <View style={styles.menuContainer}>
-        <TouchableOpacity
-          style={styles.menuButton}
-          onPress={() => navigation.navigate('Scanner')}>
-          <Icon name="qrcode-scan" size={30} color="#FFFFFF" />
-          <Text style={styles.menuButtonText}>Escanear QR Code</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.menuButton}
-          onPress={() => navigation.navigate('Transactions')}>
-          <Icon name="history" size={30} color="#FFFFFF" />
-          <Text style={styles.menuButtonText}>Histórico de Transações</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.menuButton}
-          onPress={() => navigation.navigate('EditProfile')}>
-          <Icon name="account-edit" size={30} color="#FFFFFF" />
-          <Text style={styles.menuButtonText}>Editar Perfil</Text>
-        </TouchableOpacity>
-
-        {user?.user_type === 'ADMIN' && (
-          <>
-            <TouchableOpacity
-              style={styles.menuButton}
-              onPress={() => navigation.navigate('ManageCollaborators')}>
-              <Icon name="account-group" size={30} color="#FFFFFF" />
-              <Text style={styles.menuButtonText}>Gerir Colaboradores</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.menuButton}
-              onPress={() => navigation.navigate('ManageRewards')}>
-              <Icon name="gift" size={30} color="#FFFFFF" />
-              <Text style={styles.menuButtonText}>Gerir Prémios</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.menuButton}
-              onPress={() => navigation.navigate('Reports')}>
-              <Icon name="chart-bar" size={30} color="#FFFFFF" />
-              <Text style={styles.menuButtonText}>Relatórios</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.menuButton}
-              onPress={() => navigation.navigate('EditCompany')}>
-              <Icon name="store-edit" size={30} color="#FFFFFF" />
-              <Text style={styles.menuButtonText}>Editar Empresa</Text>
-            </TouchableOpacity>
-          </>
-        )}
-        <TouchableOpacity
-          style={[styles.menuButton, styles.logoutButton]}
-          onPress={handleLogout}>
-          <Icon name="logout" size={30} color="#FFFFFF" />
-          <Text style={styles.menuButtonText}>Sair</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
-  );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0A0A2A',
-  },
-  contentContainer: {
-    padding: 20,
-  },
-  header: {
-    marginBottom: 30,
-  },
-  welcomeText: {
-    color: '#FFFFFF',
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  companyName: {
-    color: '#FDD835',
-    fontSize: 18,
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 30,
-  },
-  statCard: {
-    backgroundColor: '#1E1E3F',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-    width: '32%',
-  },
-  statValue: {
-    color: '#FFFFFF',
-    fontSize: 22,
-    fontWeight: 'bold',
-  },
-  statLabel: {
-    color: '#A9A9A9',
-    fontSize: 12,
-    marginTop: 5,
-    textAlign: 'center',
-  },
-  menuContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  menuButton: {
-    backgroundColor: '#1E1E3F',
-    width: '48%',
-    padding: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginBottom: 15,
-  },
-  menuButtonText: {
-    color: '#FFFFFF',
-    marginTop: 10,
-    textAlign: 'center',
-  },
-  logoutButton: {
-    backgroundColor: '#C62828', // Vermelho para indicar ação de saída
-  },
+    safeArea: {
+        flex: 1,
+        backgroundColor: '#0A0A2A'
+    },
+    container: {
+        padding: 20
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 20
+    },
+    headerTitle: {
+        fontSize: 24,
+        color: '#FFFFFF'
+    },
+    headerName: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#FFFFFF'
+    },
+    logoutButton: {
+        fontSize: 16,
+        color: '#FDD835',
+        fontWeight: 'bold'
+    },
+    card: {
+        backgroundColor: '#1E1E3F',
+        borderRadius: 12,
+        padding: 20,
+        marginBottom: 20
+    },
+    cardTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#FFFFFF',
+        marginBottom: 16
+    },
+    button: {
+        backgroundColor: '#3D5CFF',
+        padding: 15,
+        borderRadius: 12,
+        alignItems: 'center'
+    },
+    menuButton: {
+        backgroundColor: '#3D5CFF',
+        padding: 15,
+        borderRadius: 12,
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    buttonText: {
+        color: '#FFFFFF',
+        fontSize: 18,
+        fontWeight: 'bold'
+    },
 });
 
 export default DashboardScreen;
-
