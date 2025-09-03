@@ -7,11 +7,12 @@ import { StatusBar } from 'react-native';
 import { AuthStackParamList } from './src/navigation/AuthNavigator';
 import Toast from 'react-native-toast-message';
 
+// Configuração de deep linking para a app de GESTÃO
 const linking: LinkingOptions<AuthStackParamList> = {
-  prefixes: ['fidelizagestao://'], // Prefixo correto
+  prefixes: ['fidelizagestao://'], // Prefixo correto para esta app
   config: {
     screens: {
-      ResetPassword: 'reset-password/:token', // Captura o token
+      ResetPassword: 'reset-password/:token', // Captura o token da URL
     },
   },
 };
@@ -22,10 +23,12 @@ const App = () => {
       <AuthProvider>
         <StatusBar barStyle="light-content" backgroundColor="#0A0A2A" />
         <AppNavigator />
-        <Toast />
+        {/* O Toast precisa de ser renderizado aqui para funcionar em toda a app */}
+        <Toast /> 
       </AuthProvider>
     </NavigationContainer>
   );
 };
 
 export default App;
+

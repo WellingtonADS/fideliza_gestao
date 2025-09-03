@@ -1,17 +1,16 @@
-import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { createContext, useState, useEffect, useContext, ReactNode, useCallback } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // CORRIGIDO: Removido o hífen extra
 import { User, UserCredentials } from '../types/auth';
 import * as api from '../services/api';
 import axios from 'axios';
 
-// Define o tipo para o contexto de autenticação
 interface AuthContextType {
   token: string | null;
   user: User | null;
   isLoading: boolean;
   signIn: (credentials: UserCredentials) => Promise<void>;
   signOut: () => void;
-  refreshUser: () => Promise<void>; // 1. Adicione a função aqui
+  refreshUser: () => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -21,6 +20,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const signOut = useCallback(async () => {
+    setToken(null);
+    setUser(null);
+    api.setAuthToken(undefined);
+    await AsyncStorage.removeItem('userToken');
+  }, []);
+
   useEffect(() => {
     const loadTokenFromStorage = async () => {
       try {
@@ -28,7 +34,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (storedToken) {
           api.setAuthToken(storedToken);
           const response = await api.getMyProfile();
-           if (response.data.user_type === 'ADMIN' || response.data.user_type === 'COLLABORATOR') {
+          if (response.data.user_type === 'ADMIN' || response.data.user_type === 'COLLABORATOR') {
             setToken(storedToken);
             setUser(response.data);
           } else {
@@ -36,50 +42,43 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           }
         }
       } catch (error) {
-        console.error("Falha ao carregar sessão:", error);
+        console.error("Falha ao carregar sessão, limpando...", error);
         await signOut(); 
       } finally {
         setIsLoading(false);
       }
     };
     loadTokenFromStorage();
-  }, []);
+  }, [signOut]);
 
   const signIn = async (credentials: UserCredentials) => {
     try {
       const response = await api.login(credentials);
       const { access_token } = response.data;
-      api.setAuthToken(access_token);
       
-      const profileResponse = await api.getMyProfile();
+      // Lógica robusta para evitar "race conditions"
+      const profileResponse = await api.getMyProfile({
+        headers: { 'Authorization': `Bearer ${access_token}` }
+      });
       const profile = profileResponse.data;
 
       if (profile.user_type === 'ADMIN' || profile.user_type === 'COLLABORATOR') {
+        api.setAuthToken(access_token);
         setUser(profile);
         setToken(access_token);
         await AsyncStorage.setItem('userToken', access_token);
       } else {
-        api.setAuthToken(undefined);
         throw new Error('Acesso negado. Esta aplicação é apenas para parceiros.');
       }
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        if (error.response.status === 401) throw new Error('Email ou senha inválidos.');
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        throw new Error('Email ou senha inválidos.');
       }
       throw error;
     }
   };
 
-  const signOut = async () => {
-    setToken(null);
-    setUser(null);
-    api.setAuthToken(undefined);
-    await AsyncStorage.removeItem('userToken');
-  };
-
-  // 2. Implemente a função refreshUser
   const refreshUser = async () => {
-    if (!token) return;
     try {
       const profileResponse = await api.getMyProfile();
       setUser(profileResponse.data);
@@ -89,7 +88,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    // 3. Adicione a função ao valor do provedor
     <AuthContext.Provider value={{ token, user, isLoading, signIn, signOut, refreshUser }}>
       {children}
     </AuthContext.Provider>

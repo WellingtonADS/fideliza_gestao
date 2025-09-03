@@ -47,15 +47,6 @@ const DashboardScreen = ({
             });
         }
     }, [route.params?.toast]);
-    
-    // Esta função decide para onde navegar com base no tipo de utilizador
-    const handleHeaderPress = () => {
-        if (user?.user_type === 'ADMIN') {
-            navigation.navigate('EditCompany');
-        } else {
-            navigation.navigate('EditProfile');
-        }
-    }
 
     const handleAddPoints = async () => {
         if (!clientId) {
@@ -90,17 +81,15 @@ const DashboardScreen = ({
     return (
         <SafeAreaView style={styles.safeArea}>
             <ScrollView contentContainerStyle={styles.container}>
-                {/* O CABEÇALHO AGORA É UM BOTÃO */}
                 <View style={styles.header}>
-                    <TouchableOpacity onPress={handleHeaderPress}>
+                    <View>
                         <Text style={styles.headerTitle}>Bem-vindo(a),</Text>
                         <Text style={styles.headerName}>{user?.name}!</Text>
-                    </TouchableOpacity>
+                    </View>
                     <TouchableOpacity onPress={signOut}>
                         <Text style={styles.logoutButton}>Sair</Text>
                     </TouchableOpacity>
                 </View>
-                {/* FIM DA ALTERAÇÃO */}
 
                 <View style={styles.card}>
                     <Text style={styles.cardTitle}>Pontuar Cliente</Text>
@@ -118,6 +107,7 @@ const DashboardScreen = ({
                     </TouchableOpacity>
                 </View>
 
+                {/* Menu Principal para ADMIN */}
                 {user?.user_type === 'ADMIN' && (
                     <View style={styles.card}>
                         <Text style={styles.cardTitle}>Menu Principal</Text>
@@ -133,8 +123,22 @@ const DashboardScreen = ({
                         <TouchableOpacity onPress={() => navigation.navigate('Transactions')} style={styles.menuButton}>
                             <Text style={styles.buttonText}>Ver Transações</Text>
                         </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate('EditCompany')} style={styles.menuButton}>
+                            <Text style={styles.buttonText}>Editar Dados da Empresa</Text>
+                        </TouchableOpacity>
                     </View>
                 )}
+
+                {/* Menu para COLABORADOR */}
+                {user?.user_type === 'COLLABORATOR' && (
+                    <View style={styles.card}>
+                        <Text style={styles.cardTitle}>Menu</Text>
+                         <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={styles.menuButton}>
+                            <Text style={styles.buttonText}>Editar Perfil</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
+
             </ScrollView>
         </SafeAreaView>
     );
@@ -201,4 +205,3 @@ const styles = StyleSheet.create({
 });
 
 export default DashboardScreen;
-

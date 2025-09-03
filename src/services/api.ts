@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { User, UserCredentials } from '../types/auth';
 import { CompanyReport, PointTransaction, Reward, RewardCreate, CollaboratorCreate, CollaboratorUpdate } from '../types/gestao';
 import { CompanyDetails } from '../types/company';
@@ -31,9 +31,10 @@ export const login = (credentials: UserCredentials) => {
   });
 };
 
-export const getMyProfile = () => {
-  return api.get<User>('/users/me');
+export const getMyProfile = (config?: AxiosRequestConfig) => {
+  return api.get<User>('/users/me', config);
 };
+
 
 // --- PASSWORD RECOVERY (NOVAS FUNÇÕES) ---
 export const requestPasswordRecovery = (email: string) => {
@@ -77,3 +78,4 @@ export const updateMyCompany = (companyData: Partial<CompanyDetails>) => {
 export const updateMyProfile = (userData: { name?: string; password?: string }) => {
   return api.patch('/users/me', userData);
 };
+

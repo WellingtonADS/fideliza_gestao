@@ -4,17 +4,16 @@ import LoginScreen from '../screens/LoginScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 
-// Define os ecrãs e os seus parâmetros para o fluxo de autenticação
 export type AuthStackParamList = {
   Login: undefined;
   ForgotPassword: undefined;
-  ResetPassword: { token?: string }; // O token é opcional, pois pode vir do deep link
+  ResetPassword: { token?: string };
 };
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 
 const screenOptions = {
-  headerShown: false, // Oculta o cabeçalho para todos os ecrãs de autenticação
+  headerShown: false,
 };
 
 const AuthNavigator: React.FC = () => {
@@ -28,3 +27,4 @@ const AuthNavigator: React.FC = () => {
 };
 
 export default AuthNavigator;
+
