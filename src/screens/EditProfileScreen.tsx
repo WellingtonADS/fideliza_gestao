@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import * as api from '../services/api';
 import Toast from 'react-native-toast-message';
 import StyledTextInput from '../components/StyledTextInput';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const EditProfileScreen = () => {
     const { user, refreshUser } = useAuth();
@@ -47,8 +48,11 @@ const EditProfileScreen = () => {
     return (
         <SafeAreaView style={styles.safeArea}>
             <ScrollView contentContainerStyle={styles.container}>
+                <View style={styles.header}>
+                    <Icon name="person" size={30} color="#000" />
+                    <Text style={styles.title}>Editar Perfil</Text>
+                </View>
                 <View style={styles.card}>
-                    <Text style={styles.cardTitle}>Editar Perfil</Text>
                     <StyledTextInput
                         label="Nome Completo"
                         value={name}
@@ -82,6 +86,17 @@ const EditProfileScreen = () => {
 const styles = StyleSheet.create({
     safeArea: { flex: 1, backgroundColor: '#0A0A2A' },
     container: { padding: 20, flexGrow: 1, justifyContent: 'center' },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginLeft: 10,
+        color: '#FFFFFF',
+    },
     card: { backgroundColor: '#1E1E3F', borderRadius: 12, padding: 20 },
     cardTitle: { fontSize: 22, fontWeight: 'bold', color: '#FFFFFF', marginBottom: 20, textAlign: 'center' },
     infoText: { color: '#B0B0B0', fontSize: 14, textAlign: 'center', marginBottom: 20, marginTop: 10 },

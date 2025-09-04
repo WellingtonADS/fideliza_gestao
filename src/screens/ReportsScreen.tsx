@@ -23,6 +23,7 @@ import {
 }
 from '../types/gestao';
 import Toast from 'react-native-toast-message';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const styles = StyleSheet.create({
     safeArea: {
@@ -72,6 +73,17 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 50
     },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginLeft: 10,
+        color: '#FFFFFF'
+    },
 });
 
 const ReportsScreen = () => {
@@ -111,6 +123,10 @@ const ReportsScreen = () => {
     return (
         <SafeAreaView style={styles.safeArea}>
             <ScrollView contentContainerStyle={styles.container}>
+                <View style={styles.header}>
+                    <Icon name="bar-chart" size={30} color="#FFFFFF" />
+                    <Text style={styles.title}>Relatórios</Text>
+                </View>
                 {report ? (
                     <View style={styles.card}>
                         <Text style={styles.cardTitle}>Relatório da Empresa</Text>

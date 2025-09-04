@@ -6,6 +6,7 @@ import * as api from '../services/api';
 import { Reward } from '../types/gestao';
 import Toast from 'react-native-toast-message';
 import StyledTextInput from '../components/StyledTextInput';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const ManageRewardsScreen = () => {
     const [rewards, setRewards] = useState<Reward[]>([]);
@@ -108,6 +109,10 @@ const ManageRewardsScreen = () => {
     return (
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.container}>
+            <View style={styles.header}>
+                <Icon name="card-giftcard" size={30} color="#000" />
+                <Text style={styles.title}>Gerir Prêmios</Text>
+            </View>
             <View style={styles.card}>
                 <Text style={styles.cardTitle}>Prémios</Text>
                 {rewards.map(reward => (
@@ -165,6 +170,17 @@ const styles = StyleSheet.create({
     safeArea: { flex: 1, backgroundColor: '#0A0A2A' },
     loaderContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0A0A2A' },
     container: { padding: 20 },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginLeft: 10,
+        color: '#FFFFFF',
+    },
     card: { backgroundColor: '#1E1E3F', borderRadius: 12, padding: 20, marginBottom: 20 },
     cardTitle: { fontSize: 20, fontWeight: 'bold', color: '#FFFFFF', marginBottom: 16 },
     button: { backgroundColor: '#3D5CFF', padding: 15, borderRadius: 12, alignItems: 'center', marginTop: 10 },

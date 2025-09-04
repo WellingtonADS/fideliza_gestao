@@ -9,8 +9,9 @@ import {
     Text,
     StyleSheet,
     SafeAreaView,
-    FlatList,
-    ActivityIndicator
+    ActivityIndicator,
+    ScrollView,
+    FlatList
 }
 from 'react-native';
 import {
@@ -23,6 +24,7 @@ import {
 }
 from '../types/gestao';
 import Toast from 'react-native-toast-message';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const styles = StyleSheet.create({
     safeArea: {
@@ -75,6 +77,17 @@ const styles = StyleSheet.create({
         color: '#B0B0B0',
         fontSize: 16
     },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginLeft: 10,
+        color: '#FFFFFF'
+    },
 });
 
 const TransactionsScreen = () => {
@@ -113,33 +126,39 @@ const TransactionsScreen = () => {
 
     return (
         <SafeAreaView style={styles.safeArea}>
-            <FlatList
-                data={transactions}
-                keyExtractor={(item) => item.id.toString()}
-                contentContainerStyle={styles.container}
-                renderItem={({ item }) => (
-                    <View style={styles.itemContainer}>
-                        <View>
-                            <Text style={styles.itemName}>
-                                Cliente: {item.client.name}
-                            </Text>
-                            <Text style={styles.itemSubtitle}>
-                                Por: {item.awarded_by.name} em {new Date(item.created_at).toLocaleDateString('pt-BR')}
+            <ScrollView>
+                <View style={styles.header}>
+                    <Icon name="swap-horiz" size={30} color="#FFFFFF" />
+                    <Text style={styles.title}>Transações</Text>
+                </View>
+                <FlatList
+                    data={transactions}
+                    keyExtractor={(item) => item.id.toString()}
+                    contentContainerStyle={styles.container}
+                    renderItem={({ item }) => (
+                        <View style={styles.itemContainer}>
+                            <View>
+                                <Text style={styles.itemName}>
+                                    Cliente: {item.client.name}
+                                </Text>
+                                <Text style={styles.itemSubtitle}>
+                                    Por: {item.awarded_by.name} em {new Date(item.created_at).toLocaleDateString('pt-BR')}
+                                </Text>
+                            </View>
+                            <Text style={[styles.pointsTag, item.points < 0 ? styles.pointsTagNegative : {}]}>
+                                {item.points > 0 ? `+${item.points}` : item.points} pt
                             </Text>
                         </View>
-                        <Text style={[styles.pointsTag, item.points < 0 ? styles.pointsTagNegative : {}]}>
-                            {item.points > 0 ? `+${item.points}` : item.points} pt
-                        </Text>
-                    </View>
-                )}
-                ListEmptyComponent={
-                    (
-                        <View style={styles.emptyContainer}>
-                            <Text style={styles.emptyText}>Nenhuma transação registada.</Text>
-                        </View>
-                    )
-                }
-            />
+                    )}
+                    ListEmptyComponent={
+                        (
+                            <View style={styles.emptyContainer}>
+                                <Text style={styles.emptyText}>Nenhuma transação registada.</Text>
+                            </View>
+                        )
+                    }
+                />
+            </ScrollView>
         </SafeAreaView>
     );
 };

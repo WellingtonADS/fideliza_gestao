@@ -6,6 +6,7 @@ import AppNavigator from './src/navigation/AppNavigator';
 import { StatusBar } from 'react-native';
 import { AuthStackParamList } from './src/navigation/AuthNavigator';
 import Toast from 'react-native-toast-message';
+import SplashScreen from 'react-native-splash-screen';
 
 // Configuração de deep linking para a app de GESTÃO
 const linking: LinkingOptions<AuthStackParamList> = {
@@ -18,6 +19,10 @@ const linking: LinkingOptions<AuthStackParamList> = {
 };
 
 const App = () => {
+  React.useEffect(() => {
+    SplashScreen.hide(); // Esconde o splash screen após o carregamento da aplicação
+  }, []);
+
   return (
     <NavigationContainer linking={linking}>
       <AuthProvider>

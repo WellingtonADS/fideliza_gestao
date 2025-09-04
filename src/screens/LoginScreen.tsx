@@ -6,12 +6,14 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../navigation/AuthNavigator';
 import { useAuth } from '../context/AuthContext';
 import Toast from 'react-native-toast-message';
 import StyledTextInput from '../components/StyledTextInput';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'Login'>;
 
@@ -39,8 +41,14 @@ const LoginScreen = ({ navigation }: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Icon name="login" size={30} color="#000" />
+        <Text style={styles.title}>Login</Text>
+      </View>
       <View style={styles.content}>
-        <Text style={styles.title}>Fideliza Gestão</Text>
+        <View style={styles.logoContainer}>
+          <Image source={require('../assets/images/logo_fideliza.png')} style={styles.logo} />
+        </View>
         <Text style={styles.subtitle}>Acesso para parceiros</Text>
 
         <StyledTextInput
@@ -76,17 +84,30 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0A0A2A',
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginLeft: 10,
+  },
   content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 30,
   },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginBottom: 8,
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  logo: {
+    width: 150,
+    height: 50,
+    resizeMode: 'contain',
   },
   subtitle: {
     fontSize: 16,

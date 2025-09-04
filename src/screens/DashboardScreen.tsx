@@ -23,6 +23,7 @@ import {
 import * as api from '../services/api';
 import Toast from 'react-native-toast-message';
 import StyledTextInput from '../components/StyledTextInput';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 type Props = NativeStackScreenProps < AdminStackParamList, 'Dashboard' > ;
 
@@ -86,7 +87,8 @@ const DashboardScreen = ({
                         <Text style={styles.headerTitle}>Bem-vindo(a),</Text>
                         <Text style={styles.headerName}>{user?.name}!</Text>
                     </View>
-                    <TouchableOpacity onPress={signOut}>
+                    <TouchableOpacity onPress={signOut} style={styles.logoutButtonContainer}>
+                        <Icon name="sign-out" size={20} color="#FDD835" />
                         <Text style={styles.logoutButton}>Sair</Text>
                     </TouchableOpacity>
                 </View>
@@ -95,6 +97,7 @@ const DashboardScreen = ({
                     <Text style={styles.cardTitle}>Pontuar Cliente</Text>
                     <TouchableOpacity onPress={() => navigation.navigate('Scanner')}
                         style={[styles.button, { marginBottom: 16, backgroundColor: '#16a34a' }]}>
+                        <Icon name="qrcode" size={20} color="#fff" style={styles.icon} />
                         <Text style={styles.buttonText}>Escanear QR Code</Text>
                     </TouchableOpacity>
                     <StyledTextInput label="Ou insira o ID do Cliente"
@@ -112,18 +115,23 @@ const DashboardScreen = ({
                     <View style={styles.card}>
                         <Text style={styles.cardTitle}>Menu Principal</Text>
                         <TouchableOpacity onPress={() => navigation.navigate('ManageCollaborators')} style={styles.menuButton}>
+                            <Icon name="users" size={20} color="#fff" style={styles.icon} />
                             <Text style={styles.buttonText}>Gerir Colaboradores</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('ManageRewards')} style={styles.menuButton}>
+                            <Icon name="gift" size={20} color="#fff" style={styles.icon} />
                             <Text style={styles.buttonText}>Gerir Prémios</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('Reports')} style={styles.menuButton}>
+                            <Icon name="bar-chart" size={20} color="#fff" style={styles.icon} />
                             <Text style={styles.buttonText}>Ver Relatórios</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('Transactions')} style={styles.menuButton}>
+                            <Icon name="exchange" size={20} color="#fff" style={styles.icon} />
                             <Text style={styles.buttonText}>Ver Transações</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('EditCompany')} style={styles.menuButton}>
+                            <Icon name="building" size={20} color="#fff" style={styles.icon} />
                             <Text style={styles.buttonText}>Editar Dados da Empresa</Text>
                         </TouchableOpacity>
                     </View>
@@ -134,6 +142,7 @@ const DashboardScreen = ({
                     <View style={styles.card}>
                         <Text style={styles.cardTitle}>Menu</Text>
                          <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={styles.menuButton}>
+                            <Icon name="user" size={20} color="#fff" style={styles.icon} />
                             <Text style={styles.buttonText}>Editar Perfil</Text>
                         </TouchableOpacity>
                     </View>
@@ -166,6 +175,10 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         color: '#FFFFFF'
+    },
+    logoutButtonContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     logoutButton: {
         fontSize: 16,
@@ -201,6 +214,9 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 18,
         fontWeight: 'bold'
+    },
+    icon: {
+        marginRight: 8,
     },
 });
 

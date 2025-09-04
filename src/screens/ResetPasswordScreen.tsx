@@ -13,6 +13,7 @@ import { AuthStackParamList } from '../navigation/AuthNavigator';
 import { resetPassword } from '../services/api';
 import Toast from 'react-native-toast-message';
 import StyledTextInput from '../components/StyledTextInput';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 type ResetPasswordRouteProp = RouteProp<AuthStackParamList, 'ResetPassword'>;
 type Props = NativeStackScreenProps<AuthStackParamList, 'ResetPassword'>;
@@ -58,8 +59,11 @@ const ResetPasswordScreen = ({ navigation }: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
+      <View style={styles.header}>
+        <Icon name="vpn-key" size={30} color="#000" />
         <Text style={styles.title}>Redefinir Senha</Text>
+      </View>
+      <View style={styles.content}>
         <StyledTextInput
           label="Token de Recuperação"
           placeholder="Cole o token do seu e-mail"
@@ -96,17 +100,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0A0A2A',
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+    marginTop: 50,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginLeft: 10,
+    color: '#FFFFFF',
+  },
   content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 30,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginBottom: 30,
   },
   button: {
     backgroundColor: '#3D5CFF',

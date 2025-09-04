@@ -6,6 +6,7 @@ import * as api from '../services/api';
 import { User } from '../types/auth';
 import Toast from 'react-native-toast-message';
 import StyledTextInput from '../components/StyledTextInput';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const ManageCollaboratorsScreen = () => {
   const [collaborators, setCollaborators] = useState<User[]>([]);
@@ -95,6 +96,11 @@ const ManageCollaboratorsScreen = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.header}>
+          <Icon name="group" size={30} color="#000" />
+          <Text style={styles.title}>Gerir Colaboradores</Text>
+        </View>
+
         <View style={styles.card}>
             <Text style={styles.cardTitle}>Colaboradores</Text>
             {collaborators.map(collab => (
@@ -165,6 +171,17 @@ const styles = StyleSheet.create({
     modalTitle: { fontSize: 20, fontWeight: 'bold', marginBottom: 20, color: '#FFFFFF', textAlign: 'center' },
     modalButtonContainer: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, gap: 10 },
     modalButton: { flex: 1 },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginLeft: 10,
+        color: '#FFFFFF',
+    },
 });
 
 

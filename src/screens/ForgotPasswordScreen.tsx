@@ -5,6 +5,7 @@ import { AuthStackParamList } from '../navigation/AuthNavigator';
 import { requestPasswordRecovery } from '../services/api';
 import Toast from 'react-native-toast-message';
 import StyledTextInput from '../components/StyledTextInput';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'ForgotPassword'>;
 
@@ -40,8 +41,11 @@ const ForgotPasswordScreen = ({ navigation }: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
+      <View style={styles.header}>
+        <Icon name="lock" size={30} color="#000" />
         <Text style={styles.title}>Recuperar Senha</Text>
+      </View>
+      <View style={styles.content}>
         <Text style={styles.subtitle}>
           Insira o seu e-mail para receber um link de redefinição.
         </Text>
@@ -69,17 +73,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0A0A2A',
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+    marginTop: 50,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginLeft: 10,
+    color: '#FFFFFF',
+  },
   content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 30,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
