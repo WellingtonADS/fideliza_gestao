@@ -49,7 +49,7 @@ const LoginScreen = ({ navigation }: Props) => {
         <View style={styles.logoContainer}>
           <Image source={require('../assets/images/logo_fideliza.png')} style={styles.logo} />
         </View>
-        <Text style={styles.subtitle}>Acesso para parceiros</Text>
+        <Text style={styles.subtitle}>Fideliza+ Empresas</Text>
 
         <StyledTextInput
           label="Email"
@@ -105,13 +105,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   logo: {
-    width: 150,
-    height: 50,
+    width: 400, 
+    height: 140, 
     resizeMode: 'contain',
   },
   subtitle: {
-    fontSize: 16,
-    color: '#B0B0B0',
+    fontSize: 24, // Aumentado o tamanho da fonte
+    fontWeight: 'bold', // Alterado para negrito
+    color: '#ffffffff',
     marginBottom: 40,
   },
   button: {

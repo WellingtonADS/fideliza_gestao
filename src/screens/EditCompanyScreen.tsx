@@ -33,8 +33,8 @@ const EditCompanyScreen = () => {
     const handleUpdate = async () => {
         setIsSaving(true);
         try {
-            const { id, ...updateData } = company;
-            await api.updateMyCompany(updateData);
+            const { id, userName, ...updateData } = company; // Inclui userName nos dados enviados
+            await api.updateMyCompany({ ...updateData, userName }); // Garante que userName seja enviado
             Toast.show({ type: 'success', text1: 'Sucesso', text2: 'Dados da empresa atualizados.' });
             fetchData();
         } catch (error) {
@@ -84,6 +84,12 @@ const EditCompanyScreen = () => {
                         value={company.logo_url ?? ''}
                         onChangeText={(text) => setFieldValue('logo_url', text)}
                         placeholder="https://exemplo.com/logo.png"
+                    />
+                    <StyledTextInput
+                        label="Nome do Usuário"
+                        value={company.userName ?? ''} // Remove o valor padrão fixo
+                        onChangeText={(text) => setFieldValue('userName', text)}
+                        placeholder="Ex: Sr. Padeiro"
                     />
                     <TouchableOpacity style={styles.button} onPress={handleUpdate} disabled={isSaving}>
                         {isSaving ? <ActivityIndicator color="#FFFFFF" /> : <Text style={styles.buttonText}>Salvar Alterações</Text>}
