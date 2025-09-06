@@ -6,8 +6,10 @@ import Toast from 'react-native-toast-message';
 import StyledTextInput from '../components/StyledTextInput';
 import { CompanyDetails } from '../types/company';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useAuth } from '../context/AuthContext';
 
 const EditCompanyScreen = () => {
+    const { user, updateUser } = useAuth(); // Substitui setUser por updateUser
     const [company, setCompany] = useState<Partial<CompanyDetails>>({});
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
@@ -35,6 +37,12 @@ const EditCompanyScreen = () => {
         try {
             const { id, userName, ...updateData } = company; // Inclui userName nos dados enviados
             await api.updateMyCompany({ ...updateData, userName }); // Garante que userName seja enviado
+
+            // Atualiza o contexto de autenticação com o novo nome do usuário
+            if (userName && user) {
+                updateUser({ ...user, name: userName }); // Garante que todas as propriedades obrigatórias sejam mantidas
+            }
+
             Toast.show({ type: 'success', text1: 'Sucesso', text2: 'Dados da empresa atualizados.' });
             fetchData();
         } catch (error) {
