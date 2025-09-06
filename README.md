@@ -20,16 +20,23 @@ A aplicação está funcional e pronta para uso, fornecendo todas as ferramentas
 
 * **Gestão de Colaboradores:**
   * Listar, criar, editar e excluir os colaboradores da sua empresa.
-* **Gestão de Prémios:**
-  * Listar e criar novos prémios (recompensas).
+* **Gestão de Prêmios:**
+  * Listar e criar novos prêmios (recompensas).
 * **Relatórios:**
   * Visualização do painel de resumo com as principais métricas de desempenho da loja.
+* **Gestão de Empresa:**
+  * Atualizar informações da empresa, incluindo o nome do usuário administrador, endereço e categoria.
 
 ## **🛠️ Tecnologias Utilizadas**
 
 * **Framework:** [React Native](https://reactnative.dev/)
 * **Linguagem:** [TypeScript](https://www.typescriptlang.org/)
 * **Estilização:** StyleSheet (API nativa do React Native)
+* **Gerenciamento de Estado:** Context API
+* **Bibliotecas:**
+  * `react-native-vector-icons`
+  * `react-native-qrcode-scanner`
+  * `react-native-toast-message`
 
 ## **🚀 Como Executar o Projeto Localmente**
 
@@ -52,7 +59,7 @@ A aplicação está funcional e pronta para uso, fornecendo todas as ferramentas
    ```
 
 3. **Configure a Conexão com a API:**
-   * Abra o arquivo `App.tsx`.
+   * Abra o arquivo `src/services/api.ts`.
    * No topo do arquivo, encontre a constante `API_BASE_URL`.
    * **IMPORTANTE:** Altere o endereço para corresponder ao seu ambiente de desenvolvimento:
      * Para o **Emulador Android**, o endereço é geralmente: `http://10.0.2.2:8000/api/v1`
@@ -74,6 +81,7 @@ Abaixo está uma visão geral da estrutura do projeto:
 
 ```
 ├── src/
+│   ├── assets/              # Recursos estáticos como imagens
 │   ├── components/          # Componentes reutilizáveis
 │   ├── context/             # Context API para gerenciamento de estado
 │   ├── navigation/          # Configuração de navegação
