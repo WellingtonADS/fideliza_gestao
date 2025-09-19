@@ -69,6 +69,11 @@ const ForgotPasswordScreen = ({ navigation }: Props) => {
 };
 
 const styles = StyleSheet.create({
+  closeButton: {
+    fontSize: 16,
+    color: '#FDD835',
+    fontWeight: 'bold',
+  },
   container: {
     flex: 1,
     backgroundColor: '#0A0A2A',

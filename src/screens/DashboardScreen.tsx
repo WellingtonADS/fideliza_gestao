@@ -154,6 +154,11 @@ const DashboardScreen = ({
 };
 
 const styles = StyleSheet.create({
+    closeButton: {
+        fontSize: 16,
+        color: '#FDD835',
+        fontWeight: 'bold',
+    },
     safeArea: {
         flex: 1,
         backgroundColor: '#0A0A2A'

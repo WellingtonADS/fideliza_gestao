@@ -26,6 +26,11 @@ import Toast from 'react-native-toast-message';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const styles = StyleSheet.create({
+    closeButton: {
+        fontSize: 16,
+        color: '#FDD835',
+        fontWeight: 'bold',
+    },
     safeArea: {
         flex: 1,
         backgroundColor: '#0A0A2A'

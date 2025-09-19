@@ -1,0 +1,295 @@
+--------- beginning of main
+09-19 10:57:07.002 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:09.025 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:11.047 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:13.069 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:15.093 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:17.119 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:19.138 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:21.141 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:22.420 D/SmartClipDataCropperImpl(24344): doExtractSmartClipData : Extraction start! reqId = 2  Cropped area = Rect(360, 800 - 361, 801)  Package = com.fideliza_gestao
+09-19 10:57:22.428 D/SmartClipDataCropperImpl(24344): traverseView : Contains meta data : Rect(28, 798, 692, 827)	AppCompatTextView/rn_frame_file	plain_text	
+09-19 10:57:22.429 D/SmartClipDataCropperImpl(24344): getOpaqueBackgroundRect : opaqueRect=Rect(0, 45 - 720, 1516)  element=com.samsung.android.content.smartclip.SmartClipDataElementImpl@1ffca97
+09-19 10:57:22.430 D/SmartClipDataCropperImpl(24344): getOpaqueBackgroundRect : opaqueRect=Rect(0, 45 - 720, 1516)  element=com.samsung.android.content.smartclip.SmartClipDataElementImpl@16d7484
+09-19 10:57:22.430 D/SmartClipDataCropperImpl(24344): addAppMetaTag : package name is com.fideliza_gestao
+09-19 10:57:22.432 D/SmartClipDataCropperImpl(24344): sendExtractionResultToSmartClipService : -- Extracted SmartClip data information --
+09-19 10:57:22.432 D/SmartClipDataCropperImpl(24344): sendExtractionResultToSmartClipService : Request Id : 2
+09-19 10:57:22.432 D/SmartClipDataCropperImpl(24344): sendExtractionResultToSmartClipService : Extraction mode : 1
+09-19 10:57:22.432 D/SemSmartClipDataRepository(24344): ----- Start of SmartClip repository informations -----
+09-19 10:57:22.432 D/SemSmartClipDataRepository(24344): ** Content type : image
+09-19 10:57:22.433 D/SemSmartClipDataRepository(24344): ** Meta area rect : Rect(28, 798 - 692, 827)
+09-19 10:57:22.433 D/SemSmartClipDataRepository(24344): ** Captured image file path : null
+09-19 10:57:22.433 D/SemSmartClipDataRepository(24344): ----- End of SmartClip repository informations -----
+09-19 10:57:22.440 D/SmartClipDataCropperImpl(24344): sendExtractionResultToSmartClipService : Elapsed = 20
+09-19 10:57:23.153 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:23.353 I/ViewRootImpl@be91f1f[MainActivity](24344): MSG_WINDOW_FOCUS_CHANGED 0 0
+09-19 10:57:23.505 D/SmartClipRemoteRequestDispatcher(24344): dispatchScrollableAreaInfo : windowRect = Rect(0, 0 - 720, 1600)
+09-19 10:57:23.510 D/SmartClipRemoteRequestDispatcher(24344): dispatchScrollableAreaInfo : Scrollable view count = 1
+09-19 10:57:23.510 D/SmartClipRemoteRequestDispatcher(24344): dispatchScrollableAreaInfo : Unscrollable view count = 0
+09-19 10:57:23.510 D/SmartClipRemoteRequestDispatcher(24344): dispatchScrollableAreaInfo : Pkg=com.fideliza_gestao Activity=null
+09-19 10:57:25.154 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:27.157 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:28.809 I/ViewRootImpl@be91f1f[MainActivity](24344): MSG_WINDOW_FOCUS_CHANGED 1 0
+09-19 10:57:28.809 I/ViewRootImpl@be91f1f[MainActivity](24344): mThreadedRenderer.initializeIfNeeded()#2 mSurface={isValid=true 0xb4000071f1067800}
+09-19 10:57:28.811 D/InputMethodManager(24344): startInputInner - Id : 0
+09-19 10:57:28.811 I/InputMethodManager(24344): startInputInner - mService.startInputOrWindowGainedFocus
+09-19 10:57:29.164 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:31.167 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:33.173 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:35.178 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:37.183 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:39.188 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:41.199 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:43.200 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:45.205 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:47.209 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:49.216 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:51.220 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:53.223 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:55.227 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:57.232 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:57:59.237 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:01.242 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:03.246 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:05.251 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:07.255 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:09.260 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:11.263 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:13.267 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:15.272 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:17.277 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:19.283 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:21.287 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:23.291 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:23.320 I/ViewRootImpl@be91f1f[MainActivity](24344): ViewPostIme pointer 0
+09-19 10:58:23.347 E/IMGMapper(24344): set:488 set: Unset optional value from type SMPTE2086
+09-19 10:58:23.348 E/IMGMapper(24344): set:488 set: Unset optional value from type CTA861_3
+09-19 10:58:23.363 E/IMGMapper(24344): set:488 set: Unset optional value from type SMPTE2086
+09-19 10:58:23.363 E/IMGMapper(24344): set:488 set: Unset optional value from type CTA861_3
+09-19 10:58:23.381 E/IMGMapper(24344): set:488 set: Unset optional value from type SMPTE2086
+09-19 10:58:23.381 E/IMGMapper(24344): set:488 set: Unset optional value from type CTA861_3
+09-19 10:58:23.397 E/IMGMapper(24344): set:488 set: Unset optional value from type SMPTE2086
+09-19 10:58:23.397 E/IMGMapper(24344): set:488 set: Unset optional value from type CTA861_3
+09-19 10:58:23.414 E/IMGMapper(24344): set:488 set: Unset optional value from type SMPTE2086
+09-19 10:58:23.414 E/IMGMapper(24344): set:488 set: Unset optional value from type CTA861_3
+09-19 10:58:23.431 E/IMGMapper(24344): set:488 set: Unset optional value from type SMPTE2086
+09-19 10:58:23.431 E/IMGMapper(24344): set:488 set: Unset optional value from type CTA861_3
+09-19 10:58:23.485 I/ViewRootImpl@be91f1f[MainActivity](24344): ViewPostIme pointer 1
+09-19 10:58:23.496 I/MSHandlerLifeCycle(24344): removeMultiSplitHandler: no exist. decor=DecorView@5bafe7d[MainActivity]
+09-19 10:58:23.498 D/OpenGLRenderer(24344): setSurface called with nullptr
+09-19 10:58:23.498 D/OpenGLRenderer(24344): setSurface() destroyed EGLSurface
+09-19 10:58:23.498 D/OpenGLRenderer(24344): destroyEglSurface
+09-19 10:58:23.499 D/BufferQueueProducer(24344): [ViewRootImpl@be91f1f[MainActivity]#1(BLAST Consumer)1](id:5f1800000001,api:1,p:24344,c:24344) disconnect: api 1
+09-19 10:58:23.500 I/ViewRootImpl@be91f1f[MainActivity](24344): dispatchDetachedFromWindow
+09-19 10:58:23.501 I/BLASTBufferQueue(24344): [ViewRootImpl@be91f1f[MainActivity]#1](f:0,a:1) destructor()
+09-19 10:58:23.501 D/BufferQueueConsumer(24344): [ViewRootImpl@be91f1f[MainActivity]#1(BLAST Consumer)1](id:5f1800000001,api:0,p:-1,c:24344) disconnect
+09-19 10:58:23.524 D/InputTransport(24344): Input channel destroyed: '5aeee7 ', fd=133
+09-19 10:58:23.537 D/InsetsController(24344): onStateChanged: InsetsState: {mDisplayFrame=Rect(0, 0 - 720, 1600), mDisplayCutout=DisplayCutout{insets=Rect(0, 45 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(272, 0 - 448, 45), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=720 displayHeight=1600 physicalDisplayWidth=720 physicalDisplayHeight=1600 density={1.875} cutoutSpec={M 0,0 H -88 V 45 H 88 V 0 H 0 Z} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=56, center=Point(56, 56)}, RoundedCorner{position=TopRight, radius=56, center=Point(664, 56)}, RoundedCorner{position=BottomRight, radius=56, center=Point(664, 1544)}, RoundedCorner{position=BottomLeft, radius=56, center=Point(56, 1544)}]}  mRoundedCornerFrame=Rect(0, 0 - 720, 1600), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(643, 0 - 720, 45) rotation=0}, mSources= { InsetsSource: {mType=ITYPE_STATUS_BAR, mFrame=[0,0][720,45], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_NAVIGATION_BAR, mFrame=[0,1516][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_LEFT_GESTURES, mFrame=[0,0][0,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_RIGHT_GESTURES, mFrame=[720,0][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_MANDATORY_GESTURES, mFrame=[0,0][720,66], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_MANDATORY_GESTURES, mFrame=[0,1516][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_LEFT_DISPLAY_CUTOUT, mFrame=[0,0][-100000,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_DISPLAY_CUTOUT, mFrame=[0,0][720,45], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_RIGHT_DISPLAY_CUTOUT, mFrame=[100000,0][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_DISPLAY_CUTOUT, mFrame=[0,100000][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_TAPPABLE_ELEMENT, mFrame=[0,0][720,45], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_TAPPABLE_ELEMENT, mFrame=[0,1516][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false} } host=com.fideliza_gestao/com.fideliza_gestao.MainActivity from=android.view.ViewRootImpl$ViewRootHandler.handleMessageImpl:6740
+09-19 10:58:23.548 E/unknown:ReactNative(24344): Unable to download JS bundle
+09-19 10:58:23.548 E/unknown:ReactNative(24344): com.facebook.react.common.DebugServerException: Could not connect to development server.
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 
+09-19 10:58:23.548 E/unknown:ReactNative(24344): Try the following to fix the issue:
+09-19 10:58:23.548 E/unknown:ReactNative(24344): \u2022 Ensure that Metro is running
+09-19 10:58:23.548 E/unknown:ReactNative(24344): \u2022 Ensure that your device/emulator is connected to your machine and has USB debugging enabled - run 'adb devices' to see a list of connected devices
+09-19 10:58:23.548 E/unknown:ReactNative(24344): \u2022 Ensure Airplane Mode is disabled
+09-19 10:58:23.548 E/unknown:ReactNative(24344): \u2022 If you're on a physical device connected to the same machine, run 'adb reverse tcp:8081 tcp:8081 to forward requests from your device
+09-19 10:58:23.548 E/unknown:ReactNative(24344): \u2022 If your device is on the same Wi-Fi network, set 'Debug server host & port for device' in 'Dev settings' to your machine's IP address and the port of the local dev server - e.g. 10.0.1.1:8081
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 
+09-19 10:58:23.548 E/unknown:ReactNative(24344): URL: http://localhost:8081/index.bundle?platform=android&dev=true&lazy=true&minify=false&app=com.fideliza_gestao&modulesOnly=false&runModule=true&excludeSource=true&sourcePaths=url-server
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at com.facebook.react.common.DebugServerException$Companion.makeGeneric(DebugServerException.kt:72)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at com.facebook.react.devsupport.BundleDownloader$downloadBundleFromURL$1.onFailure(BundleDownloader.kt:103)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.RealCall$AsyncCall.run(RealCall.kt:525)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at java.lang.Thread.run(Thread.java:1119)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): Caused by: java.net.ConnectException: Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:297)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.RealConnection.connect(RealConnection.kt:207)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.kt:226)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.kt:106)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.kt:74)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.RealCall.initExchange$okhttp(RealCall.kt:255)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:32)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.RealCall$AsyncCall.run(RealCall.kt:517)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	... 3 more
+09-19 10:58:23.548 E/unknown:ReactNative(24344): Caused by: java.net.ConnectException: failed to connect to localhost/127.0.0.1 (port 8081) from /127.0.0.1 (port 45928) after 5000ms: isConnected failed: ECONNREFUSED (Connection refused)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at libcore.io.IoBridge.isConnected(IoBridge.java:347)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at libcore.io.IoBridge.connectErrno(IoBridge.java:237)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at libcore.io.IoBridge.connect(IoBridge.java:179)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at java.net.PlainSocketImpl.socketConnect(PlainSocketImpl.java:142)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:390)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:230)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:212)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:436)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at java.net.Socket.connect(Socket.java:646)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.platform.Platform.connectSocket(Platform.kt:128)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:295)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	... 18 more
+09-19 10:58:23.548 E/unknown:ReactNative(24344): Caused by: android.system.ErrnoException: isConnected failed: ECONNREFUSED (Connection refused)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	at libcore.io.IoBridge.isConnected(IoBridge.java:334)
+09-19 10:58:23.548 E/unknown:ReactNative(24344): 	... 28 more
+09-19 10:58:23.556 D/NativeCustomFrequencyManager(24344): [NativeCFMS] BpCustomFrequencyManager::BpCustomFrequencyManager()
+09-19 10:58:23.566 D/InsetsController(24344): onStateChanged: InsetsState: {mDisplayFrame=Rect(0, 0 - 720, 1600), mDisplayCutout=DisplayCutout{insets=Rect(0, 45 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(272, 0 - 448, 45), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=720 displayHeight=1600 physicalDisplayWidth=720 physicalDisplayHeight=1600 density={1.875} cutoutSpec={M 0,0 H -88 V 45 H 88 V 0 H 0 Z} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=56, center=Point(56, 56)}, RoundedCorner{position=TopRight, radius=56, center=Point(664, 56)}, RoundedCorner{position=BottomRight, radius=56, center=Point(664, 1544)}, RoundedCorner{position=BottomLeft, radius=56, center=Point(56, 1544)}]}  mRoundedCornerFrame=Rect(0, 0 - 720, 1600), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(643, 0 - 720, 45) rotation=0}, mSources= { InsetsSource: {mType=ITYPE_STATUS_BAR, mFrame=[0,0][720,45], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_NAVIGATION_BAR, mFrame=[0,1516][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_LEFT_GESTURES, mFrame=[0,0][0,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_RIGHT_GESTURES, mFrame=[720,0][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_MANDATORY_GESTURES, mFrame=[0,0][720,66], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_MANDATORY_GESTURES, mFrame=[0,1516][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_LEFT_DISPLAY_CUTOUT, mFrame=[0,0][-100000,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_DISPLAY_CUTOUT, mFrame=[0,0][720,45], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_RIGHT_DISPLAY_CUTOUT, mFrame=[100000,0][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_DISPLAY_CUTOUT, mFrame=[0,100000][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_TAPPABLE_ELEMENT, mFrame=[0,0][720,45], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_TAPPABLE_ELEMENT, mFrame=[0,1516][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false} } host=PopupWindow:3ce8774 from=android.view.ViewRootImpl.setView:1732
+09-19 10:58:23.568 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): setView = android.widget.PopupWindow$PopupDecorView@9b9485e TM=true
+09-19 10:58:23.579 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): performTraversals params={(0,45)(fillxwrap) gr=TOP START CENTER sim={state=unchanged adjust=pan} ty=APPLICATION_PANEL fmt=TRANSLUCENT surfaceInsets=Rect(0, 0 - 0, 0) (manual)
+09-19 10:58:23.579 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344):   fl=41800018
+09-19 10:58:23.579 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344):   pfl=42018000
+09-19 10:58:23.579 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344):   bhv=DEFAULT
+09-19 10:58:23.579 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344):   fitTypes=STATUS_BARS NAVIGATION_BARS CAPTION_BAR naviIconColor=0
+09-19 10:58:23.579 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344):   sfl=20000}
+09-19 10:58:23.583 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): performTraversals mFirst=true windowShouldResize=true viewVisibilityChanged=false mForceNextWindowRelayout=false params={(0,45)(fillxwrap) gr=TOP START CENTER sim={state=unchanged adjust=pan} ty=APPLICATION_PANEL fmt=TRANSLUCENT surfaceInsets=Rect(0, 0 - 0, 0) (manual)
+09-19 10:58:23.583 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344):   fl=41800018
+09-19 10:58:23.583 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344):   pfl=42018000
+09-19 10:58:23.583 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344):   bhv=DEFAULT
+09-19 10:58:23.583 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344):   fitTypes=STATUS_BARS NAVIGATION_BARS CAPTION_BAR naviIconColor=0
+09-19 10:58:23.583 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344):   sfl=20000}
+09-19 10:58:23.592 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): Resizing android.view.ViewRootImpl@ea4a43f: frame = [0,45][720,92] reportDraw = true forceLayout = false syncSeqId = 0
+09-19 10:58:23.596 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): updateBlastSurfaceIfNeeded mBlastBufferQueue=null isSameSurfaceControl=false
+09-19 10:58:23.596 D/BufferQueueConsumer(24344): [](id:5f1800000002,api:0,p:-1,c:24344) connect: controlledByApp=false
+09-19 10:58:23.597 I/BLASTBufferQueue(24344): new BLASTBufferQueue, mName= ViewRootImpl@756d12[PopupWindow:3ce8774] mNativeObject= 0xb4000071f109eb00 sc.mNativeObject= 0xb4000071f12d5240 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:2909 android.view.ViewRootImpl.relayoutWindow:9847 android.view.ViewRootImpl.performTraversals:3884 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 android.view.Choreographer$CallbackRecord.run:1301 android.view.Choreographer$CallbackRecord.run:1309 android.view.Choreographer.doCallbacks:923 android.view.Choreographer.doFrame:852 android.view.Choreographer$FrameDisplayEventReceiver.run:1283 
+09-19 10:58:23.598 I/BLASTBufferQueue(24344): update, w= 720 h= 47 mName = ViewRootImpl@756d12[PopupWindow:3ce8774] mNativeObject= 0xb4000071f109eb00 sc.mNativeObject= 0xb4000071f12d5240 format= -3 caller= android.graphics.BLASTBufferQueue.<init>:84 android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:2909 android.view.ViewRootImpl.relayoutWindow:9847 android.view.ViewRootImpl.performTraversals:3884 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 
+09-19 10:58:23.599 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): Relayout returned: old=(0,45,720,1516) new=(0,45,720,92) req=(720,47)0 dur=13 res=0x3 s={true 0xb4000071f1067800} ch=true seqId=0
+09-19 10:58:23.601 D/BufferQueueProducer(24344): [ViewRootImpl@756d12[PopupWindow:3ce8774]#2(BLAST Consumer)2](id:5f1800000002,api:1,p:24344,c:24344) connect: api=1 producerControlledByApp=true
+09-19 10:58:23.601 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): mThreadedRenderer.initialize() mSurface={isValid=true 0xb4000071f1067800} hwInitialized=true
+09-19 10:58:23.602 D/OpenGLRenderer(24344): eglCreateWindowSurface
+09-19 10:58:23.603 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): reportNextDraw android.view.ViewRootImpl.performTraversals:4438 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 android.view.Choreographer$CallbackRecord.run:1301 android.view.Choreographer$CallbackRecord.run:1309 
+09-19 10:58:23.603 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): Setup new sync id=0
+09-19 10:58:23.603 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): Setting syncFrameCallback
+09-19 10:58:23.603 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): registerCallbacksForSync syncBuffer=false
+09-19 10:58:23.607 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): Received frameDrawingCallback syncResult=0 frameNum=1.
+09-19 10:58:23.607 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): Setting up sync and frameCommitCallback
+09-19 10:58:23.612 E/IMGMapper(24344): set:488 set: Unset optional value from type SMPTE2086
+09-19 10:58:23.613 E/IMGMapper(24344): set:488 set: Unset optional value from type CTA861_3
+09-19 10:58:23.613 I/BLASTBufferQueue(24344): [ViewRootImpl@756d12[PopupWindow:3ce8774]#2](f:0,a:0) onFrameAvailable the first frame is available
+09-19 10:58:23.613 I/BLASTBufferQueue(24344): [ViewRootImpl@756d12[PopupWindow:3ce8774]#2](f:0,a:1) acquireNextBufferLocked size=720x47 mFrameNumber=1 applyTransaction=true mTimestamp=1463110681107271(auto) mPendingTransactions.size=0 graphicBufferId=104556683853837 transform=0
+09-19 10:58:23.614 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): Received frameCommittedCallback lastAttemptedDrawFrameNum=1 didProduceBuffer=true
+09-19 10:58:23.617 D/OpenGLRenderer(24344): CFMS:: SetUp Pid : 24344    Tid : 24366
+09-19 10:58:23.617 W/Parcel  (24344): Expecting binder but got null!
+09-19 10:58:23.617 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): onSyncComplete
+09-19 10:58:23.618 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): setupSync seqId=0 mSyncId=0 fn=1 caller=android.view.ViewRootImpl$$ExternalSyntheticLambda11.accept:6 android.window.SurfaceSyncer.lambda$setupSync$1$android-window-SurfaceSyncer:128 android.window.SurfaceSyncer$$ExternalSyntheticLambda1.accept:8 android.window.SurfaceSyncer$SyncSet.checkIfSyncIsComplete:382 android.window.SurfaceSyncer$SyncSet.markSyncReady:359 android.window.SurfaceSyncer.markSyncReady:151 android.view.ViewRootImpl.performTraversals:4503 
+09-19 10:58:23.619 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): reportDrawFinished seqId=0 mSyncId=-1 fn=1 mSurfaceChangedTransaction=0xb400007245584300
+09-19 10:58:23.621 D/OpenGLRenderer(24344): setSurface called with nullptr
+09-19 10:58:23.621 D/OpenGLRenderer(24344): setSurface() destroyed EGLSurface
+09-19 10:58:23.621 D/OpenGLRenderer(24344): destroyEglSurface
+09-19 10:58:23.622 D/BufferQueueProducer(24344): [ViewRootImpl@756d12[PopupWindow:3ce8774]#2(BLAST Consumer)2](id:5f1800000002,api:1,p:24344,c:24344) disconnect: api 1
+09-19 10:58:23.623 I/ViewRootImpl@756d12[PopupWindow:3ce8774](24344): dispatchDetachedFromWindow
+09-19 10:58:23.637 D/InputTransport(24344): Input channel destroyed: '2d08259', fd=106
+09-19 10:58:23.641 I/BLASTBufferQueue(24344): [ViewRootImpl@756d12[PopupWindow:3ce8774]#2](f:0,a:1) destructor()
+09-19 10:58:23.642 D/BufferQueueConsumer(24344): [ViewRootImpl@756d12[PopupWindow:3ce8774]#2(BLAST Consumer)2](id:5f1800000002,api:0,p:-1,c:24344) disconnect
+09-19 10:58:23.642 E/unknown:ReactNative(24344): Exception in native call
+09-19 10:58:23.642 E/unknown:ReactNative(24344): com.facebook.react.common.DebugServerException: Could not connect to development server.
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 
+09-19 10:58:23.642 E/unknown:ReactNative(24344): Try the following to fix the issue:
+09-19 10:58:23.642 E/unknown:ReactNative(24344): \u2022 Ensure that Metro is running
+09-19 10:58:23.642 E/unknown:ReactNative(24344): \u2022 Ensure that your device/emulator is connected to your machine and has USB debugging enabled - run 'adb devices' to see a list of connected devices
+09-19 10:58:23.642 E/unknown:ReactNative(24344): \u2022 Ensure Airplane Mode is disabled
+09-19 10:58:23.642 E/unknown:ReactNative(24344): \u2022 If you're on a physical device connected to the same machine, run 'adb reverse tcp:8081 tcp:8081 to forward requests from your device
+09-19 10:58:23.642 E/unknown:ReactNative(24344): \u2022 If your device is on the same Wi-Fi network, set 'Debug server host & port for device' in 'Dev settings' to your machine's IP address and the port of the local dev server - e.g. 10.0.1.1:8081
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 
+09-19 10:58:23.642 E/unknown:ReactNative(24344): URL: http://localhost:8081/index.bundle?platform=android&dev=true&lazy=true&minify=false&app=com.fideliza_gestao&modulesOnly=false&runModule=true&excludeSource=true&sourcePaths=url-server
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at com.facebook.react.common.DebugServerException$Companion.makeGeneric(DebugServerException.kt:72)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at com.facebook.react.devsupport.BundleDownloader$downloadBundleFromURL$1.onFailure(BundleDownloader.kt:103)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.RealCall$AsyncCall.run(RealCall.kt:525)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at java.lang.Thread.run(Thread.java:1119)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): Caused by: java.net.ConnectException: Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:297)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.RealConnection.connect(RealConnection.kt:207)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.kt:226)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.kt:106)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.kt:74)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.RealCall.initExchange$okhttp(RealCall.kt:255)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:32)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.RealCall$AsyncCall.run(RealCall.kt:517)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	... 3 more
+09-19 10:58:23.642 E/unknown:ReactNative(24344): Caused by: java.net.ConnectException: failed to connect to localhost/127.0.0.1 (port 8081) from /127.0.0.1 (port 45928) after 5000ms: isConnected failed: ECONNREFUSED (Connection refused)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at libcore.io.IoBridge.isConnected(IoBridge.java:347)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at libcore.io.IoBridge.connectErrno(IoBridge.java:237)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at libcore.io.IoBridge.connect(IoBridge.java:179)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at java.net.PlainSocketImpl.socketConnect(PlainSocketImpl.java:142)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:390)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:230)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:212)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:436)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at java.net.Socket.connect(Socket.java:646)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.platform.Platform.connectSocket(Platform.kt:128)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:295)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	... 18 more
+09-19 10:58:23.642 E/unknown:ReactNative(24344): Caused by: android.system.ErrnoException: isConnected failed: ECONNREFUSED (Connection refused)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	at libcore.io.IoBridge.isConnected(IoBridge.java:334)
+09-19 10:58:23.642 E/unknown:ReactNative(24344): 	... 28 more
+09-19 10:58:23.643 I/ViewRootImpl@cb82a5d[MainActivity](24344): MSG_WINDOW_FOCUS_CHANGED 1 0
+09-19 10:58:23.643 I/ViewRootImpl@cb82a5d[MainActivity](24344): mThreadedRenderer.initializeIfNeeded()#2 mSurface={isValid=true 0xb4000071f0fe5800}
+09-19 10:58:23.644 D/InputMethodManager(24344): startInputInner - Id : 0
+09-19 10:58:23.644 I/InputMethodManager(24344): startInputInner - mService.startInputOrWindowGainedFocus
+09-19 10:58:23.685 I/Dialog  (24344): mIsDeviceDefault = false, mIsSamsungBasicInteraction = false, isMetaDataInActivity = false
+09-19 10:58:23.690 I/DecorView(24344): [INFO] isPopOver=false config=false
+09-19 10:58:23.690 I/DecorView(24344): updateCaptionType: isFloating=false isApplication=true hasWindowDecorCaption=false this=DecorView@fc387ca[]
+09-19 10:58:23.690 D/DecorView(24344): setCaptionType = 0, this = DecorView@fc387ca[]
+09-19 10:58:23.692 I/DecorView(24344): getCurrentDensityDpi: from app context. densityDpi=280 msg=resources_loaded
+09-19 10:58:23.693 I/DecorView(24344): setWindowBackground: isPopOver=false color=eecc0000 d=android.graphics.drawable.ColorDrawable@c924c58
+09-19 10:58:23.695 I/DecorView(24344): setWindowBackground: isPopOver=false color=ff000000 d=android.graphics.drawable.ColorDrawable@17cc217
+09-19 10:58:23.699 D/NativeCustomFrequencyManager(24344): [NativeCFMS] BpCustomFrequencyManager::BpCustomFrequencyManager()
+09-19 10:58:23.710 D/InsetsController(24344): onStateChanged: InsetsState: {mDisplayFrame=Rect(0, 0 - 720, 1600), mDisplayCutout=DisplayCutout{insets=Rect(0, 45 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(272, 0 - 448, 45), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=720 displayHeight=1600 physicalDisplayWidth=720 physicalDisplayHeight=1600 density={1.875} cutoutSpec={M 0,0 H -88 V 45 H 88 V 0 H 0 Z} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=56, center=Point(56, 56)}, RoundedCorner{position=TopRight, radius=56, center=Point(664, 56)}, RoundedCorner{position=BottomRight, radius=56, center=Point(664, 1544)}, RoundedCorner{position=BottomLeft, radius=56, center=Point(56, 1544)}]}  mRoundedCornerFrame=Rect(0, 0 - 720, 1600), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(643, 0 - 720, 45) rotation=0}, mSources= { InsetsSource: {mType=ITYPE_STATUS_BAR, mFrame=[0,0][720,45], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_NAVIGATION_BAR, mFrame=[0,1516][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_LEFT_GESTURES, mFrame=[0,0][0,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_RIGHT_GESTURES, mFrame=[720,0][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_MANDATORY_GESTURES, mFrame=[0,0][720,66], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_MANDATORY_GESTURES, mFrame=[0,1516][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_LEFT_DISPLAY_CUTOUT, mFrame=[0,0][-100000,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_DISPLAY_CUTOUT, mFrame=[0,0][720,45], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_RIGHT_DISPLAY_CUTOUT, mFrame=[100000,0][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_DISPLAY_CUTOUT, mFrame=[0,100000][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_TOP_TAPPABLE_ELEMENT, mFrame=[0,0][720,45], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_BOTTOM_TAPPABLE_ELEMENT, mFrame=[0,1516][720,1600], mVisible=true, mInsetsRoundedCornerFrame=false}, InsetsSource: {mType=ITYPE_IME, mFrame=[0,0][0,0], mVisibleFrame=[0,1516][720,1600], mVisible=false, mInsetsRoundedCornerFrame=false} } host=com.fideliza_gestao/com.fideliza_gestao.MainActivity from=android.view.ViewRootImpl.setView:1732
+09-19 10:58:23.712 I/ViewRootImpl@a0bd604[MainActivity](24344): setView = com.android.internal.policy.DecorView@fc387ca TM=true
+09-19 10:58:23.728 I/ViewRootImpl@a0bd604[MainActivity](24344): performTraversals params={(0,0)(fillxfill) gr=CENTER sim={adjust=resize forwardNavigation} ty=APPLICATION wanim=0x7f100006
+09-19 10:58:23.728 I/ViewRootImpl@a0bd604[MainActivity](24344):   fl=81810100
+09-19 10:58:23.728 I/ViewRootImpl@a0bd604[MainActivity](24344):   pfl=12020040
+09-19 10:58:23.728 I/ViewRootImpl@a0bd604[MainActivity](24344):   bhv=DEFAULT
+09-19 10:58:23.728 I/ViewRootImpl@a0bd604[MainActivity](24344):   fitSides= naviIconColor=0}
+09-19 10:58:23.731 I/ViewRootImpl@a0bd604[MainActivity](24344): performTraversals mFirst=true windowShouldResize=true viewVisibilityChanged=false mForceNextWindowRelayout=false params={(0,0)(fillxfill) gr=CENTER sim={adjust=resize forwardNavigation} ty=APPLICATION wanim=0x7f100006
+09-19 10:58:23.731 I/ViewRootImpl@a0bd604[MainActivity](24344):   fl=81810100
+09-19 10:58:23.731 I/ViewRootImpl@a0bd604[MainActivity](24344):   pfl=12020040
+09-19 10:58:23.731 I/ViewRootImpl@a0bd604[MainActivity](24344):   bhv=DEFAULT
+09-19 10:58:23.731 I/ViewRootImpl@a0bd604[MainActivity](24344):   fitSides= naviIconColor=0}
+09-19 10:58:23.752 I/ViewRootImpl@a0bd604[MainActivity](24344): updateBlastSurfaceIfNeeded mBlastBufferQueue=null isSameSurfaceControl=false
+09-19 10:58:23.752 D/BufferQueueConsumer(24344): [](id:5f1800000003,api:0,p:-1,c:24344) connect: controlledByApp=false
+09-19 10:58:23.753 I/BLASTBufferQueue(24344): new BLASTBufferQueue, mName= ViewRootImpl@a0bd604[MainActivity] mNativeObject= 0xb4000071f109ee80 sc.mNativeObject= 0xb4000071f10d2980 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:2909 android.view.ViewRootImpl.relayoutWindow:9847 android.view.ViewRootImpl.performTraversals:3884 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 android.view.Choreographer$CallbackRecord.run:1301 android.view.Choreographer$CallbackRecord.run:1309 android.view.Choreographer.doCallbacks:923 android.view.Choreographer.doFrame:852 android.view.Choreographer$FrameDisplayEventReceiver.run:1283 
+09-19 10:58:23.754 I/BLASTBufferQueue(24344): update, w= 720 h= 1600 mName = ViewRootImpl@a0bd604[MainActivity] mNativeObject= 0xb4000071f109ee80 sc.mNativeObject= 0xb4000071f10d2980 format= -1 caller= android.graphics.BLASTBufferQueue.<init>:84 android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:2909 android.view.ViewRootImpl.relayoutWindow:9847 android.view.ViewRootImpl.performTraversals:3884 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 
+09-19 10:58:23.754 I/ViewRootImpl@a0bd604[MainActivity](24344): Relayout returned: old=(0,0,720,1600) new=(0,0,720,1600) req=(720,1600)0 dur=21 res=0x3 s={true 0xb4000071f0fbc800} ch=true seqId=0
+09-19 10:58:23.756 I/ViewRootImpl@a0bd604[MainActivity](24344): mThreadedRenderer.initialize() mSurface={isValid=true 0xb4000071f0fbc800} hwInitialized=true
+09-19 10:58:23.756 D/BufferQueueProducer(24344): [ViewRootImpl@a0bd604[MainActivity]#3(BLAST Consumer)3](id:5f1800000003,api:1,p:24344,c:24344) connect: api=1 producerControlledByApp=true
+09-19 10:58:23.756 D/OpenGLRenderer(24344): eglCreateWindowSurface
+09-19 10:58:23.834 D/AbsListView(24344):  in onLayout changed 
+09-19 10:58:23.835 I/ViewRootImpl@a0bd604[MainActivity](24344): reportNextDraw android.view.ViewRootImpl.performTraversals:4438 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 android.view.Choreographer$CallbackRecord.run:1301 android.view.Choreographer$CallbackRecord.run:1309 
+09-19 10:58:23.835 I/ViewRootImpl@a0bd604[MainActivity](24344): Setup new sync id=0
+09-19 10:58:23.835 I/ViewRootImpl@a0bd604[MainActivity](24344): Setting syncFrameCallback
+09-19 10:58:23.835 I/ViewRootImpl@a0bd604[MainActivity](24344): registerCallbacksForSync syncBuffer=false
+09-19 10:58:23.846 I/ViewRootImpl@a0bd604[MainActivity](24344): Received frameDrawingCallback syncResult=0 frameNum=1.
+09-19 10:58:23.846 I/ViewRootImpl@a0bd604[MainActivity](24344): Setting up sync and frameCommitCallback
+09-19 10:58:23.851 E/IMGMapper(24344): set:488 set: Unset optional value from type SMPTE2086
+09-19 10:58:23.851 E/IMGMapper(24344): set:488 set: Unset optional value from type CTA861_3
+09-19 10:58:23.851 I/BLASTBufferQueue(24344): [ViewRootImpl@a0bd604[MainActivity]#3](f:0,a:0) onFrameAvailable the first frame is available
+09-19 10:58:23.852 I/BLASTBufferQueue(24344): [ViewRootImpl@a0bd604[MainActivity]#3](f:0,a:1) acquireNextBufferLocked size=720x1600 mFrameNumber=1 applyTransaction=true mTimestamp=1463110919483194(auto) mPendingTransactions.size=0 graphicBufferId=104556683853842 transform=0
+09-19 10:58:23.852 I/ViewRootImpl@a0bd604[MainActivity](24344): Received frameCommittedCallback lastAttemptedDrawFrameNum=1 didProduceBuffer=true
+09-19 10:58:23.854 D/OpenGLRenderer(24344): CFMS:: SetUp Pid : 24344    Tid : 24366
+09-19 10:58:23.854 W/Parcel  (24344): Expecting binder but got null!
+09-19 10:58:23.855 I/ViewRootImpl@a0bd604[MainActivity](24344): onSyncComplete
+09-19 10:58:23.855 I/ViewRootImpl@a0bd604[MainActivity](24344): setupSync seqId=0 mSyncId=0 fn=1 caller=android.view.ViewRootImpl$$ExternalSyntheticLambda11.accept:6 android.window.SurfaceSyncer.lambda$setupSync$1$android-window-SurfaceSyncer:128 android.window.SurfaceSyncer$$ExternalSyntheticLambda1.accept:8 android.window.SurfaceSyncer$SyncSet.checkIfSyncIsComplete:382 android.window.SurfaceSyncer$SyncSet.markSyncReady:359 android.window.SurfaceSyncer.markSyncReady:151 android.view.ViewRootImpl.performTraversals:4503 
+09-19 10:58:23.856 I/ViewRootImpl@a0bd604[MainActivity](24344): reportDrawFinished seqId=0 mSyncId=-1 fn=1 mSurfaceChangedTransaction=0xb4000071f106d400
+09-19 10:58:23.861 I/ViewRootImpl@cb82a5d[MainActivity](24344): MSG_WINDOW_FOCUS_CHANGED 0 0
+09-19 10:58:23.913 I/ViewRootImpl@a0bd604[MainActivity](24344): MSG_WINDOW_FOCUS_CHANGED 1 0
+09-19 10:58:23.913 I/ViewRootImpl@a0bd604[MainActivity](24344): mThreadedRenderer.initializeIfNeeded()#2 mSurface={isValid=true 0xb4000071f0fbc800}
+09-19 10:58:23.914 D/InputMethodManager(24344): startInputInner - Id : 0
+09-19 10:58:23.914 I/InputMethodManager(24344): startInputInner - mService.startInputOrWindowGainedFocus
+09-19 10:58:25.298 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:27.301 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:29.305 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 10:58:31.311 I/ReactNativeJNI(24344): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081

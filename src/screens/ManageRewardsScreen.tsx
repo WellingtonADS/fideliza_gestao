@@ -167,6 +167,11 @@ const ManageRewardsScreen = () => {
 };
 
 const styles = StyleSheet.create({
+    closeButton: {
+        fontSize: 16,
+        color: '#FDD835',
+        fontWeight: 'bold',
+    },
     safeArea: { flex: 1, backgroundColor: '#0A0A2A' },
     loaderContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0A0A2A' },
     container: { padding: 20 },

@@ -1,0 +1,215 @@
+[capture-once] Capturing logcat for com.fideliza_gestao (PID 3481) at 2025-09-19_11-58-10
+--------- beginning of main
+09-19 11:58:09.249 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:11.255 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:13.246 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:15.248 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:17.250 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:19.266 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:21.276 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:23.283 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:25.289 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:27.297 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:29.301 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:31.308 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:33.317 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:35.325 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:37.337 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:39.342 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:41.349 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:43.357 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:43.584 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): ViewPostIme pointer 0
+09-19 11:58:43.585 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.585 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.585 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.585 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.604 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.604 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.620 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.620 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.637 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.637 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.654 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.654 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.671 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.671 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.687 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.687 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.704 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.704 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.720 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.721 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.737 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.737 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.754 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.754 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.770 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.770 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.778 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.779 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.779 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): ViewPostIme pointer 1
+09-19 11:58:43.780 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:43.780 W/unknown:ReactRootView( 3481): Unable to dispatch touch to JS as the catalyst instance has not been attached
+09-19 11:58:44.955 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): ViewPostIme key 0
+--------- beginning of system
+09-19 11:58:44.956 D/Activity( 3481): onKeyDown(KEYCODE_BACK)
+09-19 11:58:45.032 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): ViewPostIme key 1
+09-19 11:58:45.032 D/Activity( 3481): onKeyUp(KEYCODE_BACK) isTracking()=true isCanceled()=false hasCallback=false
+09-19 11:58:45.032 W/unknown:ReactInstanceManager( 3481): Instance detached from instance manager
+09-19 11:58:45.034 D/Activity( 3481): onBackPressed
+09-19 11:58:45.094 D/SensorManager( 3481): unregisterListener
+09-19 11:58:45.108 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): MSG_WINDOW_FOCUS_CHANGED 0 0
+09-19 11:58:45.347 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:45.448 D/InputTransport( 3481): Input channel destroyed: 'ClientS', fd=129
+09-19 11:58:45.823 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): handleAppVisibility mAppVisible = true visible = false
+09-19 11:58:45.841 D/OpenGLRenderer( 3481): setSurface called with nullptr
+09-19 11:58:45.841 D/OpenGLRenderer( 3481): setSurface() destroyed EGLSurface
+09-19 11:58:45.841 D/OpenGLRenderer( 3481): destroyEglSurface
+09-19 11:58:45.842 D/BufferQueueProducer( 3481): [ViewRootImpl@92e8ab8[MainActivity]#5(BLAST Consumer)5](id:d9900000005,api:1,p:3481,c:3481) disconnect: api 1
+09-19 11:58:45.845 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): performTraversals mFirst=false windowShouldResize=false viewVisibilityChanged=true mForceNextWindowRelayout=false params=null
+09-19 11:58:45.857 I/BLASTBufferQueue( 3481): [ViewRootImpl@92e8ab8[MainActivity]#5](f:0,a:1) destructor()
+09-19 11:58:45.857 D/BufferQueueConsumer( 3481): [ViewRootImpl@92e8ab8[MainActivity]#5(BLAST Consumer)5](id:d9900000005,api:0,p:-1,c:3481) disconnect
+09-19 11:58:45.858 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): Relayout returned: old=(0,0,720,1600) new=(0,0,720,1600) req=(720,1600)8 dur=11 res=0x2 s={false 0x0} ch=true seqId=0
+09-19 11:58:45.861 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): stopped(true) old = false
+09-19 11:58:45.861 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): WindowStopped on com.fideliza_gestao/com.fideliza_gestao.MainActivity set to true
+09-19 11:58:45.867 I/MSHandlerLifeCycle( 3481): removeMultiSplitHandler: no exist. decor=DecorView@cd6b96c[MainActivity]
+09-19 11:58:47.358 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:49.373 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:51.381 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:52.360 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): handleAppVisibility mAppVisible = false visible = true
+09-19 11:58:52.368 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): stopped(false) old = true
+09-19 11:58:52.368 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): WindowStopped on com.fideliza_gestao/com.fideliza_gestao.MainActivity set to false
+09-19 11:58:52.382 I/MSHandlerLifeCycle( 3481): removeMultiSplitHandler: no exist. decor=DecorView@cd6b96c[MainActivity]
+09-19 11:58:52.383 W/unknown:ReactInstanceManager( 3481): Instance detached from instance manager
+09-19 11:58:52.383 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): stopped(false) old = false
+09-19 11:58:52.385 D/SensorManager( 3481): registerListener :: 1, mc34x9, 66667, 0, 
+09-19 11:58:52.388 I/DecorView( 3481): notifyKeepScreenOnChanged: keepScreenOn=false
+09-19 11:58:52.389 I/MSHandlerLifeCycle( 3481): removeMultiSplitHandler: no exist. decor=DecorView@cd6b96c[MainActivity]
+09-19 11:58:52.394 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): performTraversals params={(0,0)(fillxfill) sim={adjust=resize forwardNavigation} ty=BASE_APPLICATION wanim=0x1030309
+09-19 11:58:52.394 I/ViewRootImpl@92e8ab8[MainActivity]( 3481):   fl=81810100
+09-19 11:58:52.394 I/ViewRootImpl@92e8ab8[MainActivity]( 3481):   pfl=12020040
+09-19 11:58:52.394 I/ViewRootImpl@92e8ab8[MainActivity]( 3481):   bhv=DEFAULT
+09-19 11:58:52.394 I/ViewRootImpl@92e8ab8[MainActivity]( 3481):   fitSides= naviIconColor=0}
+09-19 11:58:52.396 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): performTraversals mFirst=false windowShouldResize=false viewVisibilityChanged=true mForceNextWindowRelayout=false params={(0,0)(fillxfill) sim={adjust=resize forwardNavigation} ty=BASE_APPLICATION wanim=0x1030309
+09-19 11:58:52.396 I/ViewRootImpl@92e8ab8[MainActivity]( 3481):   fl=81810100
+09-19 11:58:52.396 I/ViewRootImpl@92e8ab8[MainActivity]( 3481):   pfl=12020040
+09-19 11:58:52.396 I/ViewRootImpl@92e8ab8[MainActivity]( 3481):   bhv=DEFAULT
+09-19 11:58:52.396 I/ViewRootImpl@92e8ab8[MainActivity]( 3481):   fitSides= naviIconColor=0}
+09-19 11:58:52.403 W/unknown:ReconnectingWebSocket( 3481): Couldn't connect to "ws://localhost:8081/message?device=SM-A037M%20-%2013%20-%20API%2033&app=com.fideliza_gestao&clientid=BridgeDevSupportManager", will silently retry
+09-19 11:58:52.415 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): updateBlastSurfaceIfNeeded mBlastBufferQueue=null isSameSurfaceControl=false
+09-19 11:58:52.415 D/BufferQueueConsumer( 3481): [](id:d9900000006,api:0,p:-1,c:3481) connect: controlledByApp=false
+09-19 11:58:52.416 I/BLASTBufferQueue( 3481): new BLASTBufferQueue, mName= ViewRootImpl@92e8ab8[MainActivity] mNativeObject= 0xb4000072454cee00 sc.mNativeObject= 0xb400007245449560 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:2909 android.view.ViewRootImpl.relayoutWindow:9847 android.view.ViewRootImpl.performTraversals:3884 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 android.view.Choreographer$CallbackRecord.run:1301 android.view.Choreographer$CallbackRecord.run:1309 android.view.Choreographer.doCallbacks:923 android.view.Choreographer.doFrame:852 android.view.Choreographer$FrameDisplayEventReceiver.run:1283 
+09-19 11:58:52.416 I/BLASTBufferQueue( 3481): update, w= 720 h= 1600 mName = ViewRootImpl@92e8ab8[MainActivity] mNativeObject= 0xb4000072454cee00 sc.mNativeObject= 0xb400007245449560 format= -1 caller= android.graphics.BLASTBufferQueue.<init>:84 android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:2909 android.view.ViewRootImpl.relayoutWindow:9847 android.view.ViewRootImpl.performTraversals:3884 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 
+09-19 11:58:52.417 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): Relayout returned: old=(0,0,720,1600) new=(0,0,720,1600) req=(720,1600)0 dur=18 res=0x3 s={true 0xb40000725996c000} ch=true seqId=0
+09-19 11:58:52.418 D/BufferQueueProducer( 3481): [ViewRootImpl@92e8ab8[MainActivity]#6(BLAST Consumer)6](id:d9900000006,api:1,p:3481,c:3481) connect: api=1 producerControlledByApp=true
+09-19 11:58:52.418 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): mThreadedRenderer.initialize() mSurface={isValid=true 0xb40000725996c000} hwInitialized=true
+09-19 11:58:52.418 D/OpenGLRenderer( 3481): eglCreateWindowSurface
+09-19 11:58:52.418 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): reportNextDraw android.view.ViewRootImpl.performTraversals:4438 android.view.ViewRootImpl.doTraversal:3116 android.view.ViewRootImpl$TraversalRunnable.run:10885 android.view.Choreographer$CallbackRecord.run:1301 android.view.Choreographer$CallbackRecord.run:1309 
+09-19 11:58:52.418 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): Setup new sync id=5
+09-19 11:58:52.418 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): Setting syncFrameCallback
+09-19 11:58:52.419 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): registerCallbacksForSync syncBuffer=false
+09-19 11:58:52.423 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): Received frameDrawingCallback syncResult=0 frameNum=1.
+09-19 11:58:52.423 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): Setting up sync and frameCommitCallback
+09-19 11:58:52.425 E/IMGMapper( 3481): set:488 set: Unset optional value from type SMPTE2086
+09-19 11:58:52.425 E/IMGMapper( 3481): set:488 set: Unset optional value from type CTA861_3
+09-19 11:58:52.426 I/BLASTBufferQueue( 3481): [ViewRootImpl@92e8ab8[MainActivity]#6](f:0,a:0) onFrameAvailable the first frame is available
+09-19 11:58:52.427 I/BLASTBufferQueue( 3481): [ViewRootImpl@92e8ab8[MainActivity]#6](f:0,a:1) acquireNextBufferLocked size=720x1600 mFrameNumber=1 applyTransaction=true mTimestamp=1466739493799564(auto) mPendingTransactions.size=0 graphicBufferId=14950781157403 transform=0
+09-19 11:58:52.429 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): Received frameCommittedCallback lastAttemptedDrawFrameNum=1 didProduceBuffer=true
+09-19 11:58:52.430 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): onSyncComplete
+09-19 11:58:52.431 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): setupSync seqId=0 mSyncId=5 fn=1 caller=android.view.ViewRootImpl$$ExternalSyntheticLambda11.accept:6 android.window.SurfaceSyncer.lambda$setupSync$1$android-window-SurfaceSyncer:128 android.window.SurfaceSyncer$$ExternalSyntheticLambda1.accept:8 android.window.SurfaceSyncer$SyncSet.checkIfSyncIsComplete:382 android.window.SurfaceSyncer$SyncSet.markSyncReady:359 android.window.SurfaceSyncer.markSyncReady:151 android.view.ViewRootImpl.performTraversals:4503 
+09-19 11:58:52.432 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): reportDrawFinished seqId=0 mSyncId=-1 fn=1 mSurfaceChangedTransaction=0xb40000724f6fca00
+09-19 11:58:52.443 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): MSG_WINDOW_FOCUS_CHANGED 1 0
+09-19 11:58:52.443 I/ViewRootImpl@92e8ab8[MainActivity]( 3481): mThreadedRenderer.initializeIfNeeded()#2 mSurface={isValid=true 0xb40000725996c000}
+09-19 11:58:52.444 D/InputMethodManager( 3481): startInputInner - Id : 0
+09-19 11:58:52.444 I/InputMethodManager( 3481): startInputInner - mService.startInputOrWindowGainedFocus
+09-19 11:58:53.388 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:55.395 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:57.405 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:58:59.411 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:01.419 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:03.425 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:05.431 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:07.438 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:09.449 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:11.453 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:13.462 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:15.470 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:17.474 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:19.473 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:21.485 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:23.495 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:25.500 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:27.506 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:29.514 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:31.523 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:33.527 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:35.534 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:37.538 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:39.550 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:41.553 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:43.556 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:45.563 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:47.571 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:49.577 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:51.585 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:53.593 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:55.601 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:57.605 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 11:59:59.616 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:01.617 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:03.625 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:05.634 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:07.641 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:09.651 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:11.658 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:13.665 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:15.677 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:17.682 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:19.688 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:21.685 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:23.692 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:25.701 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:27.711 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:29.711 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:31.723 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:33.730 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:35.739 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:37.750 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:39.752 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:41.758 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:43.763 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:45.769 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:47.775 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:49.784 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:51.789 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:53.789 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:55.802 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:57.806 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:00:59.812 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:01.823 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:03.827 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:05.832 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:07.842 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:09.851 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:11.853 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:13.859 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:15.866 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:17.873 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:19.880 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:21.884 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:23.894 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:25.898 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:27.905 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:29.912 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:31.914 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:33.923 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:35.930 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:37.938 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:39.943 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:41.950 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:43.957 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:45.966 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:47.973 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:49.980 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:51.988 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081
+09-19 12:01:53.994 I/ReactNativeJNI( 3481): Error occurred, shutting down websocket connection: WebSocket exception Failed to connect to localhost/127.0.0.1:8081

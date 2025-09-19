@@ -1,0 +1,290 @@
+--------- beginning of main
+09-19 10:01:52.734 I/ReactNativeJS(14604): Running "fideliza_gestao"
+09-19 10:02:35.274 E/ReactNativeJS(14604): 'Falha ao carregar sess├úo, limpando...', [AxiosError: Request failed with status code 401]
+09-19 10:02:35.345 W/ReactNativeJS(14604): SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/th3rdwave/react-native-safe-area-context
+--------- beginning of crash
+09-19 10:04:51.382 E/AndroidRuntime(14604): FATAL EXCEPTION: mqt_v_native
+09-19 10:04:51.382 E/AndroidRuntime(14604): Process: com.fideliza_gestao, PID: 14604
+09-19 10:04:51.382 E/AndroidRuntime(14604): java.lang.NullPointerException: Attempt to invoke virtual method 'com.facebook.react.uimanager.events.EventDispatcher com.facebook.react.uimanager.UIManagerModule.getEventDispatcher()' on a null object reference
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at org.reactnative.camera.RNCameraViewHelper$1.run(RNCameraViewHelper.java:173)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at android.os.Handler.handleCallback(Handler.java:942)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at com.facebook.react.bridge.queue.MessageQueueThreadHandler.dispatchMessage(MessageQueueThreadHandler.kt:21)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at android.os.Looper.loopOnce(Looper.java:226)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at android.os.Looper.loop(Looper.java:313)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at com.facebook.react.bridge.queue.MessageQueueThreadImpl$Companion.startNewBackgroundThread$lambda$1(MessageQueueThreadImpl.kt:175)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at com.facebook.react.bridge.queue.MessageQueueThreadImpl$Companion.$r8$lambda$ldnZnqelhYFctGaUKkOKYj5rxo4(Unknown Source:0)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at com.facebook.react.bridge.queue.MessageQueueThreadImpl$Companion$$ExternalSyntheticLambda0.run(D8$$SyntheticClass:0)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at java.lang.Thread.run(Thread.java:1119)
+09-19 10:08:27.128 E/AndroidRuntime(15155): FATAL EXCEPTION: main
+09-19 10:08:27.128 E/AndroidRuntime(15155): Process: com.dti.samsung, PID: 15155
+09-19 10:08:27.128 E/AndroidRuntime(15155): java.lang.RuntimeException: Unable to get provider androidx.startup.InitializationProvider: androidx.startup.StartupException: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at android.app.ActivityThread.installProvider(ActivityThread.java:8333)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at android.app.ActivityThread.installContentProviders(ActivityThread.java:7833)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:7582)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source:0)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2400)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at android.os.Looper.loopOnce(Looper.java:226)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at android.os.Looper.loop(Looper.java:313)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at android.app.ActivityThread.main(ActivityThread.java:8762)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at java.lang.reflect.Method.invoke(Native Method)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:604)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1067)
+09-19 10:08:27.128 E/AndroidRuntime(15155): Caused by: androidx.startup.StartupException: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at androidx.startup.AppInitializer.d(SourceFile:16)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at androidx.startup.AppInitializer.b(SourceFile:11)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at androidx.startup.AppInitializer.a(SourceFile:7)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at androidx.startup.InitializationProvider.onCreate(SourceFile:3)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2522)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2492)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at android.app.ActivityThread.installProvider(ActivityThread.java:8328)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	... 11 more
+09-19 10:08:27.128 E/AndroidRuntime(15155): Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at com.digitalturbine.igniteui.util.RepostNotificationsUtils.addRepostMetadata(SourceFile:1)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at com.digitalturbine.igniteui.controller.gate.NotificationUIGate.i(SourceFile:39)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at com.digitalturbine.igniteui.controller.gate.NotificationUIGate.scheduleNotification(SourceFile:7)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at com.digitalturbine.igniteui.controller.gate.MRNotificationWizardNotificationUIGate.scheduleNotificationToLaunchWizard(SourceFile:4)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at com.digitalturbine.igniteui.controller.UIController.k(SourceFile:5)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at com.digitalturbine.igniteui.controller.UIController.h(SourceFile:8)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at com.digitalturbine.igniteui.controller.UIController.configureGates(SourceFile:12)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at com.digitalturbine.igniteui.controller.UIController.<init>(SourceFile:21)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at com.digitalturbine.igniteui.controller.UIController.init(SourceFile:2)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at com.digitalturbine.igniteui.startup.IgniteUiInitializer.create(SourceFile:12)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at com.digitalturbine.igniteui.startup.IgniteUiInitializer.create(SourceFile:1)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	at androidx.startup.AppInitializer.d(SourceFile:13)
+09-19 10:08:27.128 E/AndroidRuntime(15155): 	... 17 more
+09-19 10:08:30.774 E/AndroidRuntime(15419): FATAL EXCEPTION: main
+09-19 10:08:30.774 E/AndroidRuntime(15419): Process: com.dti.samsung, PID: 15419
+09-19 10:08:30.774 E/AndroidRuntime(15419): java.lang.RuntimeException: Unable to get provider androidx.startup.InitializationProvider: androidx.startup.StartupException: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at android.app.ActivityThread.installProvider(ActivityThread.java:8333)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at android.app.ActivityThread.installContentProviders(ActivityThread.java:7833)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:7582)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source:0)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2400)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at android.os.Looper.loopOnce(Looper.java:226)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at android.os.Looper.loop(Looper.java:313)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at android.app.ActivityThread.main(ActivityThread.java:8762)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at java.lang.reflect.Method.invoke(Native Method)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:604)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1067)
+09-19 10:08:30.774 E/AndroidRuntime(15419): Caused by: androidx.startup.StartupException: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at androidx.startup.AppInitializer.d(SourceFile:16)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at androidx.startup.AppInitializer.b(SourceFile:11)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at androidx.startup.AppInitializer.a(SourceFile:7)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at androidx.startup.InitializationProvider.onCreate(SourceFile:3)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2522)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2492)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at android.app.ActivityThread.installProvider(ActivityThread.java:8328)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	... 11 more
+09-19 10:08:30.774 E/AndroidRuntime(15419): Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at com.digitalturbine.igniteui.util.RepostNotificationsUtils.addRepostMetadata(SourceFile:1)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at com.digitalturbine.igniteui.controller.gate.NotificationUIGate.i(SourceFile:39)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at com.digitalturbine.igniteui.controller.gate.NotificationUIGate.scheduleNotification(SourceFile:7)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at com.digitalturbine.igniteui.controller.gate.MRNotificationWizardNotificationUIGate.scheduleNotificationToLaunchWizard(SourceFile:4)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at com.digitalturbine.igniteui.controller.UIController.k(SourceFile:5)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at com.digitalturbine.igniteui.controller.UIController.h(SourceFile:8)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at com.digitalturbine.igniteui.controller.UIController.configureGates(SourceFile:12)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at com.digitalturbine.igniteui.controller.UIController.<init>(SourceFile:21)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at com.digitalturbine.igniteui.controller.UIController.init(SourceFile:2)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at com.digitalturbine.igniteui.startup.IgniteUiInitializer.create(SourceFile:12)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at com.digitalturbine.igniteui.startup.IgniteUiInitializer.create(SourceFile:1)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	at androidx.startup.AppInitializer.d(SourceFile:13)
+09-19 10:08:30.774 E/AndroidRuntime(15419): 	... 17 more
+09-19 10:08:32.554 E/AndroidRuntime(15631): FATAL EXCEPTION: main
+09-19 10:08:32.554 E/AndroidRuntime(15631): Process: com.dti.samsung, PID: 15631
+09-19 10:08:32.554 E/AndroidRuntime(15631): java.lang.RuntimeException: Unable to get provider androidx.startup.InitializationProvider: androidx.startup.StartupException: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at android.app.ActivityThread.installProvider(ActivityThread.java:8333)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at android.app.ActivityThread.installContentProviders(ActivityThread.java:7833)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:7582)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source:0)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2400)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at android.os.Looper.loopOnce(Looper.java:226)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at android.os.Looper.loop(Looper.java:313)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at android.app.ActivityThread.main(ActivityThread.java:8762)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at java.lang.reflect.Method.invoke(Native Method)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:604)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1067)
+09-19 10:08:32.554 E/AndroidRuntime(15631): Caused by: androidx.startup.StartupException: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at androidx.startup.AppInitializer.d(SourceFile:16)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at androidx.startup.AppInitializer.b(SourceFile:11)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at androidx.startup.AppInitializer.a(SourceFile:7)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at androidx.startup.InitializationProvider.onCreate(SourceFile:3)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2522)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2492)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at android.app.ActivityThread.installProvider(ActivityThread.java:8328)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	... 11 more
+09-19 10:08:32.554 E/AndroidRuntime(15631): Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at com.digitalturbine.igniteui.util.RepostNotificationsUtils.addRepostMetadata(SourceFile:1)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at com.digitalturbine.igniteui.controller.gate.NotificationUIGate.i(SourceFile:39)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at com.digitalturbine.igniteui.controller.gate.NotificationUIGate.scheduleNotification(SourceFile:7)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at com.digitalturbine.igniteui.controller.gate.MRNotificationWizardNotificationUIGate.scheduleNotificationToLaunchWizard(SourceFile:4)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at com.digitalturbine.igniteui.controller.UIController.k(SourceFile:5)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at com.digitalturbine.igniteui.controller.UIController.h(SourceFile:8)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at com.digitalturbine.igniteui.controller.UIController.configureGates(SourceFile:12)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at com.digitalturbine.igniteui.controller.UIController.<init>(SourceFile:21)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at com.digitalturbine.igniteui.controller.UIController.init(SourceFile:2)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at com.digitalturbine.igniteui.startup.IgniteUiInitializer.create(SourceFile:12)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at com.digitalturbine.igniteui.startup.IgniteUiInitializer.create(SourceFile:1)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	at androidx.startup.AppInitializer.d(SourceFile:13)
+09-19 10:08:32.554 E/AndroidRuntime(15631): 	... 17 more
+09-19 10:08:34.223 E/AndroidRuntime(15766): FATAL EXCEPTION: main
+09-19 10:08:34.223 E/AndroidRuntime(15766): Process: com.dti.samsung, PID: 15766
+09-19 10:08:34.223 E/AndroidRuntime(15766): java.lang.RuntimeException: Unable to get provider androidx.startup.InitializationProvider: androidx.startup.StartupException: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at android.app.ActivityThread.installProvider(ActivityThread.java:8333)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at android.app.ActivityThread.installContentProviders(ActivityThread.java:7833)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:7582)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source:0)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2400)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at android.os.Looper.loopOnce(Looper.java:226)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at android.os.Looper.loop(Looper.java:313)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at android.app.ActivityThread.main(ActivityThread.java:8762)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at java.lang.reflect.Method.invoke(Native Method)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:604)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1067)
+09-19 10:08:34.223 E/AndroidRuntime(15766): Caused by: androidx.startup.StartupException: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at androidx.startup.AppInitializer.d(SourceFile:16)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at androidx.startup.AppInitializer.b(SourceFile:11)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at androidx.startup.AppInitializer.a(SourceFile:7)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at androidx.startup.InitializationProvider.onCreate(SourceFile:3)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2522)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2492)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at android.app.ActivityThread.installProvider(ActivityThread.java:8328)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	... 11 more
+09-19 10:08:34.223 E/AndroidRuntime(15766): Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at com.digitalturbine.igniteui.util.RepostNotificationsUtils.addRepostMetadata(SourceFile:1)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at com.digitalturbine.igniteui.controller.gate.NotificationUIGate.i(SourceFile:39)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at com.digitalturbine.igniteui.controller.gate.NotificationUIGate.scheduleNotification(SourceFile:7)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at com.digitalturbine.igniteui.controller.gate.MRNotificationWizardNotificationUIGate.scheduleNotificationToLaunchWizard(SourceFile:4)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at com.digitalturbine.igniteui.controller.UIController.k(SourceFile:5)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at com.digitalturbine.igniteui.controller.UIController.h(SourceFile:8)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at com.digitalturbine.igniteui.controller.UIController.configureGates(SourceFile:12)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at com.digitalturbine.igniteui.controller.UIController.<init>(SourceFile:21)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at com.digitalturbine.igniteui.controller.UIController.init(SourceFile:2)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at com.digitalturbine.igniteui.startup.IgniteUiInitializer.create(SourceFile:12)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at com.digitalturbine.igniteui.startup.IgniteUiInitializer.create(SourceFile:1)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	at androidx.startup.AppInitializer.d(SourceFile:13)
+09-19 10:08:34.223 E/AndroidRuntime(15766): 	... 17 more
+09-19 10:09:10.045 E/AndroidRuntime(15948): FATAL EXCEPTION: main
+09-19 10:09:10.045 E/AndroidRuntime(15948): Process: com.dti.samsung, PID: 15948
+09-19 10:09:10.045 E/AndroidRuntime(15948): java.lang.RuntimeException: Unable to get provider androidx.startup.InitializationProvider: androidx.startup.StartupException: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at android.app.ActivityThread.installProvider(ActivityThread.java:8333)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at android.app.ActivityThread.installContentProviders(ActivityThread.java:7833)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:7582)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source:0)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2400)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at android.os.Looper.loopOnce(Looper.java:226)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at android.os.Looper.loop(Looper.java:313)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at android.app.ActivityThread.main(ActivityThread.java:8762)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at java.lang.reflect.Method.invoke(Native Method)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:604)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1067)
+09-19 10:09:10.045 E/AndroidRuntime(15948): Caused by: androidx.startup.StartupException: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at androidx.startup.AppInitializer.d(SourceFile:16)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at androidx.startup.AppInitializer.b(SourceFile:11)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at androidx.startup.AppInitializer.a(SourceFile:7)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at androidx.startup.InitializationProvider.onCreate(SourceFile:3)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2522)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2492)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at android.app.ActivityThread.installProvider(ActivityThread.java:8328)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	... 11 more
+09-19 10:09:10.045 E/AndroidRuntime(15948): Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at com.digitalturbine.igniteui.util.RepostNotificationsUtils.addRepostMetadata(SourceFile:1)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at com.digitalturbine.igniteui.controller.gate.NotificationUIGate.i(SourceFile:39)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at com.digitalturbine.igniteui.controller.gate.NotificationUIGate.scheduleNotification(SourceFile:7)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at com.digitalturbine.igniteui.controller.gate.MRNotificationWizardNotificationUIGate.scheduleNotificationToLaunchWizard(SourceFile:4)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at com.digitalturbine.igniteui.controller.UIController.k(SourceFile:5)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at com.digitalturbine.igniteui.controller.UIController.h(SourceFile:8)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at com.digitalturbine.igniteui.controller.UIController.configureGates(SourceFile:12)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at com.digitalturbine.igniteui.controller.UIController.<init>(SourceFile:21)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at com.digitalturbine.igniteui.controller.UIController.init(SourceFile:2)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at com.digitalturbine.igniteui.startup.IgniteUiInitializer.create(SourceFile:12)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at com.digitalturbine.igniteui.startup.IgniteUiInitializer.create(SourceFile:1)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	at androidx.startup.AppInitializer.d(SourceFile:13)
+09-19 10:09:10.045 E/AndroidRuntime(15948): 	... 17 more
+09-19 10:09:14.162 E/AndroidRuntime(16075): FATAL EXCEPTION: main
+09-19 10:09:14.162 E/AndroidRuntime(16075): Process: com.dti.samsung, PID: 16075
+09-19 10:09:14.162 E/AndroidRuntime(16075): java.lang.RuntimeException: Unable to get provider androidx.startup.InitializationProvider: androidx.startup.StartupException: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at android.app.ActivityThread.installProvider(ActivityThread.java:8333)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at android.app.ActivityThread.installContentProviders(ActivityThread.java:7833)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:7582)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source:0)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2400)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at android.os.Looper.loopOnce(Looper.java:226)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at android.os.Looper.loop(Looper.java:313)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at android.app.ActivityThread.main(ActivityThread.java:8762)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at java.lang.reflect.Method.invoke(Native Method)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:604)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1067)
+09-19 10:09:14.162 E/AndroidRuntime(16075): Caused by: androidx.startup.StartupException: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at androidx.startup.AppInitializer.d(SourceFile:16)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at androidx.startup.AppInitializer.b(SourceFile:11)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at androidx.startup.AppInitializer.a(SourceFile:7)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at androidx.startup.InitializationProvider.onCreate(SourceFile:3)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2522)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2492)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at android.app.ActivityThread.installProvider(ActivityThread.java:8328)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	... 11 more
+09-19 10:09:14.162 E/AndroidRuntime(16075): Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at com.digitalturbine.igniteui.util.RepostNotificationsUtils.addRepostMetadata(SourceFile:1)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at com.digitalturbine.igniteui.controller.gate.NotificationUIGate.i(SourceFile:39)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at com.digitalturbine.igniteui.controller.gate.NotificationUIGate.scheduleNotification(SourceFile:7)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at com.digitalturbine.igniteui.controller.gate.MRNotificationWizardNotificationUIGate.scheduleNotificationToLaunchWizard(SourceFile:4)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at com.digitalturbine.igniteui.controller.UIController.k(SourceFile:5)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at com.digitalturbine.igniteui.controller.UIController.h(SourceFile:8)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at com.digitalturbine.igniteui.controller.UIController.configureGates(SourceFile:12)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at com.digitalturbine.igniteui.controller.UIController.<init>(SourceFile:21)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at com.digitalturbine.igniteui.controller.UIController.init(SourceFile:2)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at com.digitalturbine.igniteui.startup.IgniteUiInitializer.create(SourceFile:12)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at com.digitalturbine.igniteui.startup.IgniteUiInitializer.create(SourceFile:1)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	at androidx.startup.AppInitializer.d(SourceFile:13)
+09-19 10:09:14.162 E/AndroidRuntime(16075): 	... 17 more
+09-19 10:09:21.297 E/AndroidRuntime(16196): FATAL EXCEPTION: main
+09-19 10:09:21.297 E/AndroidRuntime(16196): Process: com.dti.samsung, PID: 16196
+09-19 10:09:21.297 E/AndroidRuntime(16196): java.lang.RuntimeException: Unable to get provider androidx.startup.InitializationProvider: androidx.startup.StartupException: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at android.app.ActivityThread.installProvider(ActivityThread.java:8333)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at android.app.ActivityThread.installContentProviders(ActivityThread.java:7833)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:7582)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source:0)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2400)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at android.os.Handler.dispatchMessage(Handler.java:106)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at android.os.Looper.loopOnce(Looper.java:226)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at android.os.Looper.loop(Looper.java:313)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at android.app.ActivityThread.main(ActivityThread.java:8762)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at java.lang.reflect.Method.invoke(Native Method)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:604)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1067)
+09-19 10:09:21.297 E/AndroidRuntime(16196): Caused by: androidx.startup.StartupException: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at androidx.startup.AppInitializer.d(SourceFile:16)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at androidx.startup.AppInitializer.b(SourceFile:11)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at androidx.startup.AppInitializer.a(SourceFile:7)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at androidx.startup.InitializationProvider.onCreate(SourceFile:3)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2522)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at android.content.ContentProvider.attachInfo(ContentProvider.java:2492)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at android.app.ActivityThread.installProvider(ActivityThread.java:8328)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	... 11 more
+09-19 10:09:21.297 E/AndroidRuntime(16196): Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'com.digitalturbine.igniteui.igniteconnector.IgniteConnector com.digitalturbine.igniteui.controller.UIController.getIgniteConnector()' on a null object reference
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at com.digitalturbine.igniteui.util.RepostNotificationsUtils.addRepostMetadata(SourceFile:1)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at com.digitalturbine.igniteui.controller.gate.NotificationUIGate.i(SourceFile:39)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at com.digitalturbine.igniteui.controller.gate.NotificationUIGate.scheduleNotification(SourceFile:7)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at com.digitalturbine.igniteui.controller.gate.MRNotificationWizardNotificationUIGate.scheduleNotificationToLaunchWizard(SourceFile:4)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at com.digitalturbine.igniteui.controller.UIController.k(SourceFile:5)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at com.digitalturbine.igniteui.controller.UIController.h(SourceFile:8)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at com.digitalturbine.igniteui.controller.UIController.configureGates(SourceFile:12)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at com.digitalturbine.igniteui.controller.UIController.<init>(SourceFile:21)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at com.digitalturbine.igniteui.controller.UIController.init(SourceFile:2)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at com.digitalturbine.igniteui.startup.IgniteUiInitializer.create(SourceFile:12)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at com.digitalturbine.igniteui.startup.IgniteUiInitializer.create(SourceFile:1)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	at androidx.startup.AppInitializer.d(SourceFile:13)
+09-19 10:09:21.297 E/AndroidRuntime(16196): 	... 17 more
+09-19 10:20:57.860 I/ReactNativeJS(17736): Running "fideliza_cliente"
+09-19 10:20:57.891 W/ReactNativeJS(17736): The app is running using the Legacy Architecture. The Legacy Architecture is deprecated and will be removed in a future version of React Native. Please consider migrating to the New Architecture. For more information, please see https://reactnative.dev/blog/2024/10/23/the-new-architecture-is-here
+09-19 10:20:58.092 W/ReactNativeJS(17736): SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/th3rdwave/react-native-safe-area-context
+09-19 10:21:07.053 I/ReactNativeJS(17797): Running "fideliza_gestao"
+09-19 10:21:07.074 W/ReactNativeJS(17797): The app is running using the Legacy Architecture. The Legacy Architecture is deprecated and will be removed in a future version of React Native. Please consider migrating to the New Architecture. For more information, please see https://reactnative.dev/blog/2024/10/23/the-new-architecture-is-here
+09-19 10:21:59.662 W/ReactNativeJS(17797): SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/th3rdwave/react-native-safe-area-context

@@ -1,0 +1,18 @@
+--------- beginning of main
+09-19 10:01:52.734 I/ReactNativeJS(14604): Running "fideliza_gestao"
+09-19 10:02:35.274 E/ReactNativeJS(14604): 'Falha ao carregar sess├úo, limpando...', [AxiosError: Request failed with status code 401]
+09-19 10:02:35.345 W/ReactNativeJS(14604): SafeAreaView has been deprecated and will be removed in a future release. Please use 'react-native-safe-area-context' instead. See https://github.com/th3rdwave/react-native-safe-area-context
+--------- beginning of crash
+09-19 10:04:51.382 E/AndroidRuntime(14604): FATAL EXCEPTION: mqt_v_native
+09-19 10:04:51.382 E/AndroidRuntime(14604): Process: com.fideliza_gestao, PID: 14604
+09-19 10:04:51.382 E/AndroidRuntime(14604): java.lang.NullPointerException: Attempt to invoke virtual method 'com.facebook.react.uimanager.events.EventDispatcher com.facebook.react.uimanager.UIManagerModule.getEventDispatcher()' on a null object reference
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at org.reactnative.camera.RNCameraViewHelper$1.run(RNCameraViewHelper.java:173)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at android.os.Handler.handleCallback(Handler.java:942)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at android.os.Handler.dispatchMessage(Handler.java:99)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at com.facebook.react.bridge.queue.MessageQueueThreadHandler.dispatchMessage(MessageQueueThreadHandler.kt:21)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at android.os.Looper.loopOnce(Looper.java:226)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at android.os.Looper.loop(Looper.java:313)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at com.facebook.react.bridge.queue.MessageQueueThreadImpl$Companion.startNewBackgroundThread$lambda$1(MessageQueueThreadImpl.kt:175)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at com.facebook.react.bridge.queue.MessageQueueThreadImpl$Companion.$r8$lambda$ldnZnqelhYFctGaUKkOKYj5rxo4(Unknown Source:0)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at com.facebook.react.bridge.queue.MessageQueueThreadImpl$Companion$$ExternalSyntheticLambda0.run(D8$$SyntheticClass:0)
+09-19 10:04:51.382 E/AndroidRuntime(14604): 	at java.lang.Thread.run(Thread.java:1119)

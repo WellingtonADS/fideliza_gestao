@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import * as api from '../services/api';
 import Toast from 'react-native-toast-message';
 import StyledTextInput from '../components/StyledTextInput';
@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useAuth } from '../context/AuthContext';
 
 const EditCompanyScreen = () => {
+    const navigation = useNavigation();
     const { user, updateUser } = useAuth(); // Substitui setUser por updateUser
     const [company, setCompany] = useState<Partial<CompanyDetails>>({});
     const [isLoading, setIsLoading] = useState(true);
@@ -66,6 +67,9 @@ const EditCompanyScreen = () => {
                 <View style={styles.header}>
                     <Icon name="business" size={30} color="#000" />
                     <Text style={styles.title}>Editar Empresa</Text>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Text style={styles.closeButton}>Voltar</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.card}>
                     <Text style={styles.cardTitle}>Dados da Empresa</Text>
@@ -109,6 +113,13 @@ const EditCompanyScreen = () => {
 };
 
 const styles = StyleSheet.create({
+    closeButton: {
+        marginLeft: 'auto',
+        color: '#3D5CFF',
+        fontSize: 16,
+        fontWeight: 'bold',
+        padding: 8,
+    },
     safeArea: { flex: 1, backgroundColor: '#0A0A2A' },
     loaderContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0A0A2A' },
     container: { padding: 20 },

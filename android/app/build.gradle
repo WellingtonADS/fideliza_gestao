@@ -84,7 +84,6 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        missingDimensionStrategy "react-native-camera", "general"
     }
     signingConfigs {
         debug {
@@ -105,12 +104,16 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
-            signingConfig signingConfigs.release
+            // TODO: configurar keystore de release real. Por ora, usar debug para gerar APK.
+            signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
 }
+
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
@@ -121,6 +124,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    // ML Kit: necessário para vision-camera-code-scanner
+    implementation("com.google.mlkit:barcode-scanning:17.3.0")
 }
 
-apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
