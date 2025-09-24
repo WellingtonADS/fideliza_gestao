@@ -65,6 +65,7 @@ const LoginScreen = ({ navigation }: Props) => {
           value={password}
           onChangeText={setPassword}
           secureTextEntry
+          showPasswordToggle
         />
 
         <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={isLoading}>

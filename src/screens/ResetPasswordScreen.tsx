@@ -76,6 +76,7 @@ const ResetPasswordScreen = ({ navigation }: Props) => {
           value={newPassword}
           onChangeText={setNewPassword}
           secureTextEntry
+          showPasswordToggle
         />
         <StyledTextInput
           label="Confirmar Nova Senha"
@@ -83,6 +84,7 @@ const ResetPasswordScreen = ({ navigation }: Props) => {
           value={confirmPassword}
           onChangeText={setConfirmPassword}
           secureTextEntry
+          showPasswordToggle
         />
         <TouchableOpacity style={styles.button} onPress={handleReset} disabled={isLoading}>
           {isLoading ? <ActivityIndicator color="#FFFFFF" /> : <Text style={styles.buttonText}>Salvar Nova Senha</Text>}

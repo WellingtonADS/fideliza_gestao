@@ -65,6 +65,7 @@ const EditProfileScreen = () => {
                         value={password}
                         onChangeText={setPassword}
                         secureTextEntry
+                        showPasswordToggle
                         placeholder="Digite a nova senha"
                     />
                     <StyledTextInput
@@ -72,6 +73,7 @@ const EditProfileScreen = () => {
                         value={confirmPassword}
                         onChangeText={setConfirmPassword}
                         secureTextEntry
+                        showPasswordToggle
                         placeholder="Digite a nova senha novamente"
                     />
                     <TouchableOpacity style={styles.button} onPress={handleUpdate} disabled={isSaving}>
