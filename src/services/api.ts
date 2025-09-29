@@ -38,6 +38,7 @@ export const getMyProfile = (config?: AxiosRequestConfig) => {
 
 // --- PASSWORD RECOVERY (NOVAS FUNÇÕES) ---
 export const requestPasswordRecovery = (email: string) => {
+  // app_type 'gestao' garante que o e-mail contenha fidelizagestao://
   return api.post('/request-password-recovery', { email, app_type: 'gestao' });
 };
 

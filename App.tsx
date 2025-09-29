@@ -9,11 +9,13 @@ import Toast from 'react-native-toast-message';
 import SplashScreen from 'react-native-splash-screen';
 
 // Configuração de deep linking para a app de GESTÃO
+// Backend envia o token como query param (?token=...), então mapeamos apenas o path
+// para que o React Navigation injete automaticamente os query params em route.params.
 const linking: LinkingOptions<AuthStackParamList> = {
   prefixes: ['fidelizagestao://'], // Prefixo correto para esta app
   config: {
     screens: {
-      ResetPassword: 'reset-password/:token', // Captura o token da URL
+      ResetPassword: 'reset-password',
     },
   },
 };

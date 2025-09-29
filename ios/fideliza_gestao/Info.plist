@@ -48,5 +48,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+		<!-- Deep link scheme for iOS -->
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>fidelizagestao</string>
+				</array>
+			</dict>
+		</array>
 </dict>
 </plist>
