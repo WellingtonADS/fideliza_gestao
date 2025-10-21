@@ -6,7 +6,7 @@ import * as api from '../services/api';
 import { User } from '../types/auth';
 import Toast from 'react-native-toast-message';
 import StyledTextInput from '../components/StyledTextInput';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// Cabeçalho do Navigator já fornece título/voltar; removemos header customizado desta tela
 
 const ManageCollaboratorsScreen = () => {
   const [collaborators, setCollaborators] = useState<User[]>([]);
@@ -24,7 +24,9 @@ const ManageCollaboratorsScreen = () => {
       const collabRes = await api.getCollaborators();
       setCollaborators(collabRes.data);
     } catch (error) {
-      Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível carregar os colaboradores.' });
+      const e: any = error;
+      const msg = e?.userMessage || 'Não foi possível carregar os colaboradores.';
+      Toast.show({ type: 'error', text1: 'Erro', text2: msg });
     } finally {
       setIsLoading(false);
     }
@@ -50,8 +52,8 @@ const ManageCollaboratorsScreen = () => {
       setNewCollabPassword('');
       fetchData();
     } catch (error: any) {
-      const detail = error.response?.data?.detail || "Erro ao adicionar colaborador.";
-      Toast.show({ type: 'error', text1: 'Erro', text2: detail });
+      const msg = error?.userMessage || error?.response?.data?.detail || 'Erro ao adicionar colaborador.';
+      Toast.show({ type: 'error', text1: 'Erro', text2: msg });
     } finally {
       setIsAddingCollab(false);
     }
@@ -65,8 +67,10 @@ const ManageCollaboratorsScreen = () => {
                     await api.deleteCollaborator(collab.id);
                     Toast.show({ type: 'success', text1: 'Sucesso!', text2: 'Colaborador excluído.' });
                     fetchData();
-                } catch (error) {
-                    Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível excluir o colaborador.' });
+        } catch (error) {
+          const e: any = error;
+          const msg = e?.userMessage || 'Não foi possível excluir o colaborador.';
+          Toast.show({ type: 'error', text1: 'Erro', text2: msg });
                 }
             },
         },]
@@ -83,7 +87,9 @@ const ManageCollaboratorsScreen = () => {
       Toast.show({ type: 'success', text1: 'Sucesso!', text2: 'Colaborador atualizado.' });
       fetchData();
     } catch (error) {
-      Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível atualizar o colaborador.' });
+      const e: any = error;
+      const msg = e?.userMessage || 'Não foi possível atualizar o colaborador.';
+      Toast.show({ type: 'error', text1: 'Erro', text2: msg });
     } finally {
       setEditingCollab(null);
     }
@@ -96,10 +102,7 @@ const ManageCollaboratorsScreen = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.header}>
-          <Icon name="group" size={30} color="#000" />
-          <Text style={styles.title}>Gerir Colaboradores</Text>
-        </View>
+        {/* Cabeçalho removido para evitar duplicidade com o Navigator */}
 
         <View style={styles.card}>
             <Text style={styles.cardTitle}>Colaboradores</Text>
@@ -153,11 +156,6 @@ const ManageCollaboratorsScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  closeButton: {
-    fontSize: 16,
-    color: '#FDD835',
-    fontWeight: 'bold',
-  },
     safeArea: { flex: 1, backgroundColor: '#0A0A2A' },
     loaderContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0A0A2A' },
     container: { padding: 20 },
@@ -176,17 +174,7 @@ const styles = StyleSheet.create({
     modalTitle: { fontSize: 20, fontWeight: 'bold', marginBottom: 20, color: '#FFFFFF', textAlign: 'center' },
     modalButtonContainer: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, gap: 10 },
     modalButton: { flex: 1 },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginLeft: 10,
-        color: '#FFFFFF',
-    },
+  // header e title removidos (usamos o header do Navigator)
 });
 
 

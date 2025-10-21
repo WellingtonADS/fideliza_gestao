@@ -1,12 +1,12 @@
-# **Aplicação de Gestão - Fideliza+ (React Native)**
+# Aplicação de Gestão - Fideliza+ (React Native)
 
 Bem-vindo ao repositório da **Aplicação de Gestão Fideliza+**. Esta aplicação, construída em React Native, é a ferramenta de trabalho para os Administradores e Colaboradores das empresas parceiras, permitindo-lhes gerir os seus programas de fidelidade de forma eficiente.
 
-## **🚀 Status do Projeto**
+## 🚀 Status do Projeto
 
 A aplicação está funcional e pronta para uso, fornecendo todas as ferramentas de gestão necessárias para os administradores e colaboradores.
 
-## **✨ Funcionalidades Disponíveis**
+## ✨ Funcionalidades Disponíveis
 
 ### **Para Colaboradores e Administradores:**
 
@@ -27,7 +27,7 @@ A aplicação está funcional e pronta para uso, fornecendo todas as ferramentas
 * **Gestão de Empresa:**
   * Atualizar informações da empresa, incluindo o nome do usuário administrador, endereço e categoria.
 
-## **🛠️ Tecnologias Utilizadas**
+## 🛠️ Tecnologias Utilizadas
 
 * **Framework:** [React Native](https://reactnative.dev/)
 * **Linguagem:** [TypeScript](https://www.typescriptlang.org/)
@@ -38,7 +38,7 @@ A aplicação está funcional e pronta para uso, fornecendo todas as ferramentas
   * `react-native-vision-camera` (scanner de QR com ML Kit, Android)
   * `react-native-toast-message`
 
-## **🚀 Como Executar o Projeto Localmente**
+## 🚀 Como Executar o Projeto Localmente (100% local)
 
 ### **1. Pré-requisitos**
 
@@ -54,28 +54,25 @@ A aplicação está funcional e pronta para uso, fornecendo todas as ferramentas
    ```
 
 2. **Instale as dependências:**
-   ```bash
-   npm install
-   ```
+  ```bash
+  npm install
+  ```
 
-3. **Configure a Conexão com a API:**
-   * Abra o arquivo `src/services/api.ts`.
-   * No topo do arquivo, encontre a constante `API_BASE_URL`.
-   * **IMPORTANTE:** Altere o endereço para corresponder ao seu ambiente de desenvolvimento:
-     * Para o **Emulador Android**, o endereço é geralmente: `http://10.0.2.2:8000/api/v1`
-     * Para um **dispositivo físico** na mesma rede Wi-Fi, use o IP da sua máquina: `http://SEU_IP_LOCAL:8000/api/v1`
+3. **Conexão com a API:**
+  * `src/services/api.ts` já aponta para `http://10.0.2.2:8000/api/v1` quando em emulador Android (local), `http://localhost:8000/api/v1` em iOS/sim.
+  * Em dispositivo físico na mesma rede, ajuste dinamicamente via `setBaseURL('http://SEU_IP_LOCAL:8000/api/v1')` se precisar.
 
 ### **3. Executar a Aplicação**
 
 1. Inicie um emulador a partir do Android Studio.
 2. No terminal, dentro da pasta `fideliza_gestao`, execute:
-   ```bash
-   npx react-native run-android
-   ```
+  ```bash
+  npx react-native run-android
+  ```
 
 A aplicação será compilada e instalada no seu emulador, pronta para uso.
 
-## **📷 Scanner de QR (Android)**
+## 📷 Scanner de QR (Android)
 
 O leitor de QR Code foi implementado com a biblioteca `react-native-vision-camera` (v4) utilizando o backend CameraX e o detector de códigos do Google ML Kit (on-device). O fluxo é robusto para produção e não depende do Metro.
 
@@ -113,7 +110,7 @@ Observação: A permissão de câmera é solicitada em tempo de execução ao en
 - Produção: prefira builds de Release (APK/ABB) para testar o scanner, evitando dependências do Metro.
 - Bibliotecas legadas removidas: `react-native-camera` e `react-native-qrcode-scanner` não são mais utilizadas.
 
-## **📂 Estrutura do Projeto**
+## 📂 Estrutura do Projeto
 
 Abaixo está uma visão geral da estrutura do projeto:
 
@@ -132,7 +129,7 @@ Abaixo está uma visão geral da estrutura do projeto:
 ├── package.json             # Dependências e scripts do projeto
 ```
 
-## **🎨 Padrão de Ícones (Semantic Icon Mapping)**
+## 🎨 Padrão de Ícones (Semantic Icon Mapping)
 
 Este projeto utiliza o mesmo padrão de mapeamento semântico de ícones adotado no app cliente para garantir consistência entre as aplicações do ecossistema Fideliza+.
 
@@ -177,6 +174,15 @@ import Icon from '../components/IconComponent';
 
 ---
 
-## **📄 Licença**
+## 🔐 Autenticação e Senhas
+
+- Login: `POST /token`
+- Recuperar senha: `POST /request-password-recovery` (app_type='gestao')
+- Redefinir senha: `POST /reset-password` ({ token, new_password })
+
+Header nativo:
+- Header do React Navigation ativado nas telas de autenticação, exceto Login (sem header para layout full-screen).
+
+## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.

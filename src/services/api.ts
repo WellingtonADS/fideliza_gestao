@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import { Platform } from 'react-native';
 import { User, UserCredentials } from '../types/auth';
 import { CompanyReport, PointTransaction, Reward, RewardCreate, CollaboratorCreate, CollaboratorUpdate } from '../types/gestao';
 import { CompanyDetails } from '../types/company';
@@ -9,9 +10,49 @@ export interface RewardUpdate {
     points_required?: number;
 }
 
-const api = axios.create({
-  baseURL: 'https://fideliza-backend.onrender.com/api/v1',
+// Base URLs para ambiente local (sem Render)
+const LOCAL_BASE_URL = Platform.select({
+  android: 'http://10.0.2.2:8000/api/v1',
+  ios: 'http://localhost:8000/api/v1',
+  default: 'http://localhost:8000/api/v1',
 });
+// Em cenário 100% local, PROD aponta para LOCAL
+const PROD_BASE_URL = LOCAL_BASE_URL as string;
+
+const api = axios.create({
+  baseURL: __DEV__ ? LOCAL_BASE_URL : PROD_BASE_URL,
+});
+
+// Interceptor de respostas para mensagens claras e sign-out em 401
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const status = error?.response?.status as number | undefined;
+    const detail = error?.response?.data?.detail as string | undefined;
+
+    let message: string | undefined;
+    if (status === 401) {
+      message = detail || 'Sessão expirada. Entre novamente.';
+      // limpa token para forçar reautenticação
+      try {
+        // evitar import dinâmico de AsyncStorage aqui; delegar ao consumidor
+        delete api.defaults.headers.common['Authorization'];
+      } catch {}
+    } else if (status === 403) {
+      message = detail || 'Acesso negado. Esta área é restrita a administradores.';
+    } else if (status === 429) {
+      message = detail || 'Muitas requisições. Tente novamente em alguns instantes.';
+    } else if (status && status >= 500) {
+      message = detail || 'Erro no servidor. Tente novamente mais tarde.';
+    }
+
+    if (message) {
+      error.userMessage = message;
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 export const setAuthToken = (token?: string) => {
   if (token) {
@@ -19,6 +60,11 @@ export const setAuthToken = (token?: string) => {
   } else {
     delete api.defaults.headers.common['Authorization'];
   }
+};
+
+// Permite alterar dinamicamente a base URL, se precisar apontar para outra porta
+export const setBaseURL = (url: string) => {
+  api.defaults.baseURL = url;
 };
 
 // --- AUTH ---

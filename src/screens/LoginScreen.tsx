@@ -13,7 +13,7 @@ import { AuthStackParamList } from '../navigation/AuthNavigator';
 import { useAuth } from '../context/AuthContext';
 import Toast from 'react-native-toast-message';
 import StyledTextInput from '../components/StyledTextInput';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { colors } from '../theme/colors';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'Login'>;
 
@@ -41,10 +41,6 @@ const LoginScreen = ({ navigation }: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Icon name="login" size={30} color="#000" />
-        <Text style={styles.title}>Login</Text>
-      </View>
       <View style={styles.content}>
         <View style={styles.logoContainer}>
           <Image source={require('../assets/images/logo_fideliza.png')} style={styles.logo} />
@@ -52,7 +48,7 @@ const LoginScreen = ({ navigation }: Props) => {
         <Text style={styles.subtitle}>Fideliza+ Empresas</Text>
 
         <StyledTextInput
-          label="Email"
+          label="E-mail"
           placeholder="Digite o seu e-mail"
           value={email}
           onChangeText={setEmail}
@@ -69,7 +65,7 @@ const LoginScreen = ({ navigation }: Props) => {
         />
 
         <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={isLoading}>
-          {isLoading ? <ActivityIndicator color="#FFFFFF" /> : <Text style={styles.buttonText}>Entrar</Text>}
+          {isLoading ? <ActivityIndicator color={colors.text} /> : <Text style={styles.buttonText}>Entrar</Text>}
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
@@ -83,7 +79,7 @@ const LoginScreen = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0A0A2A',
+    backgroundColor: colors.background,
   },
   header: {
     flexDirection: 'row',
@@ -111,13 +107,13 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   subtitle: {
-    fontSize: 24, // Aumentado o tamanho da fonte
-    fontWeight: 'bold', // Alterado para negrito
-    color: '#ffffffff',
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: colors.text,
     marginBottom: 40,
   },
   button: {
-    backgroundColor: '#3D5CFF',
+    backgroundColor: colors.primary,
     width: '100%',
     padding: 15,
     borderRadius: 12,
@@ -125,17 +121,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: colors.text,
     fontSize: 18,
     fontWeight: 'bold',
   },
   footerText: {
     marginTop: 30,
-    color: '#B0B0B0',
+    color: colors.textMuted,
     fontSize: 14,
   },
   link: {
-    color: '#FDD835',
+    color: colors.accent,
     fontWeight: 'bold',
   },
 });

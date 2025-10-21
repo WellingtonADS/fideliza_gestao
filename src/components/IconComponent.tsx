@@ -17,7 +17,7 @@ const IconComponent: React.FC<IconComponentProps> = ({
   name,
   icon,
   size = 30,
-  color = '#000',
+  color = '#ffffffff',
   label,
   containerStyle,
   labelStyle,

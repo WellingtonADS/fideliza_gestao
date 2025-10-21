@@ -6,7 +6,7 @@ import * as api from '../services/api';
 import { Reward } from '../types/gestao';
 import Toast from 'react-native-toast-message';
 import StyledTextInput from '../components/StyledTextInput';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// Removemos header customizado; o Navigator já provê título e voltar
 
 const ManageRewardsScreen = () => {
     const [rewards, setRewards] = useState<Reward[]>([]);
@@ -26,7 +26,9 @@ const ManageRewardsScreen = () => {
             const rewardRes = await api.getRewards();
             setRewards(rewardRes.data);
         } catch (error) {
-            Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível carregar os prémios.' });
+            const e: any = error;
+            const msg = e?.userMessage || 'Não foi possível carregar os prémios.';
+            Toast.show({ type: 'error', text1: 'Erro', text2: msg });
         } finally {
             setIsLoading(false);
         }
@@ -56,8 +58,8 @@ const ManageRewardsScreen = () => {
             setNewRewardPoints('');
             fetchData();
         } catch (error: any) {
-            const detail = error.response?.data?.detail || "Erro ao adicionar prémio.";
-            Toast.show({ type: 'error', text1: 'Erro', text2: detail });
+            const msg = error?.userMessage || error?.response?.data?.detail || 'Erro ao adicionar prémio.';
+            Toast.show({ type: 'error', text1: 'Erro', text2: msg });
         } finally {
             setIsAddingReward(false);
         }
@@ -72,7 +74,9 @@ const ManageRewardsScreen = () => {
                         Toast.show({ type: 'success', text1: 'Sucesso!', text2: 'Prémio excluído.' });
                         fetchData();
                     } catch (error) {
-                        Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível excluir o prémio.' });
+                        const e: any = error;
+                        const msg = e?.userMessage || 'Não foi possível excluir o prémio.';
+                        Toast.show({ type: 'error', text1: 'Erro', text2: msg });
                     }
                 },
             },]
@@ -96,7 +100,9 @@ const ManageRewardsScreen = () => {
             Toast.show({ type: 'success', text1: 'Sucesso!', text2: 'Prémio atualizado.' });
             fetchData();
         } catch (error) {
-            Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível atualizar o prémio.' });
+            const e: any = error;
+            const msg = e?.userMessage || 'Não foi possível atualizar o prémio.';
+            Toast.show({ type: 'error', text1: 'Erro', text2: msg });
         } finally {
             setEditingReward(null);
         }
@@ -109,10 +115,7 @@ const ManageRewardsScreen = () => {
     return (
       <SafeAreaView style={styles.safeArea}>
         <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.header}>
-                <Icon name="card-giftcard" size={30} color="#000" />
-                <Text style={styles.title}>Gerir Prêmios</Text>
-            </View>
+            {/* Cabeçalho removido para evitar duplicidade com o Navigator */}
             <View style={styles.card}>
                 <Text style={styles.cardTitle}>Prémios</Text>
                 {rewards.map(reward => (
@@ -167,25 +170,10 @@ const ManageRewardsScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    closeButton: {
-        fontSize: 16,
-        color: '#FDD835',
-        fontWeight: 'bold',
-    },
     safeArea: { flex: 1, backgroundColor: '#0A0A2A' },
     loaderContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0A0A2A' },
     container: { padding: 20 },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginLeft: 10,
-        color: '#FFFFFF',
-    },
+    // header/title removidos - usamos header do Navigator
     card: { backgroundColor: '#1E1E3F', borderRadius: 12, padding: 20, marginBottom: 20 },
     cardTitle: { fontSize: 20, fontWeight: 'bold', color: '#FFFFFF', marginBottom: 16 },
     button: { backgroundColor: '#3D5CFF', padding: 15, borderRadius: 12, alignItems: 'center', marginTop: 10 },

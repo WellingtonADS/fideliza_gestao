@@ -4,7 +4,6 @@ import { useAuth } from '../context/AuthContext';
 import * as api from '../services/api';
 import Toast from 'react-native-toast-message';
 import StyledTextInput from '../components/StyledTextInput';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const EditProfileScreen = () => {
     const { user, refreshUser } = useAuth();
@@ -39,7 +38,9 @@ const EditProfileScreen = () => {
             Toast.show({ type: 'success', text1: 'Sucesso', text2: 'O seu perfil foi atualizado.' });
 
         } catch (error) {
-            Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível atualizar o seu perfil.' });
+            const e: any = error;
+            const msg = e?.userMessage || 'Não foi possível atualizar o seu perfil.';
+            Toast.show({ type: 'error', text1: 'Erro', text2: msg });
         } finally {
             setIsSaving(false);
         }
@@ -48,10 +49,6 @@ const EditProfileScreen = () => {
     return (
         <SafeAreaView style={styles.safeArea}>
             <ScrollView contentContainerStyle={styles.container}>
-                <View style={styles.header}>
-                    <Icon name="person" size={30} color="#000" />
-                    <Text style={styles.title}>Editar Perfil</Text>
-                </View>
                 <View style={styles.card}>
                     <StyledTextInput
                         label="Nome Completo"
@@ -86,24 +83,8 @@ const EditProfileScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    closeButton: {
-        fontSize: 16,
-        color: '#FDD835',
-        fontWeight: 'bold',
-    },
     safeArea: { flex: 1, backgroundColor: '#0A0A2A' },
     container: { padding: 20, flexGrow: 1, justifyContent: 'center' },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginLeft: 10,
-        color: '#FFFFFF',
-    },
     card: { backgroundColor: '#1E1E3F', borderRadius: 12, padding: 20 },
     cardTitle: { fontSize: 22, fontWeight: 'bold', color: '#FFFFFF', marginBottom: 20, textAlign: 'center' },
     infoText: { color: '#B0B0B0', fontSize: 14, textAlign: 'center', marginBottom: 20, marginTop: 10 },

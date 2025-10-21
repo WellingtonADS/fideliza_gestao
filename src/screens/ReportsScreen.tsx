@@ -23,14 +23,9 @@ import {
 }
 from '../types/gestao';
 import Toast from 'react-native-toast-message';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// Header customizado removido; usamos o header do Navigator
 
 const styles = StyleSheet.create({
-    closeButton: {
-        fontSize: 16,
-        color: '#FDD835',
-        fontWeight: 'bold',
-    },
     safeArea: {
         flex: 1,
         backgroundColor: '#0A0A2A'
@@ -78,17 +73,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 50
     },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginLeft: 10,
-        color: '#FFFFFF'
-    },
+    // header/title removidos - usamos header do Navigator
 });
 
 const ReportsScreen = () => {
@@ -101,11 +86,9 @@ const ReportsScreen = () => {
             const reportRes = await api.getReport();
             setReport(reportRes.data);
         } catch (error) {
-            Toast.show({
-                type: 'error',
-                text1: 'Erro',
-                text2: 'Não foi possível carregar o relatório.'
-            });
+            const e: any = error;
+            const msg = e?.userMessage || 'Não foi possível carregar o relatório.';
+            Toast.show({ type: 'error', text1: 'Erro', text2: msg });
         } finally {
             setIsLoading(false);
         }
@@ -128,10 +111,7 @@ const ReportsScreen = () => {
     return (
         <SafeAreaView style={styles.safeArea}>
             <ScrollView contentContainerStyle={styles.container}>
-                <View style={styles.header}>
-                    <Icon name="bar-chart" size={30} color="#FFFFFF" />
-                    <Text style={styles.title}>Relatórios</Text>
-                </View>
+                {/* Cabeçalho removido para evitar duplicidade com o Navigator */}
                 {report ? (
                     <View style={styles.card}>
                         <Text style={styles.cardTitle}>Relatório da Empresa</Text>

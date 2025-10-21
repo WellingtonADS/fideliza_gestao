@@ -1,15 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ActivityIndicator, ScrollView } from 'react-native';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import * as api from '../services/api';
 import Toast from 'react-native-toast-message';
 import StyledTextInput from '../components/StyledTextInput';
 import { CompanyDetails } from '../types/company';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useAuth } from '../context/AuthContext';
 
 const EditCompanyScreen = () => {
-    const navigation = useNavigation();
     const { user, updateUser } = useAuth(); // Substitui setUser por updateUser
     const [company, setCompany] = useState<Partial<CompanyDetails>>({});
     const [isLoading, setIsLoading] = useState(true);
@@ -36,8 +34,8 @@ const EditCompanyScreen = () => {
     const handleUpdate = async () => {
         setIsSaving(true);
         try {
-            const { id, userName, ...updateData } = company; // Inclui userName nos dados enviados
-            await api.updateMyCompany({ ...updateData, userName }); // Garante que userName seja enviado
+            const { userName, ...updateData } = company; // Inclui userName nos dados enviados
+            const resp = await api.updateMyCompany({ ...updateData, userName }); // Garante que userName seja enviado
 
             // Atualiza o contexto de autenticação com o novo nome do usuário
             if (userName && user) {
@@ -45,9 +43,17 @@ const EditCompanyScreen = () => {
             }
 
             Toast.show({ type: 'success', text1: 'Sucesso', text2: 'Dados da empresa atualizados.' });
-            fetchData();
+            // Atualiza estado local com o retorno (se disponível) sem refazer request
+            if (resp?.data) {
+                setCompany(resp.data);
+            } else {
+                // Fallback se a API não retornar a entidade atualizada
+                fetchData();
+            }
         } catch (error) {
-            Toast.show({ type: 'error', text1: 'Erro', text2: 'Não foi possível atualizar os dados.' });
+                const e: any = error;
+                const msg = e?.userMessage || 'Não foi possível atualizar os dados.';
+            Toast.show({ type: 'error', text1: 'Erro', text2: msg });
         } finally {
             setIsSaving(false);
         }
@@ -64,13 +70,6 @@ const EditCompanyScreen = () => {
     return (
         <SafeAreaView style={styles.safeArea}>
             <ScrollView contentContainerStyle={styles.container}>
-                <View style={styles.header}>
-                    <Icon name="business" size={30} color="#000" />
-                    <Text style={styles.title}>Editar Empresa</Text>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <Text style={styles.closeButton}>Voltar</Text>
-                    </TouchableOpacity>
-                </View>
                 <View style={styles.card}>
                     <Text style={styles.cardTitle}>Dados da Empresa</Text>
                     <StyledTextInput
@@ -113,27 +112,9 @@ const EditCompanyScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    closeButton: {
-        marginLeft: 'auto',
-        color: '#3D5CFF',
-        fontSize: 16,
-        fontWeight: 'bold',
-        padding: 8,
-    },
     safeArea: { flex: 1, backgroundColor: '#0A0A2A' },
     loaderContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0A0A2A' },
     container: { padding: 20 },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginLeft: 10,
-        color: '#FFFFFF',
-    },
     card: { backgroundColor: '#1E1E3F', borderRadius: 12, padding: 20, marginBottom: 20 },
     cardTitle: { fontSize: 20, fontWeight: 'bold', color: '#FFFFFF', marginBottom: 16 },
     button: { backgroundColor: '#3D5CFF', padding: 15, borderRadius: 12, alignItems: 'center', marginTop: 10 },

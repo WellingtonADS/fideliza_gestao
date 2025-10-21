@@ -26,6 +26,7 @@ import Toast from 'react-native-toast-message';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const styles = StyleSheet.create({
+    // Header customizado removido; usamos o header do Navigator
     closeButton: {
         fontSize: 16,
         color: '#FDD835',
@@ -104,11 +105,9 @@ const TransactionsScreen = () => {
             const transRes = await api.getTransactions();
             setTransactions(transRes.data);
         } catch (error) {
-            Toast.show({
-                type: 'error',
-                text1: 'Erro',
-                text2: 'Não foi possível carregar as transações.'
-            });
+            const e: any = error;
+            const msg = e?.userMessage || 'Não foi possível carregar as transações.';
+            Toast.show({ type: 'error', text1: 'Erro', text2: msg });
         } finally {
             setIsLoading(false);
         }
@@ -130,10 +129,7 @@ const TransactionsScreen = () => {
 
     return (
         <SafeAreaView style={styles.safeArea}>
-            <View style={styles.header}>
-                <Icon name="swap-horiz" size={30} color="#FFFFFF" />
-                <Text style={styles.title}>Transações</Text>
-            </View>
+            {/* Cabeçalho removido para evitar duplicidade com o Navigator */}
             <FlatList
                 data={transactions}
                 keyExtractor={(item) => item.id.toString()}
