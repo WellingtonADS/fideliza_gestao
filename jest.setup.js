@@ -40,7 +40,37 @@ jest.mock('react-native-toast-message', () => ({
   hide: jest.fn(),
 }));
 
+// Mock react-native-permissions para evitar import ESM e nativo no Jest
+jest.mock('react-native-permissions', () => ({
+  __esModule: true,
+  openSettings: jest.fn(() => Promise.resolve()),
+  check: jest.fn(() => Promise.resolve('granted')),
+  request: jest.fn(() => Promise.resolve('granted')),
+  RESULTS: {
+    GRANTED: 'granted',
+    DENIED: 'denied',
+    BLOCKED: 'blocked',
+    UNAVAILABLE: 'unavailable',
+    LIMITED: 'limited',
+  },
+  PERMISSIONS: {},
+}));
+
 // Removidos mocks de libs legadas de scanner (migrado para react-native-vision-camera)
+
+// Mock da Vision Camera para ambiente de teste (sem módulo nativo)
+jest.mock('react-native-vision-camera', () => {
+  const React = require('react');
+  return {
+    __esModule: true,
+    Camera: () => React.createElement('View', null),
+    useCameraDevice: () => ({ id: 'back', position: 'back' }),
+    useCodeScanner: () => ({
+      isActive: false,
+      codes: [],
+    }),
+  };
+});
 
 // Suprimir warning específico de SafeAreaView depreciado
 const originalWarn = console.warn;

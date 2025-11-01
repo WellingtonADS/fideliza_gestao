@@ -10,15 +10,16 @@ export interface RewardUpdate {
     points_required?: number;
 }
 
-// Base URLs para ambiente local (sem Render)
+// Base URLs para ambiente local (emulador/simulador)
 const LOCAL_BASE_URL = Platform.select({
   android: 'http://10.0.2.2:8000/api/v1',
   ios: 'http://localhost:8000/api/v1',
   default: 'http://localhost:8000/api/v1',
 });
-// Em cenário 100% local, PROD aponta para LOCAL
-const PROD_BASE_URL = LOCAL_BASE_URL as string;
+// Produção: backend hospedado no Render
+const PROD_BASE_URL = 'https://fideliza-backend.onrender.com/api/v1';
 
+// BaseURL por ambiente (dev: local; prod: Render) — simples e previsível
 const api = axios.create({
   baseURL: __DEV__ ? LOCAL_BASE_URL : PROD_BASE_URL,
 });
@@ -36,7 +37,7 @@ api.interceptors.response.use(
       // limpa token para forçar reautenticação
       try {
         // evitar import dinâmico de AsyncStorage aqui; delegar ao consumidor
-        delete api.defaults.headers.common['Authorization'];
+        delete api.defaults.headers.common.Authorization;
       } catch {}
     } else if (status === 403) {
       message = detail || 'Acesso negado. Esta área é restrita a administradores.';
@@ -56,9 +57,9 @@ api.interceptors.response.use(
 
 export const setAuthToken = (token?: string) => {
   if (token) {
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    api.defaults.headers.common.Authorization = `Bearer ${token}`;
   } else {
-    delete api.defaults.headers.common['Authorization'];
+    delete api.defaults.headers.common.Authorization;
   }
 };
 
@@ -66,6 +67,8 @@ export const setAuthToken = (token?: string) => {
 export const setBaseURL = (url: string) => {
   api.defaults.baseURL = url;
 };
+
+export const getBaseURL = (): string => api.defaults.baseURL as string;
 
 // --- AUTH ---
 export const login = (credentials: UserCredentials) => {

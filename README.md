@@ -59,8 +59,20 @@ A aplicação está funcional e pronta para uso, fornecendo todas as ferramentas
   ```
 
 3. **Conexão com a API:**
-  * `src/services/api.ts` já aponta para `http://10.0.2.2:8000/api/v1` quando em emulador Android (local), `http://localhost:8000/api/v1` em iOS/sim.
-  * Em dispositivo físico na mesma rede, ajuste dinamicamente via `setBaseURL('http://SEU_IP_LOCAL:8000/api/v1')` se precisar.
+  * `src/services/api.ts` usa baseURL dinâmica por ambiente:
+    - Dev: `http://10.0.2.2:8000/api/v1` (Android emulador) | `http://localhost:8000/api/v1` (iOS/sim)
+    - Produção (release): `https://fideliza-backend.onrender.com/api/v1`
+  * Documentação do backend em produção: `https://fideliza-backend.onrender.com/api/v1/docs`
+  * Em dispositivo físico na mesma rede, é possível ajustar dinamicamente via:
+    ```ts
+    import { setBaseURL } from './src/services/api';
+    setBaseURL('http://SEU_IP_LOCAL:8000/api/v1');
+    ```
+  * Para depurar, você pode verificar a URL atual com:
+    ```ts
+    import { getBaseURL } from './src/services/api';
+    console.log('API baseURL:', getBaseURL());
+    ```
 
 ### **3. Executar a Aplicação**
 

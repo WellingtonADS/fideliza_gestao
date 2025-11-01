@@ -107,7 +107,7 @@ describe('Navigation flow (auth states)', () => {
             onWillAppear={[Function]}
             onWillDisappear={[Function]}
             replaceAnimation="push"
-            screenId="Login-TNe1QH2ZwISFZYNmWfmY6"
+            screenId="Login-8VVqWkrHKyqDF1O2LI16z"
             sheetAllowedDetents={
               [
                 1,
@@ -145,7 +145,9 @@ describe('Navigation flow (auth states)', () => {
                     {
                       "backgroundColor": "rgb(242, 242, 242)",
                     },
-                    undefined,
+                    {
+                      "backgroundColor": "#0A0A2A",
+                    },
                   ],
                 ]
               }
@@ -158,48 +160,6 @@ describe('Navigation flow (auth states)', () => {
                   }
                 }
               >
-                <View
-                  style={
-                    {
-                      "alignItems": "center",
-                      "flexDirection": "row",
-                      "marginBottom": 20,
-                    }
-                  }
-                >
-                  <Text
-                    allowFontScaling={false}
-                    selectable={false}
-                    style={
-                      [
-                        {
-                          "color": "#000",
-                          "fontSize": 30,
-                        },
-                        undefined,
-                        {
-                          "fontFamily": "Material Icons",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        {},
-                      ]
-                    }
-                  >
-                    
-                  </Text>
-                  <Text
-                    style={
-                      {
-                        "fontSize": 24,
-                        "fontWeight": "bold",
-                        "marginLeft": 10,
-                      }
-                    }
-                  >
-                    Login
-                  </Text>
-                </View>
                 <View
                   style={
                     {
@@ -236,7 +196,7 @@ describe('Navigation flow (auth states)', () => {
                   <Text
                     style={
                       {
-                        "color": "#ffffffff",
+                        "color": "#FFFFFF",
                         "fontSize": 24,
                         "fontWeight": "bold",
                         "marginBottom": 40,
@@ -263,29 +223,41 @@ describe('Navigation flow (auth states)', () => {
                         }
                       }
                     >
-                      Email
+                      E-mail
                     </Text>
-                    <TextInput
-                      autoCapitalize="none"
-                      keyboardType="email-address"
-                      onChangeText={[Function]}
-                      placeholder="Digite o seu e-mail"
-                      placeholderTextColor="#8A8A8A"
+                    <View
                       style={
                         {
-                          "backgroundColor": "transparent",
-                          "borderColor": "#FFFFFF",
-                          "borderRadius": 12,
-                          "borderWidth": 1,
-                          "color": "#FFFFFF",
-                          "fontSize": 16,
-                          "paddingHorizontal": 15,
-                          "paddingVertical": 12,
+                          "position": "relative",
                           "width": "100%",
                         }
                       }
-                      value=""
-                    />
+                    >
+                      <TextInput
+                        autoCapitalize="none"
+                        keyboardType="email-address"
+                        onChangeText={[Function]}
+                        placeholder="Digite o seu e-mail"
+                        placeholderTextColor="#8A8A8A"
+                        style={
+                          [
+                            {
+                              "backgroundColor": "transparent",
+                              "borderColor": "#FFFFFF",
+                              "borderRadius": 12,
+                              "borderWidth": 1,
+                              "color": "#FFFFFF",
+                              "fontSize": 16,
+                              "paddingHorizontal": 15,
+                              "paddingVertical": 12,
+                              "width": "100%",
+                            },
+                            false,
+                          ]
+                        }
+                        value=""
+                      />
+                    </View>
                   </View>
                   <View
                     style={
@@ -307,26 +279,105 @@ describe('Navigation flow (auth states)', () => {
                     >
                       Senha
                     </Text>
-                    <TextInput
-                      onChangeText={[Function]}
-                      placeholder="Digite a sua senha"
-                      placeholderTextColor="#8A8A8A"
-                      secureTextEntry={true}
+                    <View
                       style={
                         {
-                          "backgroundColor": "transparent",
-                          "borderColor": "#FFFFFF",
-                          "borderRadius": 12,
-                          "borderWidth": 1,
-                          "color": "#FFFFFF",
-                          "fontSize": 16,
-                          "paddingHorizontal": 15,
-                          "paddingVertical": 12,
+                          "position": "relative",
                           "width": "100%",
                         }
                       }
-                      value=""
-                    />
+                    >
+                      <TextInput
+                        onChangeText={[Function]}
+                        placeholder="Digite a sua senha"
+                        placeholderTextColor="#8A8A8A"
+                        secureTextEntry={true}
+                        style={
+                          [
+                            {
+                              "backgroundColor": "transparent",
+                              "borderColor": "#FFFFFF",
+                              "borderRadius": 12,
+                              "borderWidth": 1,
+                              "color": "#FFFFFF",
+                              "fontSize": 16,
+                              "paddingHorizontal": 15,
+                              "paddingVertical": 12,
+                              "width": "100%",
+                            },
+                            {
+                              "paddingRight": 50,
+                            },
+                          ]
+                        }
+                        value=""
+                      />
+                      <View
+                        accessibilityState={
+                          {
+                            "busy": undefined,
+                            "checked": undefined,
+                            "disabled": undefined,
+                            "expanded": undefined,
+                            "selected": undefined,
+                          }
+                        }
+                        accessibilityValue={
+                          {
+                            "max": undefined,
+                            "min": undefined,
+                            "now": undefined,
+                            "text": undefined,
+                          }
+                        }
+                        accessible={true}
+                        collapsable={false}
+                        focusable={true}
+                        onClick={[Function]}
+                        onResponderGrant={[Function]}
+                        onResponderMove={[Function]}
+                        onResponderRelease={[Function]}
+                        onResponderTerminate={[Function]}
+                        onResponderTerminationRequest={[Function]}
+                        onStartShouldSetResponder={[Function]}
+                        style={
+                          {
+                            "opacity": 1,
+                            "position": "absolute",
+                            "right": 15,
+                            "top": "50%",
+                            "transform": [
+                              {
+                                "translateY": -12,
+                              },
+                            ],
+                            "zIndex": 1,
+                          }
+                        }
+                      >
+                        <Text
+                          allowFontScaling={false}
+                          selectable={false}
+                          style={
+                            [
+                              {
+                                "color": "#8A8A8A",
+                                "fontSize": 24,
+                              },
+                              undefined,
+                              {
+                                "fontFamily": "Material Icons",
+                                "fontStyle": "normal",
+                                "fontWeight": "normal",
+                              },
+                              {},
+                            ]
+                          }
+                        >
+                          
+                        </Text>
+                      </View>
+                    </View>
                   </View>
                   <View
                     accessibilityState={
@@ -443,8 +494,8 @@ describe('Navigation flow (auth states)', () => {
               backButtonInCustomView={false}
               backTitleFontFamily="System"
               backTitleVisible={true}
-              backgroundColor="rgb(255, 255, 255)"
-              color="rgb(0, 122, 255)"
+              backgroundColor="#1E1E3F"
+              color="#FFFFFF"
               direction="ltr"
               disableBackButtonMenu={false}
               hidden={true}
@@ -463,9 +514,9 @@ describe('Navigation flow (auth states)', () => {
                 }
               }
               title="Login"
-              titleColor="rgb(28, 28, 30)"
+              titleColor="#FFFFFF"
               titleFontFamily="System"
-              titleFontWeight="600"
+              titleFontWeight="700"
               topInsetEnabled={true}
               translucent={false}
             />
@@ -544,7 +595,7 @@ describe('Navigation flow (auth states)', () => {
             onWillAppear={[Function]}
             onWillDisappear={[Function]}
             replaceAnimation="push"
-            screenId="Dashboard-0-UF_cnjkz-OwAQ8G-X4l"
+            screenId="Dashboard-nxHuOb-f7Ad5YED1xF04c"
             sheetAllowedDetents={
               [
                 1,
@@ -582,7 +633,9 @@ describe('Navigation flow (auth states)', () => {
                     {
                       "backgroundColor": "rgb(242, 242, 242)",
                     },
-                    undefined,
+                    {
+                      "backgroundColor": "#0A0A2A",
+                    },
                   ],
                 ]
               }
@@ -823,26 +876,38 @@ describe('Navigation flow (auth states)', () => {
                         >
                           Ou insira o ID do Cliente
                         </Text>
-                        <TextInput
-                          keyboardType="number-pad"
-                          onChangeText={[Function]}
-                          placeholder="ID do Cliente"
-                          placeholderTextColor="#8A8A8A"
+                        <View
                           style={
                             {
-                              "backgroundColor": "transparent",
-                              "borderColor": "#FFFFFF",
-                              "borderRadius": 12,
-                              "borderWidth": 1,
-                              "color": "#FFFFFF",
-                              "fontSize": 16,
-                              "paddingHorizontal": 15,
-                              "paddingVertical": 12,
+                              "position": "relative",
                               "width": "100%",
                             }
                           }
-                          value=""
-                        />
+                        >
+                          <TextInput
+                            keyboardType="number-pad"
+                            onChangeText={[Function]}
+                            placeholder="ID do Cliente"
+                            placeholderTextColor="#8A8A8A"
+                            style={
+                              [
+                                {
+                                  "backgroundColor": "transparent",
+                                  "borderColor": "#FFFFFF",
+                                  "borderRadius": 12,
+                                  "borderWidth": 1,
+                                  "color": "#FFFFFF",
+                                  "fontSize": 16,
+                                  "paddingHorizontal": 15,
+                                  "paddingVertical": 12,
+                                  "width": "100%",
+                                },
+                                false,
+                              ]
+                            }
+                            value=""
+                          />
+                        </View>
                       </View>
                       <View
                         accessibilityState={
@@ -1296,7 +1361,7 @@ describe('Navigation flow (auth states)', () => {
               backButtonInCustomView={false}
               backTitleFontFamily="System"
               backTitleVisible={true}
-              backgroundColor="#0A0A2A"
+              backgroundColor="#1E1E3F"
               color="#FFFFFF"
               direction="ltr"
               disableBackButtonMenu={false}
