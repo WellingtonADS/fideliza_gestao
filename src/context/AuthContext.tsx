@@ -72,10 +72,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         throw new Error('Acesso negado. Esta aplicação é apenas para parceiros.');
       }
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 401) {
-        throw new Error('Email ou senha inválidos.');
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status;
+        const detail = (error.response?.data as any)?.detail as string | undefined;
+        if (error.code === 'ECONNABORTED') {
+          throw new Error('Tempo esgotado ao conectar ao servidor. Tente novamente.');
+        }
+        if (!status && !error.response) {
+          throw new Error('Falha de rede. Verifique a sua conexão com a internet.');
+        }
+        if (status === 401) {
+          throw new Error('Email ou senha inválidos.');
+        }
+        if (status === 400 || status === 422) {
+          throw new Error(detail || 'Dados inválidos. Verifique os campos e tente novamente.');
+        }
+        // Outras respostas com detalhe do backend
+        if (detail) {
+          throw new Error(detail);
+        }
       }
-      throw error;
+      // fallback genérico
+      throw new Error('Não foi possível conectar ao servidor. Tente novamente em instantes.');
     }
   };
 

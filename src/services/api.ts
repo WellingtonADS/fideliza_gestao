@@ -1,5 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import { Platform } from 'react-native';
+import axios, { AxiosRequestConfig, AxiosError } from 'axios';
 import { User, UserCredentials } from '../types/auth';
 import { CompanyReport, PointTransaction, Reward, RewardCreate, CollaboratorCreate, CollaboratorUpdate } from '../types/gestao';
 import { CompanyDetails } from '../types/company';
@@ -10,28 +9,33 @@ export interface RewardUpdate {
     points_required?: number;
 }
 
-// Base URLs para ambiente local (emulador/simulador)
-const LOCAL_BASE_URL = Platform.select({
-  android: 'http://10.0.2.2:8000/api/v1',
-  ios: 'http://localhost:8000/api/v1',
-  default: 'http://localhost:8000/api/v1',
-});
-// Produção: backend hospedado no Render
+// Produção: backend hospedado no Render (forçado em todos os modos)
 const PROD_BASE_URL = 'https://fideliza-backend.onrender.com/api/v1';
+const PROD_ROOT_URL = PROD_BASE_URL.replace(/\/?api\/v1\/?$/, '');
 
-// BaseURL por ambiente (dev: local; prod: Render) — simples e previsível
+// Client Axios padrão apontando para produção, com timeout estendido (Render cold start)
 const api = axios.create({
-  baseURL: __DEV__ ? LOCAL_BASE_URL : PROD_BASE_URL,
+  baseURL: PROD_BASE_URL,
+  timeout: 30_000,
 });
 
 // Interceptor de respostas para mensagens claras e sign-out em 401
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const status = error?.response?.status as number | undefined;
-    const detail = error?.response?.data?.detail as string | undefined;
+    const axiosErr = error as AxiosError<any>;
+    const status = axiosErr?.response?.status as number | undefined;
+    const detail = (axiosErr?.response?.data as any)?.detail as string | undefined;
 
     let message: string | undefined;
+    // Timeout
+    if (axiosErr.code === 'ECONNABORTED') {
+      message = 'Tempo esgotado ao conectar ao servidor. Tente novamente.';
+    }
+    // Falha de rede (sem resposta)
+    if (!status && !axiosErr.response) {
+      message = message || 'Falha de rede. Verifique a sua conexão com a internet.';
+    }
     if (status === 401) {
       message = detail || 'Sessão expirada. Entre novamente.';
       // limpa token para forçar reautenticação
@@ -47,11 +51,9 @@ api.interceptors.response.use(
       message = detail || 'Erro no servidor. Tente novamente mais tarde.';
     }
 
-    if (message) {
-      error.userMessage = message;
-    }
+    if (message) (axiosErr as any).userMessage = message;
 
-    return Promise.reject(error);
+    return Promise.reject(axiosErr);
   }
 );
 
@@ -69,6 +71,12 @@ export const setBaseURL = (url: string) => {
 };
 
 export const getBaseURL = (): string => api.defaults.baseURL as string;
+
+// Health-check simples sem autenticação
+export const ping = async () => {
+  const url = `${PROD_ROOT_URL}/docs`;
+  return axios.get(url, { timeout: 3_000 });
+};
 
 // --- AUTH ---
 export const login = (credentials: UserCredentials) => {
